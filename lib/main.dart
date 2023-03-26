@@ -3,11 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:hospital/screens/screens.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hospital/services/services.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalSharedPreferences.configPrefs();
+  LocalNotification().initNotification();
+  tz.initializeTimeZones();
   runApp(const MyApp());
 }
 
@@ -28,10 +31,6 @@ class MyApp extends StatelessWidget {
 
       initialRoute: 'codescreen',
       routes: {
-        //...
-        'homescreen'          : (context) => const HomeScreen(),
-        //Pantalla para la introduccion de código de paciente
-        'codescreen'          : (context) => const CodeScreen(),
         //Pantalla para la introducción de la fecha de la prueba
         'datescreen'          : (context) => const DateScreen(),
         //Pantalla para la introducción del peso

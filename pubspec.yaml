@@ -36,16 +36,15 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  intro_slider: ^4.2.0
-  flutter_local_notifications: ^9.6.0
-  timezone: ^0.8.0
-  intl: ^0.17.0
-  http: ^0.13.5
-  rxdart: ^0.27.4
-  shared_preferences: ^2.0.17
-  calendar_date_picker2: ^0.3.6
-  path_provider: ^2.0.12
-  percent_indicator: ^4.2.2
+  flutter_local_notifications: ^13.0.0    #Notificaciones locales
+  timezone: ^0.9.1                        #Hora de las notificaciones
+  intl: ^0.17.0                           #Internacionalización
+  http: ^0.13.5                           #Peticiones http
+  rxdart: ^0.27.7
+  shared_preferences: ^2.0.17             #Preferencias locales
+  calendar_date_picker2: ^0.3.6           #Calendario para seleccionar fecha
+  path_provider: ^2.0.12                  #Obtener directorio ficheros
+  percent_indicator: ^4.2.2               #Línea de progreso
   
   flutter_localizations:
     sdk: flutter
