@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hospital/services/local_shared_preferences.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-
-import '../services/local_shared_preferences.dart';
 
 class GlucoseScreen extends StatefulWidget {
   const GlucoseScreen({super.key});

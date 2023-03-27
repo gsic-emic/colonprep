@@ -1,23 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/services/local_shared_preferences.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
-class MedicineScreen extends StatefulWidget {
-  const MedicineScreen({super.key});
+class LaxativeScreen extends StatefulWidget {
+  const LaxativeScreen({super.key});
 
   @override
-  State<MedicineScreen> createState() => _MedicineScreenState();
+  State<LaxativeScreen> createState() => _LaxativeScreenState();
 }
 
-class _MedicineScreenState extends State<MedicineScreen> {
+class _LaxativeScreenState extends State<LaxativeScreen> {
 
-  late bool medicine;
+  late bool laxative;
 
   @override
   void initState() {
     super.initState();
-    medicine = ((LocalSharedPreferences.prefs.containsKey('medicine')) ? LocalSharedPreferences.prefs.getBool('medicine') : false)!;
+    laxative = ((LocalSharedPreferences.prefs.containsKey('laxative')) ? LocalSharedPreferences.prefs.getBool('laxative') : false)!;
   }
 
   @override
@@ -35,7 +34,7 @@ class _MedicineScreenState extends State<MedicineScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.1)),
 
             const Text(
-              "MEDICACIÓN",
+              "LAXANTE",
               textAlign: TextAlign.center,
               textScaleFactor: 1.3,
               style: TextStyle(
@@ -46,7 +45,7 @@ class _MedicineScreenState extends State<MedicineScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             Image.asset(
-              "assets/images/medicamento.png",
+              "assets/images/intestine.png",
               width: double.infinity,
               height: ancho * 0.3,
             ),
@@ -54,7 +53,7 @@ class _MedicineScreenState extends State<MedicineScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             const Text(
-              "¿Toma alguna medicación?",
+              "¿Ha recogido la preparación en su centro de salud?",
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white),
             ),
@@ -65,8 +64,8 @@ class _MedicineScreenState extends State<MedicineScreen> {
               style: ButtonStyle(
                 shadowColor: MaterialStateProperty.all(Colors.white),
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (medicine) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (medicine) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (laxative) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (laxative) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -74,8 +73,8 @@ class _MedicineScreenState extends State<MedicineScreen> {
                 )
               ),
               onPressed: () {
-                medicine = true;
-                LocalSharedPreferences.prefs.setBool('medicine', true);
+                laxative = true;
+                LocalSharedPreferences.prefs.setBool('laxative', true);
                 setState(() {});
               },
               child: const Text('Sí'),
@@ -86,8 +85,8 @@ class _MedicineScreenState extends State<MedicineScreen> {
             ElevatedButton(
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (!medicine) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (!medicine) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (!laxative) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (!laxative) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -95,12 +94,31 @@ class _MedicineScreenState extends State<MedicineScreen> {
                 )
               ),
               onPressed: () {
-                medicine = false;
-                LocalSharedPreferences.prefs.setBool('medicine', false);
+                laxative = false;
+                LocalSharedPreferences.prefs.setBool('laxative', false);
                 setState(() {});
               },
               child: const Text('No'),
             ),
+
+            Padding(padding: EdgeInsets.only(top: alto * 0.05)),
+
+            (!laxative) ? Container(
+              width: ancho * 0.8,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.red, width: 3),
+                borderRadius: BorderRadius.circular(18.0),
+              ),
+              child: Center(
+                child: Column(
+                  children: const [
+                    Text('¡IMPORTANTE!', textAlign: TextAlign.center, style: TextStyle(color: Colors.red), textScaleFactor: 1.4),
+                    Text('Recuerde pedir la preparación en su centro de salud', textAlign: TextAlign.center, style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+              ),
+            ) : Container(),
 
           ],
         ),
@@ -113,43 +131,13 @@ class _MedicineScreenState extends State<MedicineScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
 
-            LinearPercentIndicator(
-              percent: 0.7,
-              lineHeight: 10.0,
-              barRadius: const Radius.circular(10),
-              progressColor: Colors.white,
-            ),
-
-            Padding(padding: EdgeInsets.only(top: alto * 0.02)),
-
             Row(
               children: [
 
-                Expanded(
+                (laxative) ? Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    color: Colors.red,
-                    padding:
-                        EdgeInsets.only(top: alto * 0.015, bottom: alto * 0.015),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.arrow_back),
-                        Padding(padding: EdgeInsets.only(left: ancho * 0.02)),
-                        const Text("Retroceder", textScaleFactor: 1.2),
-                      ],
-                    ),
-                  ),
-                ),
-
-                Padding(padding: EdgeInsets.only(left: ancho * 0.05)),
-
-                Expanded(
-                  child: CupertinoButton(
-                    onPressed: () {
-                      (medicine) ? Navigator.pushNamed(context, 'nervoussystemscreen') : Navigator.pushNamed(context, 'colonoscopyscreen');
+                      Navigator.pushNamed(context, 'datescreen');
                     },
                     color: Colors.green,
                     padding:
@@ -163,7 +151,7 @@ class _MedicineScreenState extends State<MedicineScreen> {
                       ],
                     ),
                   ),
-                ),
+                ) : Container(),
 
               ],
             ),

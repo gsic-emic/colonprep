@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/providers/appointments_provider.dart';
-import '../services/local_shared_preferences.dart';
+import 'package:hospital/services/local_shared_preferences.dart';
 
 class Pruebas extends StatefulWidget {
   const Pruebas({super.key});

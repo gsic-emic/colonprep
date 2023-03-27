@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hospital/screens/screens.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:hospital/services/services.dart';
+import 'package:hospital/services/local_notification.dart';
+import 'package:hospital/services/local_shared_preferences.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 
@@ -29,8 +30,10 @@ class MyApp extends StatelessWidget {
 
       debugShowCheckedModeBanner: false,
 
-      initialRoute: 'codescreen',
+      initialRoute: 'laxativescreen',
       routes: {
+        //Pantalla para la introducción de la preparación
+        'laxativescreen'    : (context) => const LaxativeScreen(),
         //Pantalla para la introducción de la fecha de la prueba
         'datescreen'          : (context) => const DateScreen(),
         //Pantalla para la introducción del peso
