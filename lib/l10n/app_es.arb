@@ -1,0 +1,17 @@
+{
+
+    "back": "Retroceder",
+    "forward": "Continuar",
+
+    "preparation": "PREPARACIÓN",
+    "colonoscopyDate": "FECHA COLONOSCOPIA",
+    "weight": "PESO",
+    "height": "ALTURA",
+    "defectaions": "DEPOSICIONES",
+    "glucose": "GLUCOSA",
+    "parkinson": "PARKINSON",
+    "surgery": "OPERACIÓN",
+    "medicine": "MEDICACIÓN",
+    "previousColonoscopy": "COLONOSCOPIA ANTERIOR"
+
+}

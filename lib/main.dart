@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hospital/services/local_notification.dart';
 import 'package:hospital/services/local_shared_preferences.dart';
 import 'package:timezone/data/latest.dart' as tz;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 void main() async {
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
       initialRoute: 'laxativescreen',
       routes: {
         //Pantalla para la introducción de la preparación
-        'laxativescreen'    : (context) => const LaxativeScreen(),
+        'laxativescreen'    : (context) => const PreparationScreen(),
         //Pantalla para la introducción de la fecha de la prueba
         'datescreen'          : (context) => const DateScreen(),
         //Pantalla para la introducción del peso
@@ -78,6 +79,7 @@ class MyApp extends StatelessWidget {
       ),
 
       localizationsDelegates: const [
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate

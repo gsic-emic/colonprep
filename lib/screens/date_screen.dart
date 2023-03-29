@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hospital/services/local_shared_preferences.dart';
 import 'package:hospital/tools/tools.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DateScreen extends StatefulWidget {
   const DateScreen({super.key});
@@ -36,11 +37,11 @@ class _DateScreenState extends State<DateScreen> {
 
             Padding(padding: EdgeInsets.only(top: alto * 0.1)),
 
-            const Text(
-              "FECHA COLONOSCOPIA",
+            Text(
+              AppLocalizations.of(context)!.colonoscopyDate,
               textAlign: TextAlign.center,
               textScaleFactor: 1.3,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
             ),

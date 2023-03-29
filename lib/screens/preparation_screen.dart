@@ -1,22 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/services/local_shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class LaxativeScreen extends StatefulWidget {
-  const LaxativeScreen({super.key});
+class PreparationScreen extends StatefulWidget {
+  const PreparationScreen({super.key});
 
   @override
-  State<LaxativeScreen> createState() => _LaxativeScreenState();
+  State<PreparationScreen> createState() => _PreparationScreenState();
 }
 
-class _LaxativeScreenState extends State<LaxativeScreen> {
+class _PreparationScreenState extends State<PreparationScreen> {
 
-  late bool laxative;
+  late bool preparation;
 
   @override
   void initState() {
     super.initState();
-    laxative = ((LocalSharedPreferences.prefs.containsKey('laxative')) ? LocalSharedPreferences.prefs.getBool('laxative') : false)!;
+    preparation = ((LocalSharedPreferences.prefs.containsKey('preparation')) ? LocalSharedPreferences.prefs.getBool('preparation') : false)!;
   }
 
   @override
@@ -33,11 +34,11 @@ class _LaxativeScreenState extends State<LaxativeScreen> {
 
             Padding(padding: EdgeInsets.only(top: alto * 0.1)),
 
-            const Text(
-              "LAXANTE",
+            Text(
+              AppLocalizations.of(context)!.preparation,
               textAlign: TextAlign.center,
               textScaleFactor: 1.3,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
             ),
@@ -64,8 +65,8 @@ class _LaxativeScreenState extends State<LaxativeScreen> {
               style: ButtonStyle(
                 shadowColor: MaterialStateProperty.all(Colors.white),
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (laxative) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (laxative) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (preparation) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (preparation) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -73,8 +74,8 @@ class _LaxativeScreenState extends State<LaxativeScreen> {
                 )
               ),
               onPressed: () {
-                laxative = true;
-                LocalSharedPreferences.prefs.setBool('laxative', true);
+                preparation = true;
+                LocalSharedPreferences.prefs.setBool('preparation', true);
                 setState(() {});
               },
               child: const Text('Sí'),
@@ -85,8 +86,8 @@ class _LaxativeScreenState extends State<LaxativeScreen> {
             ElevatedButton(
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (!laxative) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (!laxative) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (!preparation) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (!preparation) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -94,8 +95,8 @@ class _LaxativeScreenState extends State<LaxativeScreen> {
                 )
               ),
               onPressed: () {
-                laxative = false;
-                LocalSharedPreferences.prefs.setBool('laxative', false);
+                preparation = false;
+                LocalSharedPreferences.prefs.setBool('preparation', false);
                 setState(() {});
               },
               child: const Text('No'),
@@ -103,7 +104,7 @@ class _LaxativeScreenState extends State<LaxativeScreen> {
 
             Padding(padding: EdgeInsets.only(top: alto * 0.05)),
 
-            (!laxative) ? Container(
+            (!preparation) ? Container(
               width: ancho * 0.8,
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
@@ -134,7 +135,7 @@ class _LaxativeScreenState extends State<LaxativeScreen> {
             Row(
               children: [
 
-                (laxative) ? Expanded(
+                (preparation) ? Expanded(
                   child: CupertinoButton(
                     onPressed: () {
                       Navigator.pushNamed(context, 'datescreen');
