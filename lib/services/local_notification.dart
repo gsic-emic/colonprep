@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 
@@ -18,7 +19,9 @@ class LocalNotification {
     );
     await notificationsPlugin.initialize(
       initializationSettings,
-      onDidReceiveNotificationResponse: (details) {},
+      onDidReceiveNotificationResponse: (details) {
+        print('notificacion');
+      },
     );
   }
 
@@ -30,10 +33,7 @@ class LocalNotification {
       importance: Importance.max,
       channelShowBadge: false,
     );
-    DarwinNotificationDetails darwinNotificationDetails = const DarwinNotificationDetails(
-      subtitle: "¿Ha recordado tomar Evacuol?",
-    );
-    NotificationDetails notificationDetails = NotificationDetails(android: androidNotificationDetails, iOS: darwinNotificationDetails);
+    NotificationDetails notificationDetails = NotificationDetails(android: androidNotificationDetails);
     await notificationsPlugin.show(0, title, body, notificationDetails, payload: payload);
   }
 

@@ -1,3 +1,4 @@
+export 'package:hospital/screens/notification_screen.dart';
 export 'package:hospital/screens/laxative_screen.dart';
 export 'package:hospital/screens/colonoscopy_screen.dart';
 export 'package:hospital/screens/medicine_screen.dart';

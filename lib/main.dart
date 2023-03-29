@@ -58,6 +58,8 @@ class MyApp extends StatelessWidget {
         'bloodpressurescreen' : (context) => const BloodPressureScreen(),
         //Pantalla para la introducción de una colonoscopia previa
         'colonoscopyscreen'   : (context) => const ColonoscopyScreen(),
+        //Pantalla después de hacer click en una notificación
+        'notificationscreen'   : (context) => const NotificationScreen(),
         //...
         'pruebas'             : (context) => const Pruebas(),
       },
@@ -77,6 +79,7 @@ class MyApp extends StatelessWidget {
 
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate
       ],
       supportedLocales: const [
