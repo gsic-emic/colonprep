@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hospital/providers/file_provider.dart';
 import 'package:hospital/services/local_shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -12,12 +13,18 @@ class PreparationScreen extends StatefulWidget {
 
 class _PreparationScreenState extends State<PreparationScreen> {
 
-  late bool preparation;
+  bool preparation = false;
 
   @override
   void initState() {
     super.initState();
-    preparation = ((LocalSharedPreferences.prefs.containsKey('preparation')) ? LocalSharedPreferences.prefs.getBool('preparation') : false)!;
+    // preparation = ((LocalSharedPreferences.prefs.containsKey('preparation')) ? LocalSharedPreferences.prefs.getBool('preparation') : false)!;
+    _loadData();
+  }
+
+  _loadData() async {
+    preparation = await FileProvider.getFromData(FileProvider.patientQuestionnaire, FileProvider.preparation) ?? false;
+    setState(() {});
   }
 
   @override
@@ -76,6 +83,7 @@ class _PreparationScreenState extends State<PreparationScreen> {
               onPressed: () {
                 preparation = true;
                 LocalSharedPreferences.prefs.setBool('preparation', true);
+                FileProvider.addToData(FileProvider.patientQuestionnaire, 'preparation', true);
                 setState(() {});
               },
               child: const Text('Sí'),
@@ -97,6 +105,7 @@ class _PreparationScreenState extends State<PreparationScreen> {
               onPressed: () {
                 preparation = false;
                 LocalSharedPreferences.prefs.setBool('preparation', false);
+                FileProvider.addToData(FileProvider.patientQuestionnaire, 'preparation', false);
                 setState(() {});
               },
               child: const Text('No'),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hospital/providers/file_provider.dart';
 import 'package:hospital/screens/screens.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hospital/services/local_notification.dart';
@@ -13,6 +14,7 @@ void main() async {
   await LocalSharedPreferences.configPrefs();
   LocalNotification().initNotification();
   tz.initializeTimeZones();
+  if(!(LocalSharedPreferences.prefs.getBool('preformattedDataFile') ?? false)) FileProvider.preformatDataFile();
   runApp(const MyApp());
 }
 

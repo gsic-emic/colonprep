@@ -56,7 +56,7 @@ class AppointmentsProvider {
     );
 
     if (response.statusCode == 200) {
-      final File file = await FileProvider.file(FileProvider.appointmentFile);
+      final File file = await FileProvider.getFile(FileProvider.appointmentFile);
       file.writeAsString(response.body);
       print(response.body);
       return true;
@@ -77,7 +77,7 @@ class AppointmentsProvider {
       "Content-Type"  : "application/json"
     };
 
-    final File file = await FileProvider.file(FileProvider.appointmentFile);
+    final File file = await FileProvider.getFile(FileProvider.appointmentFile);
 
     var response = await http.put(
       url,
@@ -95,7 +95,7 @@ class AppointmentsProvider {
   }
 
   static void changeQuestionnaireValue(String key, Object value) async {
-    final File file = await FileProvider.file(FileProvider.appointmentFile);
+    final File file = await FileProvider.getFile(FileProvider.appointmentFile);
     Map<String, dynamic> map = jsonDecode(file.readAsStringSync());
     if (map.containsKey('questionnaire')) {
       map['questionnaire'][key] = value;

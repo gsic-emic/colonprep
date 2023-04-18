@@ -38,7 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_local_notifications: ^13.0.0    #Notificaciones locales
   timezone: ^0.9.1                        #Hora de las notificaciones
-  intl: ^0.17.0                           #Internacionalización, versión 0.17.0 por flutter_localizations
+  intl: any                               #Internacionalización, versión 0.17.0 por flutter_localizations
   http: ^0.13.5                           #Peticiones http
   rxdart: ^0.27.7
   shared_preferences: ^2.0.17             #Preferencias locales
@@ -76,6 +76,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/files/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

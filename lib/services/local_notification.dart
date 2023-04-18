@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 
@@ -6,6 +6,8 @@ class LocalNotification {
   LocalNotification();
 
   final FlutterLocalNotificationsPlugin notificationsPlugin = FlutterLocalNotificationsPlugin();
+  
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   Future<void> initNotification() async {
     DarwinInitializationSettings initializationIOS = DarwinInitializationSettings(
@@ -22,6 +24,7 @@ class LocalNotification {
       onDidReceiveNotificationResponse: (details) {
         print('notificacion');
       },
+      
     );
   }
 

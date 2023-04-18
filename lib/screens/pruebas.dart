@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hospital/services/local_shared_preferences.dart';
 import 'package:hospital/services/preparation.dart';
 
 class Pruebas extends StatefulWidget {
@@ -23,74 +24,176 @@ class _PruebasState extends State<Pruebas> {
     final ancho = MediaQuery.of(context).size.width;
     final alto = MediaQuery.of(context).size.height;
 
+    final cita = LocalSharedPreferences.prefs.getString('date')!;
+    final targetDate = DateTime.parse(cita);
+    final now = DateTime.now();
+    final diasRestantes = targetDate.difference(now).inDays;
+
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('ColonPrep'),
+        actions: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: ancho * 0.02),
+            child: const CircleAvatar(
+              backgroundColor: Colors.indigo,
+              child: Text('AF', style: TextStyle(color: Colors.white)),
+            ),
+          ),
+        ],
+      ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: ancho * 0.05),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-
-            Padding(padding: EdgeInsets.only(top: alto * 0.1)),
-
-            const Text(
-              "Aquí comienza tu preparación",
-              textAlign: TextAlign.center,
+        
+            Padding(padding: EdgeInsets.only(top: alto * 0.03)),
+        
+            Text(
+              "Quedan $diasRestantes días para la cita",
+              textAlign: TextAlign.left,
               textScaleFactor: 1.3,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
             ),
-
+        
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
-            // ElevatedButton(
-            //   onPressed: () {
-            //     LocalNotification().scheduledNotificationShow('Notificacion1', 'Tome el preparado', 'noti1');
-
-            //   },
-            //   child: const Text("Noti 5 seg"),
-            // ),
-
+            Expanded(
+              child: ListView(
+                children: [
+                  TarjetaVerde('Recuerda suspender la toma de hierro 5 días antes de la prueba', '16:00', ancho: ancho, alto: alto),
+                  Padding(padding: EdgeInsets.only(top: alto * 0.01)),
+                  TarjetaRoja('No ha confirmado la segunda dosis de Pleinvue', '15:00', ancho: ancho, alto: alto),
+                  Padding(padding: EdgeInsets.only(top: alto * 0.01)),
+                  TarjetaVerde('Ha confirmado la primera dosis de Pleinvue', '14:00', ancho: ancho, alto: alto),
+                ],
+              ),
+            ),
+        
           ],
         ),
       ),
+    );
+  }
+}
 
-      bottomNavigationBar: Container(
-        margin: EdgeInsets.symmetric(horizontal: ancho * 0.05),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          mainAxisSize: MainAxisSize.min,
-          children: [
+class TarjetaVerde extends StatelessWidget {
+  const TarjetaVerde(this.text,
+    this.hour, {
+    super.key,
+    required this.ancho,
+    required this.alto,
+  });
 
-            Row(
-              children: [
+  final String text;
+  final String hour;
+  final double ancho;
+  final double alto;
 
-                Expanded(
-                  child: CupertinoButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    color: Colors.red,
-                    padding:
-                        EdgeInsets.only(top: alto * 0.015, bottom: alto * 0.015),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.arrow_back),
-                        Padding(padding: EdgeInsets.only(left: ancho * 0.02)),
-                        const Text("Retroceder", textScaleFactor: 1.2),
-                      ],
-                    ),
-                  ),
-                ),
-
-              ],
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: ancho * 0.95,
+      padding: EdgeInsets.only(top: alto * 0.01, bottom: alto * 0.01, left: ancho * 0.04, right: ancho * 0.04),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.greenAccent,
+          style: BorderStyle.solid,
+          width: 2),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            hour,
+            textAlign: TextAlign.justify,
+            style: const TextStyle(
+                color: Colors.white),
+          ),
+          Padding(padding: EdgeInsets.symmetric(horizontal: ancho * 0.01)),
+          Expanded(
+            child: Text(
+              text,
+              textAlign: TextAlign.justify,
+              style: const TextStyle(
+                  color: Colors.white),
             ),
+          ),
+          Padding(padding: EdgeInsets.symmetric(horizontal: ancho * 0.01)),
+          const Icon(Icons.check_rounded),
+        ],
+      ),
+    );
+  }
+}
 
-            Padding(padding: EdgeInsets.only(bottom: alto * 0.05)),
+class TarjetaRoja extends StatelessWidget {
+  const TarjetaRoja(this.text, 
+    this.hour, {
+    super.key,
+    required this.ancho,
+    required this.alto,
+  });
 
-          ],
-        ),
+  final String text;
+  final String hour;
+  final double ancho;
+  final double alto;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: ancho * 0.95,
+      padding: EdgeInsets.only(top: alto * 0.01, bottom: alto * 0.01, left: ancho * 0.04, right: ancho * 0.04),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.redAccent,
+          style: BorderStyle.solid,
+          width: 2),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                hour,
+                textAlign: TextAlign.justify,
+                style: const TextStyle(
+                    color: Colors.white),
+              ),
+              Padding(padding: EdgeInsets.symmetric(horizontal: ancho * 0.01)),
+              Expanded(
+                child: Text(
+                  text,
+                  textAlign: TextAlign.justify,
+                  style: const TextStyle(
+                      color: Colors.white),
+                ),
+              ),
+              Padding(padding: EdgeInsets.symmetric(horizontal: ancho * 0.01)),
+              const Icon(Icons.dangerous_rounded),
+            ],
+          ),
+          TextButton(
+            onPressed: (){},
+            child: const Text(
+              'Confirmar toma',
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold
+              ),
+            )
+          ),
+        ],
       ),
     );
   }
