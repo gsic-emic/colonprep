@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital/providers/file_provider.dart';
 import 'package:hospital/services/local_shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -23,7 +22,7 @@ class _PreparationScreenState extends State<PreparationScreen> {
   }
 
   _loadData() async {
-    preparation = await FileProvider.getFromData(FileProvider.patientQuestionnaire, FileProvider.preparation) ?? false;
+    // preparation = await FileProvider.getFromData(FileProvider.patientQuestionnaire, FileProvider.preparation) ?? false;
     setState(() {});
   }
 
@@ -83,7 +82,7 @@ class _PreparationScreenState extends State<PreparationScreen> {
               onPressed: () {
                 preparation = true;
                 LocalSharedPreferences.prefs.setBool('preparation', true);
-                FileProvider.addToData(FileProvider.patientQuestionnaire, 'preparation', true);
+                // FileProvider.addToData(FileProvider.patientQuestionnaire, 'preparation', true);
                 setState(() {});
               },
               child: const Text('Sí'),
@@ -105,7 +104,7 @@ class _PreparationScreenState extends State<PreparationScreen> {
               onPressed: () {
                 preparation = false;
                 LocalSharedPreferences.prefs.setBool('preparation', false);
-                FileProvider.addToData(FileProvider.patientQuestionnaire, 'preparation', false);
+                // FileProvider.addToData(FileProvider.patientQuestionnaire, 'preparation', false);
                 setState(() {});
               },
               child: const Text('No'),

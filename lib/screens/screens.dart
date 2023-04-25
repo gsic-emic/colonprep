@@ -11,5 +11,4 @@ export 'package:hospital/screens/date_screen.dart';
 export 'package:hospital/screens/defecation_screen.dart';
 export 'package:hospital/screens/glucose_screen.dart';
 export 'package:hospital/screens/height_screen.dart';
-export 'package:hospital/screens/pruebas.dart';
 export 'package:hospital/screens/weight_screen.dart';
