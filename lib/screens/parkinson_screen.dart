@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital/services/local_shared_preferences.dart';
+import 'package:hospital/models/colonprep_info.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class ParkinsonScreen extends StatefulWidget {
@@ -12,19 +12,14 @@ class ParkinsonScreen extends StatefulWidget {
 
 class _ParkinsonScreenState extends State<ParkinsonScreen> {
 
-  late bool parkinson;
-
-  @override
-  void initState() {
-    super.initState();
-    parkinson = ((LocalSharedPreferences.prefs.containsKey('parkinson')) ? LocalSharedPreferences.prefs.getBool('parkinson') : false)!;
-  }
-
   @override
   Widget build(BuildContext context) {
 
     final ancho = MediaQuery.of(context).size.width;
     final alto = MediaQuery.of(context).size.height;
+
+    ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
+    cpi.patientQuestionnaire?.hasParkinson ??= false;
 
     return Scaffold(
       body: Container(
@@ -65,8 +60,8 @@ class _ParkinsonScreenState extends State<ParkinsonScreen> {
               style: ButtonStyle(
                 shadowColor: MaterialStateProperty.all(Colors.white),
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (parkinson) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (parkinson) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (cpi.patientQuestionnaire?.hasParkinson as bool) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (cpi.patientQuestionnaire?.hasParkinson as bool) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -74,8 +69,7 @@ class _ParkinsonScreenState extends State<ParkinsonScreen> {
                 )
               ),
               onPressed: () {
-                parkinson = true;
-                LocalSharedPreferences.prefs.setBool('parkinson', true);
+                cpi.patientQuestionnaire?.hasParkinson = true;
                 setState(() {});
               },
               child: const Text('Sí'),
@@ -86,8 +80,8 @@ class _ParkinsonScreenState extends State<ParkinsonScreen> {
             ElevatedButton(
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (!parkinson) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (!parkinson) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (!(cpi.patientQuestionnaire?.hasParkinson as bool)) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (!(cpi.patientQuestionnaire?.hasParkinson as bool)) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -95,8 +89,7 @@ class _ParkinsonScreenState extends State<ParkinsonScreen> {
                 )
               ),
               onPressed: () {
-                parkinson = false;
-                LocalSharedPreferences.prefs.setBool('parkinson', false);
+                cpi.patientQuestionnaire?.hasParkinson = false;
                 setState(() {});
               },
               child: const Text('No'),
@@ -149,7 +142,7 @@ class _ParkinsonScreenState extends State<ParkinsonScreen> {
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'surgeryscreen');
+                      Navigator.pushNamed(context, 'bariatricsurgeryscreen', arguments: cpi);
                     },
                     color: Colors.green,
                     padding:

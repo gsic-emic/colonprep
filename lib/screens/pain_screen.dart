@@ -48,7 +48,7 @@ class _PainScreenState extends State<PainScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             Image.asset(
-              "assets/images/medicamento.png",
+              "assets/images/medicine.png",
               width: double.infinity,
               height: ancho * 0.3,
             ),

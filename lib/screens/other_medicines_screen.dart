@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:hospital/services/local_shared_preferences.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-class BloodPressureScreen extends StatefulWidget {
-  const BloodPressureScreen({super.key});
+class OtherMedicinesScreen extends StatefulWidget {
+  const OtherMedicinesScreen({super.key});
 
   @override
-  State<BloodPressureScreen> createState() => _BloodPressureScreenState();
+  State<OtherMedicinesScreen> createState() => _OtherMedicinesScreenState();
 }
 
-class _BloodPressureScreenState extends State<BloodPressureScreen> {
+class _OtherMedicinesScreenState extends State<OtherMedicinesScreen> {
 
   late bool medicine;
   bool _amlodipino = false;
@@ -57,7 +57,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             const Text(
-              "¿Toma alguno de los siguientes fármacos para el control de la tensión arterial? Marque todos los que tome",
+              "¿Toma alguno de los siguientes fármacos? Marque todos los que tome",
               textAlign: TextAlign.justify,
               style: TextStyle(color: Colors.white),
             ),
@@ -81,7 +81,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                   _amlodipino = !_amlodipino;
                   setState(() {});
                 },
-                child: const Text("Amlodipino", textAlign: TextAlign.center),
+                child: const Text("Hierro", textAlign: TextAlign.center),
               ),
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.white,
@@ -110,7 +110,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                   _diltiazem = !_diltiazem;
                   setState(() {});
                 },
-                child: const Text("Diltiazem", textAlign: TextAlign.center),
+                child: const Text("Anticoagulantes orales", textAlign: TextAlign.center),
               ),
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.white,
@@ -139,7 +139,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                   _nicardipino = !_nicardipino;
                   setState(() {});
                 },
-                child: const Text("Nicardipino", textAlign: TextAlign.center),
+                child: const Text("Antiagregantes", textAlign: TextAlign.center),
               ),
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.white,
@@ -200,7 +200,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'colonoscopyscreen');
+                      Navigator.pushNamed(context, 'nervoussystemscreen');
                     },
                     color: Colors.green,
                     padding:

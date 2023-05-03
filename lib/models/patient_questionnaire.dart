@@ -11,7 +11,7 @@ class PatientQuestionnaire {
         this.isDiabetic,
         this.hasParkinson,
         this.hasAbdomenOrPelvisSurgery,
-        this.hasBaricSurgery,
+        this.hasBariatricSurgery,
         this.hasPreviousBadColonoscopy,
         this.medicines,
     });
@@ -25,7 +25,7 @@ class PatientQuestionnaire {
     bool? isDiabetic;
     bool? hasParkinson;
     bool? hasAbdomenOrPelvisSurgery;
-    bool? hasBaricSurgery;
+    bool? hasBariatricSurgery;
     bool? hasPreviousBadColonoscopy;
     List<String>? medicines;
 
@@ -43,7 +43,7 @@ class PatientQuestionnaire {
         isDiabetic: json["isDiabetic"],
         hasParkinson: json["hasParkinson"],
         hasAbdomenOrPelvisSurgery: json["hasAbdomenOrPelvisSurgery"],
-        hasBaricSurgery: json["hasBaricSurgery"],
+        hasBariatricSurgery: json["hasBariatricSurgery"],
         hasPreviousBadColonoscopy: json["hasPreviousBadColonoscopy"],
         medicines: json["medicines"] == null ? [] : List<String>.from(json["medicines"]!.map((x) => x)),
     );
@@ -58,7 +58,7 @@ class PatientQuestionnaire {
         "isDiabetic": isDiabetic,
         "hasParkinson": hasParkinson,
         "hasAbdomenOrPelvisSurgery": hasAbdomenOrPelvisSurgery,
-        "hasBaricSurgery": hasBaricSurgery,
+        "hasBariatricSurgery": hasBariatricSurgery,
         "hasPreviousBadColonoscopy": hasPreviousBadColonoscopy,
         "medicines": medicines == null ? [] : List<dynamic>.from(medicines!.map((x) => x)),
     };

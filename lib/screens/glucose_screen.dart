@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital/services/local_shared_preferences.dart';
+import 'package:hospital/models/colonprep_info.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class GlucoseScreen extends StatefulWidget {
@@ -12,19 +12,14 @@ class GlucoseScreen extends StatefulWidget {
 
 class _GlucoseScreenState extends State<GlucoseScreen> {
 
-  late bool glucose;
-
-  @override
-  void initState() {
-    super.initState();
-    glucose = ((LocalSharedPreferences.prefs.containsKey('glucose')) ? LocalSharedPreferences.prefs.getBool('glucose') : false)!;
-  }
-
   @override
   Widget build(BuildContext context) {
 
     final ancho = MediaQuery.of(context).size.width;
     final alto = MediaQuery.of(context).size.height;
+
+    ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
+    cpi.patientQuestionnaire?.isDiabetic ??= false;
 
     return Scaffold(
       body: Container(
@@ -46,7 +41,7 @@ class _GlucoseScreenState extends State<GlucoseScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             Image.asset(
-              "assets/images/diabetico.png",
+              "assets/images/diabetic.png",
               width: double.infinity,
               height: ancho * 0.3,
             ),
@@ -65,8 +60,8 @@ class _GlucoseScreenState extends State<GlucoseScreen> {
               style: ButtonStyle(
                 shadowColor: MaterialStateProperty.all(Colors.white),
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (glucose) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (glucose) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (cpi.patientQuestionnaire?.isDiabetic as bool) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (cpi.patientQuestionnaire?.isDiabetic as bool) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -74,8 +69,7 @@ class _GlucoseScreenState extends State<GlucoseScreen> {
                 )
               ),
               onPressed: () {
-                glucose = true;
-                LocalSharedPreferences.prefs.setBool('glucose', true);
+                cpi.patientQuestionnaire?.isDiabetic = true;
                 setState(() {});
               },
               child: const Text('Sí'),
@@ -86,8 +80,8 @@ class _GlucoseScreenState extends State<GlucoseScreen> {
             ElevatedButton(
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (!glucose) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (!glucose) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (!(cpi.patientQuestionnaire?.isDiabetic as bool)) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (!(cpi.patientQuestionnaire?.isDiabetic as bool)) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -95,8 +89,7 @@ class _GlucoseScreenState extends State<GlucoseScreen> {
                 )
               ),
               onPressed: () {
-                glucose = false;
-                LocalSharedPreferences.prefs.setBool('glucose', false);
+                cpi.patientQuestionnaire?.isDiabetic = false;
                 setState(() {});
               },
               child: const Text('No'),
@@ -149,7 +142,7 @@ class _GlucoseScreenState extends State<GlucoseScreen> {
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'parkinsonscreen');
+                      Navigator.pushNamed(context, 'parkinsonscreen', arguments: cpi);
                     },
                     color: Colors.green,
                     padding:

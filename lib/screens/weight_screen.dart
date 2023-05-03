@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital/services/local_shared_preferences.dart';
+import 'package:hospital/models/colonprep_info.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class WeightScreen extends StatefulWidget {
@@ -15,13 +15,6 @@ class _WeightScreenState extends State<WeightScreen> {
   late TextEditingController textEditingControllerWeight;
 
   @override
-  void initState() {
-    super.initState();
-    textEditingControllerWeight = TextEditingController(text: (LocalSharedPreferences.prefs.containsKey('weight') ? "${LocalSharedPreferences.prefs.getInt('weight')}" : null));
-    
-  }
-
-  @override
   void dispose() {
     textEditingControllerWeight.dispose();
     super.dispose();
@@ -32,6 +25,9 @@ class _WeightScreenState extends State<WeightScreen> {
 
     final ancho = MediaQuery.of(context).size.width;
     final alto = MediaQuery.of(context).size.height;
+
+    ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
+    textEditingControllerWeight = TextEditingController(text: (cpi.patientQuestionnaire?.weightKg != null) ? cpi.patientQuestionnaire?.weightKg.toString() : null);
 
     return Scaffold(
       body: Container(
@@ -53,7 +49,7 @@ class _WeightScreenState extends State<WeightScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             Image.asset(
-              "assets/images/pesoaltura.png",
+              "assets/images/weightHeight.png",
               width: double.infinity,
               height: ancho * 0.3,
             ),
@@ -77,6 +73,7 @@ class _WeightScreenState extends State<WeightScreen> {
                 children: [
                   CupertinoTextField.borderless(
                     controller: textEditingControllerWeight,
+                    keyboardType: TextInputType.number,
                     cursorColor: Colors.black,
                     padding: const EdgeInsets.only(left: 65, top: 10, right: 6, bottom: 10),
                     prefix: const Text("Peso", style: TextStyle(fontWeight: FontWeight.bold)),
@@ -113,7 +110,7 @@ class _WeightScreenState extends State<WeightScreen> {
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      (textEditingControllerWeight.text.isNotEmpty) ? LocalSharedPreferences.prefs.setInt('weight', int.parse(textEditingControllerWeight.text)) : LocalSharedPreferences.prefs.remove('weight');
+                      cpi.patientQuestionnaire?.weightKg = (textEditingControllerWeight.text.isNotEmpty) ? int.parse(textEditingControllerWeight.text) : null;
                       Navigator.pop(context);
                     },
                     color: Colors.red,
@@ -135,8 +132,8 @@ class _WeightScreenState extends State<WeightScreen> {
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      (textEditingControllerWeight.text.isNotEmpty) ? LocalSharedPreferences.prefs.setInt('weight', int.parse(textEditingControllerWeight.text)) : LocalSharedPreferences.prefs.remove('weight');
-                      Navigator.pushNamed(context, 'heightscreen');
+                      cpi.patientQuestionnaire?.weightKg = (textEditingControllerWeight.text.isNotEmpty) ? int.parse(textEditingControllerWeight.text) : null;
+                      Navigator.pushNamed(context, 'heightscreen', arguments: cpi);
                     },
                     color: Colors.green,
                     padding:

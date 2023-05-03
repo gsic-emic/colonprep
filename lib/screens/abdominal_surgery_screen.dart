@@ -1,30 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital/services/local_shared_preferences.dart';
+import 'package:hospital/models/colonprep_info.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-class SurgeryScreen extends StatefulWidget {
-  const SurgeryScreen({super.key});
+class AbdominalSurgeryScreen extends StatefulWidget {
+  const AbdominalSurgeryScreen({super.key});
 
   @override
-  State<SurgeryScreen> createState() => _SurgeryScreenState();
+  State<AbdominalSurgeryScreen> createState() => _AbdominalSurgeryScreenState();
 }
 
-class _SurgeryScreenState extends State<SurgeryScreen> {
-
-  late bool surgery;
-
-  @override
-  void initState() {
-    super.initState();
-    surgery = ((LocalSharedPreferences.prefs.containsKey('surgery')) ? LocalSharedPreferences.prefs.getBool('surgery') : false)!;
-  }
+class _AbdominalSurgeryScreenState extends State<AbdominalSurgeryScreen> {
 
   @override
   Widget build(BuildContext context) {
 
     final ancho = MediaQuery.of(context).size.width;
     final alto = MediaQuery.of(context).size.height;
+
+    ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
+    cpi.patientQuestionnaire?.hasAbdomenOrPelvisSurgery ??= false;
 
     return Scaffold(
       body: Container(
@@ -46,7 +41,7 @@ class _SurgeryScreenState extends State<SurgeryScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             Image.asset(
-              "assets/images/operacion.png",
+              "assets/images/surgery.png",
               width: double.infinity,
               height: ancho * 0.3,
             ),
@@ -65,8 +60,8 @@ class _SurgeryScreenState extends State<SurgeryScreen> {
               style: ButtonStyle(
                 shadowColor: MaterialStateProperty.all(Colors.white),
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (surgery) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (surgery) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (cpi.patientQuestionnaire?.hasAbdomenOrPelvisSurgery as bool) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (cpi.patientQuestionnaire?.hasAbdomenOrPelvisSurgery as bool) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -74,8 +69,7 @@ class _SurgeryScreenState extends State<SurgeryScreen> {
                 )
               ),
               onPressed: () {
-                surgery = true;
-                LocalSharedPreferences.prefs.setBool('surgery', true);
+                cpi.patientQuestionnaire?.hasAbdomenOrPelvisSurgery = true;
                 setState(() {});
               },
               child: const Text('Sí'),
@@ -86,8 +80,8 @@ class _SurgeryScreenState extends State<SurgeryScreen> {
             ElevatedButton(
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (!surgery) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (!surgery) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (!(cpi.patientQuestionnaire?.hasAbdomenOrPelvisSurgery as bool)) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (!(cpi.patientQuestionnaire?.hasAbdomenOrPelvisSurgery as bool)) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -95,8 +89,7 @@ class _SurgeryScreenState extends State<SurgeryScreen> {
                 )
               ),
               onPressed: () {
-                surgery = false;
-                LocalSharedPreferences.prefs.setBool('surgery', false);
+                cpi.patientQuestionnaire?.hasAbdomenOrPelvisSurgery = false;
                 setState(() {});
               },
               child: const Text('No'),
@@ -149,7 +142,7 @@ class _SurgeryScreenState extends State<SurgeryScreen> {
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'medicinescreen');
+                      Navigator.pushNamed(context, 'medicinescreen', arguments: cpi);
                     },
                     color: Colors.green,
                     padding:

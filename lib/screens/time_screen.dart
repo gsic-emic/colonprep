@@ -1,22 +1,18 @@
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/models/colonprep_info.dart';
 import 'package:hospital/tools/tools.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class DateScreen extends StatefulWidget {
-  const DateScreen({super.key});
+class TimeScreen extends StatefulWidget {
+  const TimeScreen({super.key});
 
   @override
-  State<DateScreen> createState() => _DateScreenState();
+  State<TimeScreen> createState() => _TimeScreenState();
 }
 
-class _DateScreenState extends State<DateScreen> {
-
-  final int minimimDays = 7;
-
+class _TimeScreenState extends State<TimeScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +21,6 @@ class _DateScreenState extends State<DateScreen> {
     final alto = MediaQuery.of(context).size.height;
 
     ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
-    cpi.appointment?.dateTimeAppointment ??= DateTime.now().add(Duration(days: minimimDays));
 
     return Scaffold(
       body: Container(
@@ -35,11 +30,11 @@ class _DateScreenState extends State<DateScreen> {
 
             Padding(padding: EdgeInsets.only(top: alto * 0.1)),
 
-            Text(
-              AppLocalizations.of(context)!.colonoscopyDate,
+            const Text(
+              'HORA COLONOSCOPIA',
               textAlign: TextAlign.center,
               textScaleFactor: 1.3,
-              style: const TextStyle(
+              style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
             ),
@@ -55,7 +50,7 @@ class _DateScreenState extends State<DateScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             const Text(
-              "Selecciona la fecha de la colonoscopia:",
+              "Selecciona la hora de la colonoscopia:",
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white),
             ),
@@ -70,38 +65,31 @@ class _DateScreenState extends State<DateScreen> {
                   width: 2),
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: CalendarDatePicker2(
-                config: CalendarDatePicker2Config(
-                  calendarType: CalendarDatePicker2Type.single,
-                  selectedDayHighlightColor: Colors.black,
-                  selectedDayTextStyle: const TextStyle(color: Colors.white),
-                  weekdayLabelTextStyle: const TextStyle(color: Colors.white),
-                  controlsTextStyle: const TextStyle(color: Colors.white),
-                  dayTextStyle: const TextStyle(color: Colors.white),
-                  lastMonthIcon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
-                  nextMonthIcon: const Icon(Icons.arrow_forward_rounded, color: Colors.white),
-                  disableYearPicker: true,
-                  selectableDayPredicate: (day) {
-                    final now = DateTime.now();
-                    final difference = day.difference(now).inDays;
-                    return difference >= minimimDays - 1;
-                  },
-                  disabledDayTextStyle: const TextStyle(decoration: TextDecoration.lineThrough),
+              child: SizedBox(
+                height: alto * 0.3,
+                child: CupertinoTheme(
+                  data: const CupertinoThemeData(
+                    textTheme: CupertinoTextThemeData(
+                      dateTimePickerTextStyle: TextStyle(color: Colors.white),
+                    )
+                  ),
+                  child: CupertinoDatePicker(
+                    mode: CupertinoDatePickerMode.time,
+                    use24hFormat: true,
+                    initialDateTime: cpi.appointment?.dateTimeAppointment,
+                    onDateTimeChanged: (value) {
+                      cpi.appointment?.dateTimeAppointment = value;
+                      setState(() {});
+                    },
+                  ),
                 ),
-                initialValue: [
-                  cpi.appointment?.dateTimeAppointment,
-                ],
-                onValueChanged: (value) {
-                  cpi.appointment?.dateTimeAppointment = value.first;
-                  setState(() {});
-                },
               ),
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             Text(
-              Tools.formatDateWithoutTime(cpi.appointment?.dateTimeAppointment as DateTime ),
+              Tools.formatDate(cpi.appointment?.dateTimeAppointment as DateTime ),
               textAlign: TextAlign.center,
               textScaleFactor: 1.3,
               style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -150,7 +138,7 @@ class _DateScreenState extends State<DateScreen> {
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'timescreen', arguments: cpi);
+                      Navigator.pushNamed(context, 'weightscreen', arguments: cpi);
                     },
                     color: Colors.green,
                     padding: EdgeInsets.only(top: alto * 0.015, bottom: alto * 0.015),

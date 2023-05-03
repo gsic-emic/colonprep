@@ -46,7 +46,7 @@ class _MedicineScreenState extends State<MedicineScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             Image.asset(
-              "assets/images/medicamento.png",
+              "assets/images/medicine.png",
               width: double.infinity,
               height: ancho * 0.3,
             ),
@@ -149,7 +149,7 @@ class _MedicineScreenState extends State<MedicineScreen> {
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      (medicine) ? Navigator.pushNamed(context, 'nervoussystemscreen') : Navigator.pushNamed(context, 'colonoscopyscreen');
+                      (medicine) ? Navigator.pushNamed(context, 'othermedicinesscreen') : Navigator.pushNamed(context, 'colonoscopyscreen');
                     },
                     color: Colors.green,
                     padding:

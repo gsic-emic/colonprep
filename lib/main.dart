@@ -31,12 +31,14 @@ class MyApp extends StatelessWidget {
 
       debugShowCheckedModeBanner: false,
 
-      initialRoute: 'laxativescreen',
+      initialRoute: 'initialscreen',
       routes: {
-        //Pantalla para la introducción de la preparación
-        'laxativescreen'    : (context) => const PreparationScreen(),
+        //Pantalla de inicio de la aplicación
+        'initialscreen'       : (context) => const InitialScreen(),
         //Pantalla para la introducción de la fecha de la prueba
         'datescreen'          : (context) => const DateScreen(),
+        //Pantalla para la introducción de la hora de la prueba
+        'timescreen'          : (context) => const TimeScreen(),
         //Pantalla para la introducción del peso
         'weightscreen'        : (context) => const WeightScreen(),
         //Pantalla para la introducción de la altura
@@ -47,10 +49,14 @@ class MyApp extends StatelessWidget {
         'glucosescreen'       : (context) => const GlucoseScreen(),
         //Pantalla para la introducción de parkinson
         'parkinsonscreen'     : (context) => const ParkinsonScreen(),
-        //Pantalla para la introducción de operaciones
-        'surgeryscreen'       : (context) => const SurgeryScreen(),
+        //Pantalla para la introducción de cirugía bariátrica
+        'bariatricsurgeryscreen'       : (context) => const BariatricSurgeryScreen(),
+        //Pantalla para la introducción de operaciones del abdomen
+        'abdominalsurgeryscreen'       : (context) => const AbdominalSurgeryScreen(),
         //Pantalla para la introducción de medicamentos
         'medicinescreen'      : (context) => const MedicineScreen(),
+        //Pantalla para la introducción de otros medicamentos
+        'othermedicinesscreen' : (context) => const OtherMedicinesScreen(),
         //Pantalla para la introducción de medicamentos relacionados con el sistema nervioso
         'nervoussystemscreen' : (context) => const NervousSystemScreen(),
         //Pantalla para la introducción de medicamentos para el control del dolor
@@ -60,7 +66,7 @@ class MyApp extends StatelessWidget {
         //Pantalla para la introducción de una colonoscopia previa
         'colonoscopyscreen'   : (context) => const ColonoscopyScreen(),
         //Pantalla después de hacer click en una notificación
-        'notificationscreen'   : (context) => const NotificationScreen(),
+        'notificationscreen'  : (context) => const NotificationScreen(),
       },
 
       theme: ThemeData(

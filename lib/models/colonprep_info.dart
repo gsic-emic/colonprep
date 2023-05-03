@@ -5,8 +5,8 @@ import 'package:hospital/models/log.dart';
 import 'package:hospital/models/patient_questionnaire.dart';
 import 'package:hospital/models/preparation.dart';
 
-class ColonPrepInfo {
-    ColonPrepInfo({
+class ColonprepInfo {
+    ColonprepInfo({
         this.appointment,
         this.patientQuestionnaire,
         this.preparationCollected,
@@ -20,11 +20,11 @@ class ColonPrepInfo {
     Preparation? preparation;
     List<Log>? log;
 
-    factory ColonPrepInfo.fromJson(String str) => ColonPrepInfo.fromMap(json.decode(str));
+    factory ColonprepInfo.fromJson(String str) => ColonprepInfo.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());
 
-    factory ColonPrepInfo.fromMap(Map<String, dynamic> json) => ColonPrepInfo(
+    factory ColonprepInfo.fromMap(Map<String, dynamic> json) => ColonprepInfo(
         appointment: json["appointment"] == null ? null : Appointment.fromMap(json["appointment"]),
         patientQuestionnaire: json["patientQuestionnaire"] == null ? null : PatientQuestionnaire.fromMap(json["patientQuestionnaire"]),
         preparationCollected: json["preparationCollected"],

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital/services/local_shared_preferences.dart';
+import 'package:hospital/models/colonprep_info.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class HeightScreen extends StatefulWidget {
@@ -15,12 +15,6 @@ class _HeightScreenState extends State<HeightScreen> {
   late TextEditingController textEditingControllerHeight;
 
   @override
-  void initState() {
-    super.initState();
-    textEditingControllerHeight = TextEditingController(text: (LocalSharedPreferences.prefs.containsKey('height') ? "${LocalSharedPreferences.prefs.getInt('height')}" : null));
-  }
-
-  @override
   void dispose() {
     textEditingControllerHeight.dispose();
     super.dispose();
@@ -31,6 +25,9 @@ class _HeightScreenState extends State<HeightScreen> {
 
     final ancho = MediaQuery.of(context).size.width;
     final alto = MediaQuery.of(context).size.height;
+
+    ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
+    textEditingControllerHeight = TextEditingController(text: (cpi.patientQuestionnaire?.heightCm != null) ? cpi.patientQuestionnaire?.heightCm.toString() : null);
 
     return Scaffold(
       body: Container(
@@ -52,7 +49,7 @@ class _HeightScreenState extends State<HeightScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             Image.asset(
-              "assets/images/pesoaltura.png",
+              "assets/images/weightHeight.png",
               width: double.infinity,
               height: ancho * 0.3,
             ),
@@ -76,6 +73,7 @@ class _HeightScreenState extends State<HeightScreen> {
                 children: [
                   CupertinoTextField.borderless(
                     controller: textEditingControllerHeight,
+                    keyboardType: TextInputType.number,
                     cursorColor: Colors.black,
                     padding: const EdgeInsets.only(left: 65, top: 10, right: 6, bottom: 10),
                     prefix: const Text("Altura", style: TextStyle(fontWeight: FontWeight.bold)),
@@ -112,7 +110,7 @@ class _HeightScreenState extends State<HeightScreen> {
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      (textEditingControllerHeight.text.isNotEmpty) ? LocalSharedPreferences.prefs.setInt('height', int.parse(textEditingControllerHeight.text)) : LocalSharedPreferences.prefs.remove('height');
+                      cpi.patientQuestionnaire?.heightCm = (textEditingControllerHeight.text.isNotEmpty) ? int.parse(textEditingControllerHeight.text) : null;
                       Navigator.pop(context);
                     },
                     color: Colors.red,
@@ -134,8 +132,8 @@ class _HeightScreenState extends State<HeightScreen> {
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      (textEditingControllerHeight.text.isNotEmpty) ? LocalSharedPreferences.prefs.setInt('height', int.parse(textEditingControllerHeight.text)) : LocalSharedPreferences.prefs.remove('height');
-                      Navigator.pushNamed(context, 'defecationscreen');
+                      cpi.patientQuestionnaire?.heightCm = (textEditingControllerHeight.text.isNotEmpty) ? int.parse(textEditingControllerHeight.text) : null;
+                      Navigator.pushNamed(context, 'defecationscreen', arguments: cpi);
                     },
                     color: Colors.green,
                     padding:

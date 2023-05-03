@@ -1,36 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital/services/local_shared_preferences.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hospital/models/colonprep_info.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
-class PreparationScreen extends StatefulWidget {
-  const PreparationScreen({super.key});
+class BariatricSurgeryScreen extends StatefulWidget {
+  const BariatricSurgeryScreen({super.key});
 
   @override
-  State<PreparationScreen> createState() => _PreparationScreenState();
+  State<BariatricSurgeryScreen> createState() => _BariatricSurgeryScreenState();
 }
 
-class _PreparationScreenState extends State<PreparationScreen> {
-
-  bool preparation = false;
-
-  @override
-  void initState() {
-    super.initState();
-    // preparation = ((LocalSharedPreferences.prefs.containsKey('preparation')) ? LocalSharedPreferences.prefs.getBool('preparation') : false)!;
-    _loadData();
-  }
-
-  _loadData() async {
-    // preparation = await FileProvider.getFromData(FileProvider.patientQuestionnaire, FileProvider.preparation) ?? false;
-    setState(() {});
-  }
+class _BariatricSurgeryScreenState extends State<BariatricSurgeryScreen> {
 
   @override
   Widget build(BuildContext context) {
 
     final ancho = MediaQuery.of(context).size.width;
     final alto = MediaQuery.of(context).size.height;
+
+    ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
+    cpi.patientQuestionnaire?.hasBariatricSurgery ??= false;
 
     return Scaffold(
       body: Container(
@@ -40,11 +29,11 @@ class _PreparationScreenState extends State<PreparationScreen> {
 
             Padding(padding: EdgeInsets.only(top: alto * 0.1)),
 
-            Text(
-              AppLocalizations.of(context)!.preparation,
+            const Text(
+              "OPERACIÓN",
               textAlign: TextAlign.center,
               textScaleFactor: 1.3,
-              style: const TextStyle(
+              style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
             ),
@@ -52,7 +41,7 @@ class _PreparationScreenState extends State<PreparationScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             Image.asset(
-              "assets/images/intestine.png",
+              "assets/images/surgery.png",
               width: double.infinity,
               height: ancho * 0.3,
             ),
@@ -60,7 +49,7 @@ class _PreparationScreenState extends State<PreparationScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             const Text(
-              "¿Ha recogido la preparación en su centro de salud?",
+              "¿Le han operado de cirugía bariátrica?",
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white),
             ),
@@ -71,8 +60,8 @@ class _PreparationScreenState extends State<PreparationScreen> {
               style: ButtonStyle(
                 shadowColor: MaterialStateProperty.all(Colors.white),
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (preparation) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (preparation) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (cpi.patientQuestionnaire?.hasBariatricSurgery as bool) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (cpi.patientQuestionnaire?.hasBariatricSurgery as bool) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -80,9 +69,7 @@ class _PreparationScreenState extends State<PreparationScreen> {
                 )
               ),
               onPressed: () {
-                preparation = true;
-                LocalSharedPreferences.prefs.setBool('preparation', true);
-                // FileProvider.addToData(FileProvider.patientQuestionnaire, 'preparation', true);
+                cpi.patientQuestionnaire?.hasBariatricSurgery = true;
                 setState(() {});
               },
               child: const Text('Sí'),
@@ -93,8 +80,8 @@ class _PreparationScreenState extends State<PreparationScreen> {
             ElevatedButton(
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (!preparation) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (!preparation) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (!(cpi.patientQuestionnaire?.hasBariatricSurgery as bool)) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (!(cpi.patientQuestionnaire?.hasBariatricSurgery as bool)) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -102,32 +89,11 @@ class _PreparationScreenState extends State<PreparationScreen> {
                 )
               ),
               onPressed: () {
-                preparation = false;
-                LocalSharedPreferences.prefs.setBool('preparation', false);
-                // FileProvider.addToData(FileProvider.patientQuestionnaire, 'preparation', false);
+                cpi.patientQuestionnaire?.hasBariatricSurgery = false;
                 setState(() {});
               },
               child: const Text('No'),
             ),
-
-            Padding(padding: EdgeInsets.only(top: alto * 0.05)),
-
-            (!preparation) ? Container(
-              width: ancho * 0.8,
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.red, width: 3),
-                borderRadius: BorderRadius.circular(18.0),
-              ),
-              child: Center(
-                child: Column(
-                  children: const [
-                    Text('¡IMPORTANTE!', textAlign: TextAlign.center, style: TextStyle(color: Colors.red), textScaleFactor: 1.4),
-                    Text('Recuerde pedir la preparación en su centro de salud', textAlign: TextAlign.center, style: TextStyle(color: Colors.white)),
-                  ],
-                ),
-              ),
-            ) : Container(),
 
           ],
         ),
@@ -140,13 +106,43 @@ class _PreparationScreenState extends State<PreparationScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
 
+            LinearPercentIndicator(
+              percent: 0.6,
+              lineHeight: 10.0,
+              barRadius: const Radius.circular(10),
+              progressColor: Colors.white,
+            ),
+
+            Padding(padding: EdgeInsets.only(top: alto * 0.02)),
+
             Row(
               children: [
 
-                (preparation) ? Expanded(
+                Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'datescreen');
+                      Navigator.pop(context);
+                    },
+                    color: Colors.red,
+                    padding:
+                        EdgeInsets.only(top: alto * 0.015, bottom: alto * 0.015),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.arrow_back),
+                        Padding(padding: EdgeInsets.only(left: ancho * 0.02)),
+                        const Text("Retroceder", textScaleFactor: 1.2),
+                      ],
+                    ),
+                  ),
+                ),
+
+                Padding(padding: EdgeInsets.only(left: ancho * 0.05)),
+
+                Expanded(
+                  child: CupertinoButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, 'abdominalsurgeryscreen', arguments: cpi);
                     },
                     color: Colors.green,
                     padding:
@@ -160,7 +156,7 @@ class _PreparationScreenState extends State<PreparationScreen> {
                       ],
                     ),
                   ),
-                ) : Container(),
+                ),
 
               ],
             ),

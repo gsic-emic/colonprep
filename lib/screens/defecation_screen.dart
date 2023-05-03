@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital/services/local_shared_preferences.dart';
+import 'package:hospital/models/colonprep_info.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-
 
 
 class DefecationScreen extends StatefulWidget {
@@ -14,19 +13,14 @@ class DefecationScreen extends StatefulWidget {
 
 class _DefecationScreenState extends State<DefecationScreen> {
 
-  late bool defecation;
-
-  @override
-  void initState() {
-    super.initState();
-    defecation = ((LocalSharedPreferences.prefs.containsKey('defecation')) ? LocalSharedPreferences.prefs.getBool('defecation') : false)!;
-  }
-
   @override
   Widget build(BuildContext context) {
 
     final ancho = MediaQuery.of(context).size.width;
     final alto = MediaQuery.of(context).size.height;
+
+    ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
+    cpi.patientQuestionnaire?.constipation ??= false;
 
     return Scaffold(
       body: Container(
@@ -48,7 +42,7 @@ class _DefecationScreenState extends State<DefecationScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             Image.asset(
-              "assets/images/deposicion.png",
+              "assets/images/defecation.png",
               width: double.infinity,
               height: ancho * 0.3,
             ),
@@ -67,8 +61,8 @@ class _DefecationScreenState extends State<DefecationScreen> {
               style: ButtonStyle(
                 shadowColor: MaterialStateProperty.all(Colors.white),
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (defecation) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (defecation) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (cpi.patientQuestionnaire?.constipation as bool) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (cpi.patientQuestionnaire?.constipation as bool) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -76,8 +70,7 @@ class _DefecationScreenState extends State<DefecationScreen> {
                 )
               ),
               onPressed: () {
-                defecation = true;
-                LocalSharedPreferences.prefs.setBool('defecation', true);
+                cpi.patientQuestionnaire?.constipation = true;
                 setState(() {});
               },
               child: const Text('Sí'),
@@ -88,8 +81,8 @@ class _DefecationScreenState extends State<DefecationScreen> {
             ElevatedButton(
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (!defecation) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (!defecation) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (!(cpi.patientQuestionnaire?.constipation as bool)) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (!(cpi.patientQuestionnaire?.constipation as bool)) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -97,8 +90,7 @@ class _DefecationScreenState extends State<DefecationScreen> {
                 )
               ),
               onPressed: () {
-                defecation = false;
-                LocalSharedPreferences.prefs.setBool('defecation', false);
+                cpi.patientQuestionnaire?.constipation = false;
                 setState(() {});
               },
               child: const Text('No'),
@@ -151,7 +143,7 @@ class _DefecationScreenState extends State<DefecationScreen> {
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'glucosescreen');
+                      Navigator.pushNamed(context, 'glucosescreen', arguments: cpi);
                     },
                     color: Colors.green,
                     padding:

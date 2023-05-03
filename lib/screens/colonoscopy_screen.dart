@@ -149,7 +149,7 @@ class _ColonoscopyScreenState extends State<ColonoscopyScreen> {
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'pruebas');
+                      // Navigator.pushNamed(context, 'pruebas');
                     },
                     color: Colors.green,
                     padding:
