@@ -142,7 +142,7 @@ class _AbdominalSurgeryScreenState extends State<AbdominalSurgeryScreen> {
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'medicinescreen', arguments: cpi);
+                      Navigator.pushNamed(context, 'othermedicinesscreen', arguments: cpi);
                     },
                     color: Colors.green,
                     padding:

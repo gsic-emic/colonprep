@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hospital/models/colonprep_info.dart';
 import 'package:hospital/services/local_shared_preferences.dart';
-import 'package:hospital/tools/tools.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({super.key});
@@ -19,11 +18,14 @@ class _InitialScreenState extends State<InitialScreen> {
     super.initState();
     bool createdColonprepInfo = LocalSharedPreferences.prefs.getBool('createdColonprepInfo') ?? false;
     if(createdColonprepInfo) {
-      //TODO: cargar contenido
+      loadColonprepInfo();
     } else {
-      cpi = Tools.initializeColonprepInfo();
+      cpi = ColonprepInfo();
     }
-    
+  }
+
+  loadColonprepInfo() async {
+    cpi = await ColonprepInfo.loadColonprepInfo();
   }
 
   @override
@@ -71,6 +73,7 @@ class _InitialScreenState extends State<InitialScreen> {
                 )
               ),
               onPressed: () {
+                cpi.patientQuestionnaire?.started = DateTime.now();
                 Navigator.pushNamed(context, 'datescreen', arguments: cpi);
               },
               child: Text('Empezar preparación'.toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold)),
@@ -79,7 +82,9 @@ class _InitialScreenState extends State<InitialScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             TextButton(
-              onPressed: (){},
+              onPressed: (){
+                ColonprepInfo.removeColonprepInfo();
+              },
               child: const Text(
                 'Información general',
                 style: TextStyle(color: Colors.white)

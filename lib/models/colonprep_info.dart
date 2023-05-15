@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:hospital/models/appointment.dart';
 import 'package:hospital/models/log.dart';
 import 'package:hospital/models/patient_questionnaire.dart';
 import 'package:hospital/models/preparation.dart';
+import 'package:hospital/services/local_file.dart';
+import 'package:hospital/services/local_shared_preferences.dart';
 
 class ColonprepInfo {
     ColonprepInfo({
@@ -12,7 +15,11 @@ class ColonprepInfo {
         this.preparationCollected,
         this.preparation,
         this.log,
-    });
+    }) {
+      appointment ??= Appointment();
+      patientQuestionnaire ??= PatientQuestionnaire();
+      preparation ??= Preparation();
+    }
 
     Appointment? appointment;
     PatientQuestionnaire? patientQuestionnaire;
@@ -39,4 +46,25 @@ class ColonprepInfo {
         "preparation": preparation?.toMap(),
         "log": log == null ? [] : List<dynamic>.from(log!.map((x) => x.toMap())),
     };
+
+    static Future<ColonprepInfo> loadColonprepInfo() async {
+      File file = await LocalFile.getFile(LocalFile.colonprepinfo);
+      String leido = file.readAsStringSync();
+      ColonprepInfo cpi = ColonprepInfo.fromJson(leido);
+      return cpi;
+    }
+
+    void saveColonprepInfo() async {
+      File file = await LocalFile.getFile(LocalFile.colonprepinfo);
+      file.openWrite(mode: FileMode.write);
+      file.writeAsStringSync(toJson());
+      LocalSharedPreferences.prefs.setBool('createdColonprepInfo', true);
+    }
+
+    static Future<void> removeColonprepInfo() async {
+      File file = await LocalFile.getFile(LocalFile.colonprepinfo);
+      file.openWrite(mode: FileMode.write);
+      file.writeAsStringSync('');
+      LocalSharedPreferences.prefs.setBool('createdColonprepInfo', false);
+    }
 }

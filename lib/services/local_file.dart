@@ -3,7 +3,8 @@ import 'package:path_provider/path_provider.dart';
 
 class LocalFile{
 
-  static const String appointmentFile = 'appointment.json';
+  static const String colonprepinfo = 'colonprepinfo.json';
+  static const String cards = 'cards.json';
 
   static Future<String> get _path async {
     final directory = await getApplicationDocumentsDirectory();

@@ -108,7 +108,7 @@ class _DefecationScreenState extends State<DefecationScreen> {
           children: [
 
             LinearPercentIndicator(
-              percent: 0.3,
+              percent: 0.33,
               lineHeight: 10.0,
               barRadius: const Radius.circular(10),
               progressColor: Colors.white,

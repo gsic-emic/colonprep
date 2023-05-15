@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital/services/local_shared_preferences.dart';
+import 'package:hospital/models/colonprep_info.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class BloodPressureScreen extends StatefulWidget {
@@ -12,15 +12,12 @@ class BloodPressureScreen extends StatefulWidget {
 
 class _BloodPressureScreenState extends State<BloodPressureScreen> {
 
-  late bool medicine;
-  bool _amlodipino = false;
-  bool _diltiazem = false;
-  bool _nicardipino = false;
-
-  @override
-  void initState() {
-    super.initState();
-    medicine = ((LocalSharedPreferences.prefs.containsKey('medicine')) ? LocalSharedPreferences.prefs.getBool('medicine') : false)!;
+  void botonPulsado(ColonprepInfo cpi, String medicamento) {
+    if(cpi.patientQuestionnaire!.medicines!.contains(medicamento)) {
+      cpi.patientQuestionnaire!.medicines!.remove(medicamento);
+    } else {
+      cpi.patientQuestionnaire!.medicines!.add(medicamento);
+    }
   }
 
   @override
@@ -28,6 +25,8 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
 
     final ancho = MediaQuery.of(context).size.width;
     final alto = MediaQuery.of(context).size.height;
+
+    ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
 
     return Scaffold(
       body: Container(
@@ -69,8 +68,8 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                 style: ButtonStyle(
                   shadowColor: MaterialStateProperty.all(Colors.white),
                   minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                  backgroundColor: (_amlodipino) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                  foregroundColor: (_amlodipino) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                  backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Amlodipino')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                  foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Amlodipino')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0),
                       side: const BorderSide(color: Colors.white, width: 2)
@@ -78,7 +77,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                   )
                 ),
                 onPressed: () {
-                  _amlodipino = !_amlodipino;
+                  botonPulsado(cpi, 'Amlodipino');
                   setState(() {});
                 },
                 child: const Text("Amlodipino", textAlign: TextAlign.center),
@@ -86,9 +85,9 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.white,
               checkColor: Colors.lightBlue.shade400,
-              value: _amlodipino,
+              value: cpi.patientQuestionnaire!.medicines!.contains('Amlodipino'),
               onChanged: (value) {
-                _amlodipino=value!;
+                botonPulsado(cpi, 'Amlodipino');
                 setState(() {});
               },
             ),
@@ -98,8 +97,8 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                 style: ButtonStyle(
                   shadowColor: MaterialStateProperty.all(Colors.white),
                   minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                  backgroundColor: (_diltiazem) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                  foregroundColor: (_diltiazem) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                  backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Diltiazem')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                  foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Diltiazem')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0),
                       side: const BorderSide(color: Colors.white, width: 2)
@@ -107,7 +106,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                   )
                 ),
                 onPressed: () {
-                  _diltiazem = !_diltiazem;
+                  botonPulsado(cpi, 'Diltiazem');
                   setState(() {});
                 },
                 child: const Text("Diltiazem", textAlign: TextAlign.center),
@@ -115,9 +114,9 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.white,
               checkColor: Colors.lightBlue.shade400,
-              value: _diltiazem,
+              value: cpi.patientQuestionnaire!.medicines!.contains('Diltiazem'),
               onChanged: (value) {
-                _diltiazem=value!;
+                botonPulsado(cpi, 'Diltiazem');
                 setState(() {});
               },
             ),
@@ -127,8 +126,8 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                 style: ButtonStyle(
                   shadowColor: MaterialStateProperty.all(Colors.white),
                   minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                  backgroundColor: (_nicardipino) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                  foregroundColor: (_nicardipino) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                  backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Nicardipino')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                  foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Nicardipino')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0),
                       side: const BorderSide(color: Colors.white, width: 2)
@@ -136,7 +135,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                   )
                 ),
                 onPressed: () {
-                  _nicardipino = !_nicardipino;
+                  botonPulsado(cpi, 'Nicardipino');
                   setState(() {});
                 },
                 child: const Text("Nicardipino", textAlign: TextAlign.center),
@@ -144,9 +143,9 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.white,
               checkColor: Colors.lightBlue.shade400,
-              value: _nicardipino,
+              value: cpi.patientQuestionnaire!.medicines!.contains('Nicardipino'),
               onChanged: (value) {
-                _nicardipino=value!;
+                botonPulsado(cpi, 'Nicardipino');
                 setState(() {});
               },
             ),
@@ -165,7 +164,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
             SizedBox(height: alto * 0.02),
 
             LinearPercentIndicator(
-              percent: 0.9,
+              percent: 0.86,
               lineHeight: 10.0,
               barRadius: const Radius.circular(10),
               progressColor: Colors.white,
@@ -200,7 +199,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'colonoscopyscreen');
+                      Navigator.pushNamed(context, 'colonoscopyscreen', arguments: cpi);
                     },
                     color: Colors.green,
                     padding:

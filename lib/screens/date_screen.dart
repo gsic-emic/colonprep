@@ -119,7 +119,7 @@ class _DateScreenState extends State<DateScreen> {
           children: [
 
             LinearPercentIndicator(
-              percent: 0.05,
+              percent: 0.06,
               lineHeight: 10.0,
               barRadius: const Radius.circular(10),
               progressColor: Colors.white,

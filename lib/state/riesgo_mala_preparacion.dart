@@ -1,6 +1,6 @@
 import 'package:hospital/state/state.dart';
 
-class SinCitaState implements State {
+class RiesgoMalaPreparacionState implements State {
   
   @override
   void nextState() {

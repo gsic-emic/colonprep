@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital/services/local_shared_preferences.dart';
+import 'package:hospital/models/colonprep_info.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class NervousSystemScreen extends StatefulWidget {
@@ -12,23 +12,12 @@ class NervousSystemScreen extends StatefulWidget {
 
 class _NervousSystemScreenState extends State<NervousSystemScreen> {
 
-  late bool medicine;
-  bool _amitriptilina = false;
-  bool _imipranina = false;
-  bool _clomipramina = false;
-  bool _paroxetina = false;
-  bool _venlafaxina = false;
-  bool _risperidona = false;
-  bool _clozapina = false;
-  bool _olanzapina = false;
-  bool _haloperidol = false;
-  bool _amisulpiride = false;
-  bool _quetiapina = false;
-
-  @override
-  void initState() {
-    super.initState();
-    medicine = ((LocalSharedPreferences.prefs.containsKey('medicine')) ? LocalSharedPreferences.prefs.getBool('medicine') : false)!;
+  void botonPulsado(ColonprepInfo cpi, String medicamento) {
+    if(cpi.patientQuestionnaire!.medicines!.contains(medicamento)) {
+      cpi.patientQuestionnaire!.medicines!.remove(medicamento);
+    } else {
+      cpi.patientQuestionnaire!.medicines!.add(medicamento);
+    }
   }
 
   @override
@@ -36,6 +25,8 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
 
     final ancho = MediaQuery.of(context).size.width;
     final alto = MediaQuery.of(context).size.height;
+
+    ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
 
     return Scaffold(
       body: Container(
@@ -94,8 +85,8 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                             style: ButtonStyle(
                               shadowColor: MaterialStateProperty.all(Colors.white),
                               minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (_amitriptilina) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (_amitriptilina) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Amitriptilina')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Amitriptilina')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.0),
                                   side: const BorderSide(color: Colors.white, width: 2)
@@ -103,7 +94,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                               )
                             ),
                             onPressed: () {
-                              _amitriptilina = !_amitriptilina;
+                              botonPulsado(cpi, 'Amitriptilina');
                               setState(() {});
                             },
                             child: const Text("Amitriptilina (Tryptizol)", textAlign: TextAlign.center),
@@ -111,9 +102,9 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
                           checkColor: Colors.lightBlue.shade400,
-                          value: _amitriptilina,
+                          value: cpi.patientQuestionnaire!.medicines!.contains('Amitriptilina'),
                           onChanged: (value) {
-                            _amitriptilina=value!;
+                            botonPulsado(cpi, 'Amitriptilina');
                             setState(() {});
                           },
                         ),
@@ -123,8 +114,8 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                             style: ButtonStyle(
                               shadowColor: MaterialStateProperty.all(Colors.white),
                               minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (_imipranina) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (_imipranina) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Imipranina')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Imipranina')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.0),
                                   side: const BorderSide(color: Colors.white, width: 2)
@@ -132,17 +123,17 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                               )
                             ),
                             onPressed: () {
-                              _imipranina = !_imipranina;
+                              botonPulsado(cpi, 'Imipranina');
                               setState(() {});
                             },
                             child: const Text("Imipranina (Tofranil)", textAlign: TextAlign.center),
                           ),
                           controlAffinity: ListTileControlAffinity.leading,
-                          activeColor: Colors.black,
-                          checkColor: Colors.white,
-                          value: _imipranina,
+                          activeColor: Colors.white,
+                          checkColor: Colors.lightBlue.shade400,
+                          value: cpi.patientQuestionnaire!.medicines!.contains('Imipranina'),
                           onChanged: (value) {
-                            _imipranina=value!;
+                            botonPulsado(cpi, 'Imipranina');
                             setState(() {});
                           },
                         ),
@@ -152,8 +143,8 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                             style: ButtonStyle(
                               shadowColor: MaterialStateProperty.all(Colors.white),
                               minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (_clomipramina) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (_clomipramina) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Clomipramina')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Clomipramina')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.0),
                                   side: const BorderSide(color: Colors.white, width: 2)
@@ -161,17 +152,17 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                               )
                             ),
                             onPressed: () {
-                              _clomipramina = !_clomipramina;
+                              botonPulsado(cpi, 'Clomipramina');
                               setState(() {});
                             },
                             child: const Text("Clomipramina (Anafranil)", textAlign: TextAlign.center),
                           ),
                           controlAffinity: ListTileControlAffinity.leading,
-                          activeColor: Colors.black,
-                          checkColor: Colors.white,
-                          value: _clomipramina,
+                          activeColor: Colors.white,
+                          checkColor: Colors.lightBlue.shade400,
+                          value: cpi.patientQuestionnaire!.medicines!.contains('Clomipramina'),
                           onChanged: (value) {
-                            _clomipramina=value!;
+                            botonPulsado(cpi, 'Clomipramina');
                             setState(() {});
                           },
                         ),
@@ -181,8 +172,8 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                             style: ButtonStyle(
                               shadowColor: MaterialStateProperty.all(Colors.white),
                               minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (_paroxetina) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (_paroxetina) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Paroxetina')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Paroxetina')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.0),
                                   side: const BorderSide(color: Colors.white, width: 2)
@@ -190,17 +181,17 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                               )
                             ),
                             onPressed: () {
-                              _paroxetina = !_paroxetina;
+                              botonPulsado(cpi, 'Paroxetina');
                               setState(() {});
                             },
                             child: const Text("Paroxetina", textAlign: TextAlign.center),
                           ),
                           controlAffinity: ListTileControlAffinity.leading,
-                          activeColor: Colors.black,
-                          checkColor: Colors.white,
-                          value: _paroxetina,
+                          activeColor: Colors.white,
+                          checkColor: Colors.lightBlue.shade400,
+                          value: cpi.patientQuestionnaire!.medicines!.contains('Paroxetina'),
                           onChanged: (value) {
-                            _paroxetina=value!;
+                            botonPulsado(cpi, 'Paroxetina');
                             setState(() {});
                           },
                         ),
@@ -210,8 +201,8 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                             style: ButtonStyle(
                               shadowColor: MaterialStateProperty.all(Colors.white),
                               minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (_venlafaxina) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (_venlafaxina) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Venlafaxina')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Venlafaxina')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.0),
                                   side: const BorderSide(color: Colors.white, width: 2)
@@ -219,17 +210,17 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                               )
                             ),
                             onPressed: () {
-                              _venlafaxina = !_venlafaxina;
+                              botonPulsado(cpi, 'Venlafaxina');
                               setState(() {});
                             },
                             child: const Text("Venlafaxina", textAlign: TextAlign.center),
                           ),
                           controlAffinity: ListTileControlAffinity.leading,
-                          activeColor: Colors.black,
-                          checkColor: Colors.white,
-                          value: _venlafaxina,
+                          activeColor: Colors.white,
+                          checkColor: Colors.lightBlue.shade400,
+                          value: cpi.patientQuestionnaire!.medicines!.contains('Venlafaxina'),
                           onChanged: (value) {
-                            _venlafaxina=value!;
+                            botonPulsado(cpi, 'Venlafaxina');
                             setState(() {});
                           },
                         ),
@@ -239,8 +230,8 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                             style: ButtonStyle(
                               shadowColor: MaterialStateProperty.all(Colors.white),
                               minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (_risperidona) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (_risperidona) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Risperidona')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Risperidona')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.0),
                                   side: const BorderSide(color: Colors.white, width: 2)
@@ -248,17 +239,17 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                               )
                             ),
                             onPressed: () {
-                              _risperidona = !_risperidona;
+                              botonPulsado(cpi, 'Risperidona');
                               setState(() {});
                             },
                             child: const Text("Risperidona (Risperdal)", textAlign: TextAlign.center),
                           ),
                           controlAffinity: ListTileControlAffinity.leading,
-                          activeColor: Colors.black,
-                          checkColor: Colors.white,
-                          value: _risperidona,
+                          activeColor: Colors.white,
+                          checkColor: Colors.lightBlue.shade400,
+                          value: cpi.patientQuestionnaire!.medicines!.contains('Risperidona'),
                           onChanged: (value) {
-                            _risperidona=value!;
+                            botonPulsado(cpi, 'Risperidona');
                             setState(() {});
                           },
                         ),
@@ -268,8 +259,8 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                             style: ButtonStyle(
                               shadowColor: MaterialStateProperty.all(Colors.white),
                               minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (_clozapina) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (_clozapina) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Clozapina')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Clozapina')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.0),
                                   side: const BorderSide(color: Colors.white, width: 2)
@@ -277,17 +268,17 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                               )
                             ),
                             onPressed: () {
-                              _clozapina = !_clozapina;
+                              botonPulsado(cpi, 'Clozapina');
                               setState(() {});
                             },
                             child: const Text("Clozapina (Leponex, Nemea)", textAlign: TextAlign.center),
                           ),
                           controlAffinity: ListTileControlAffinity.leading,
-                          activeColor: Colors.black,
-                          checkColor: Colors.white,
-                          value: _clozapina,
+                          activeColor: Colors.white,
+                          checkColor: Colors.lightBlue.shade400,
+                          value: cpi.patientQuestionnaire!.medicines!.contains('Clozapina'),
                           onChanged: (value) {
-                            _clozapina=value!;
+                            botonPulsado(cpi, 'Clozapina');
                             setState(() {});
                           },
                         ),
@@ -297,8 +288,8 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                             style: ButtonStyle(
                               shadowColor: MaterialStateProperty.all(Colors.white),
                               minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (_olanzapina) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (_olanzapina) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Olanzapina')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Olanzapina')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.0),
                                   side: const BorderSide(color: Colors.white, width: 2)
@@ -306,17 +297,17 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                               )
                             ),
                             onPressed: () {
-                              _olanzapina = !_olanzapina;
+                              botonPulsado(cpi, 'Olanzapina');
                               setState(() {});
                             },
                             child: const Text("Olanzapina", textAlign: TextAlign.center),
                           ),
                           controlAffinity: ListTileControlAffinity.leading,
-                          activeColor: Colors.black,
-                          checkColor: Colors.white,
-                          value: _olanzapina,
+                          activeColor: Colors.white,
+                          checkColor: Colors.lightBlue.shade400,
+                          value: cpi.patientQuestionnaire!.medicines!.contains('Olanzapina'),
                           onChanged: (value) {
-                            _olanzapina=value!;
+                            botonPulsado(cpi, 'Olanzapina');
                             setState(() {});
                           },
                         ),
@@ -326,8 +317,8 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                             style: ButtonStyle(
                               shadowColor: MaterialStateProperty.all(Colors.white),
                               minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (_haloperidol) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (_haloperidol) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Haloperidol')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Haloperidol')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.0),
                                   side: const BorderSide(color: Colors.white, width: 2)
@@ -335,17 +326,17 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                               )
                             ),
                             onPressed: () {
-                              _haloperidol = !_haloperidol;
+                              botonPulsado(cpi, 'Haloperidol');
                               setState(() {});
                             },
                             child: const Text("Haloperidol", textAlign: TextAlign.center),
                           ),
                           controlAffinity: ListTileControlAffinity.leading,
-                          activeColor: Colors.black,
-                          checkColor: Colors.white,
-                          value: _haloperidol,
+                          activeColor: Colors.white,
+                          checkColor: Colors.lightBlue.shade400,
+                          value: cpi.patientQuestionnaire!.medicines!.contains('Haloperidol'),
                           onChanged: (value) {
-                            _haloperidol=value!;
+                            botonPulsado(cpi, 'Haloperidol');
                             setState(() {});
                           },
                         ),
@@ -355,8 +346,8 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                             style: ButtonStyle(
                               shadowColor: MaterialStateProperty.all(Colors.white),
                               minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (_amisulpiride) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (_amisulpiride) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Amisulpiride')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Amisulpiride')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.0),
                                   side: const BorderSide(color: Colors.white, width: 2)
@@ -364,17 +355,17 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                               )
                             ),
                             onPressed: () {
-                              _amisulpiride = !_amisulpiride;
+                              botonPulsado(cpi, 'Amisulpiride');
                               setState(() {});
                             },
                             child: const Text("Amisulpiride", textAlign: TextAlign.center),
                           ),
                           controlAffinity: ListTileControlAffinity.leading,
-                          activeColor: Colors.black,
-                          checkColor: Colors.white,
-                          value: _amisulpiride,
+                          activeColor: Colors.white,
+                          checkColor: Colors.lightBlue.shade400,
+                          value: cpi.patientQuestionnaire!.medicines!.contains('Amisulpiride'),
                           onChanged: (value) {
-                            _amisulpiride=value!;
+                            botonPulsado(cpi, 'Amisulpiride');
                             setState(() {});
                           },
                         ),
@@ -384,8 +375,8 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                             style: ButtonStyle(
                               shadowColor: MaterialStateProperty.all(Colors.white),
                               minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (_quetiapina) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (_quetiapina) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Quetiapina')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Quetiapina')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.0),
                                   side: const BorderSide(color: Colors.white, width: 2)
@@ -393,17 +384,17 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                               )
                             ),
                             onPressed: () {
-                              _quetiapina = !_quetiapina;
+                              botonPulsado(cpi, 'Quetiapina');
                               setState(() {});
                             },
                             child: const Text("Quetiapina (Seroquel)", textAlign: TextAlign.center),
                           ),
                           controlAffinity: ListTileControlAffinity.leading,
-                          activeColor: Colors.black,
-                          checkColor: Colors.white,
-                          value: _quetiapina,
+                          activeColor: Colors.white,
+                          checkColor: Colors.lightBlue.shade400,
+                          value: cpi.patientQuestionnaire!.medicines!.contains('Quetiapina'),
                           onChanged: (value) {
-                            _quetiapina=value!;
+                            botonPulsado(cpi, 'Quetiapina');
                             setState(() {});
                           },
                         ),
@@ -429,7 +420,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
             SizedBox(height: alto * 0.02),
 
             LinearPercentIndicator(
-              percent: 0.8,
+              percent: 0.73,
               lineHeight: 10.0,
               barRadius: const Radius.circular(10),
               progressColor: Colors.white,
@@ -464,7 +455,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'painscreen');
+                      Navigator.pushNamed(context, 'painscreen', arguments: cpi);
                     },
                     color: Colors.green,
                     padding:

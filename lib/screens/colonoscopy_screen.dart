@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital/services/local_shared_preferences.dart';
+import 'package:hospital/models/colonprep_info.dart';
+import 'package:hospital/services/local_notification.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class ColonoscopyScreen extends StatefulWidget {
@@ -12,19 +13,14 @@ class ColonoscopyScreen extends StatefulWidget {
 
 class _ColonoscopyScreenState extends State<ColonoscopyScreen> {
 
-  late bool colonoscopy;
-
-  @override
-  void initState() {
-    super.initState();
-    colonoscopy = ((LocalSharedPreferences.prefs.containsKey('colonoscopy')) ? LocalSharedPreferences.prefs.getBool('colonoscopy') : false)!;
-  }
-
   @override
   Widget build(BuildContext context) {
 
     final ancho = MediaQuery.of(context).size.width;
     final alto = MediaQuery.of(context).size.height;
+
+    ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
+    cpi.patientQuestionnaire?.hasPreviousBadColonoscopy ??= false;
 
     return Scaffold(
       body: Container(
@@ -65,8 +61,8 @@ class _ColonoscopyScreenState extends State<ColonoscopyScreen> {
               style: ButtonStyle(
                 shadowColor: MaterialStateProperty.all(Colors.white),
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (colonoscopy) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (colonoscopy) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (cpi.patientQuestionnaire?.hasPreviousBadColonoscopy as bool) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (cpi.patientQuestionnaire?.hasPreviousBadColonoscopy as bool) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -74,8 +70,7 @@ class _ColonoscopyScreenState extends State<ColonoscopyScreen> {
                 )
               ),
               onPressed: () {
-                colonoscopy = true;
-                LocalSharedPreferences.prefs.setBool('colonoscopy', true);
+                cpi.patientQuestionnaire?.hasPreviousBadColonoscopy = true;
                 setState(() {});
               },
               child: const Text('Sí'),
@@ -86,8 +81,8 @@ class _ColonoscopyScreenState extends State<ColonoscopyScreen> {
             ElevatedButton(
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (!colonoscopy) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (!colonoscopy) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (!(cpi.patientQuestionnaire?.hasPreviousBadColonoscopy as bool)) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (!(cpi.patientQuestionnaire?.hasPreviousBadColonoscopy as bool)) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -95,8 +90,7 @@ class _ColonoscopyScreenState extends State<ColonoscopyScreen> {
                 )
               ),
               onPressed: () {
-                colonoscopy = false;
-                LocalSharedPreferences.prefs.setBool('colonoscopy', false);
+                cpi.patientQuestionnaire?.hasPreviousBadColonoscopy = false;
                 setState(() {});
               },
               child: const Text('No'),
@@ -149,7 +143,7 @@ class _ColonoscopyScreenState extends State<ColonoscopyScreen> {
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      // Navigator.pushNamed(context, 'pruebas');
+                      Navigator.pushNamed(context, 'preparationscreen', arguments: cpi);
                     },
                     color: Colors.green,
                     padding:

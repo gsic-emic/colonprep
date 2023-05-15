@@ -107,7 +107,7 @@ class _ParkinsonScreenState extends State<ParkinsonScreen> {
           children: [
 
             LinearPercentIndicator(
-              percent: 0.5,
+              percent: 0.46,
               lineHeight: 10.0,
               barRadius: const Radius.circular(10),
               progressColor: Colors.white,

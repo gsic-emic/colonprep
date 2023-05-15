@@ -79,6 +79,11 @@ class _TimeScreenState extends State<TimeScreen> {
                     initialDateTime: cpi.appointment?.dateTimeAppointment,
                     onDateTimeChanged: (value) {
                       cpi.appointment?.dateTimeAppointment = value;
+                      if((cpi.appointment?.dateTimeAppointment?.hour ?? 0) < 14) {
+                        cpi.appointment?.appointmentShift = 'morning';
+                      } else {
+                        cpi.appointment?.appointmentShift = 'afternoon';
+                      }
                       setState(() {});
                     },
                   ),
@@ -107,7 +112,7 @@ class _TimeScreenState extends State<TimeScreen> {
           children: [
 
             LinearPercentIndicator(
-              percent: 0.05,
+              percent: 0.13,
               lineHeight: 10.0,
               barRadius: const Radius.circular(10),
               progressColor: Colors.white,

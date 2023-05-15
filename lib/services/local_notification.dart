@@ -40,7 +40,7 @@ class LocalNotification {
     await notificationsPlugin.show(0, title, body, notificationDetails, payload: payload);
   }
 
-  Future<void> scheduledNotificationShow(String title, String body, String payload) async {
+  Future<void> scheduledNotificationShow(String title, String subtitleDarwin, String body, DateTime dateTime) async {
     AndroidNotificationDetails androidNotificationDetails = const AndroidNotificationDetails(
       'Channel_id',
       'Channel_title',
@@ -48,19 +48,32 @@ class LocalNotification {
       importance: Importance.max,
       channelShowBadge: false,
     );
-    DarwinNotificationDetails darwinNotificationDetails = const DarwinNotificationDetails(
-      subtitle: "¿Ha recordado tomar Evacuol?",
+    DarwinNotificationDetails darwinNotificationDetails = DarwinNotificationDetails(
+      subtitle: subtitleDarwin,
     );
     NotificationDetails notificationDetails = NotificationDetails(android: androidNotificationDetails, iOS: darwinNotificationDetails);
-    await notificationsPlugin.zonedSchedule(
-      0,
-      title,
-      body,
-      payload: payload,
-      tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
-      notificationDetails,
-      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
-      androidAllowWhileIdle: true,
-    );
+    try {
+      await notificationsPlugin.zonedSchedule(
+        0,
+        title,
+        body,
+        payload: '',
+        // tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+        tz.TZDateTime.from(dateTime, tz.local),
+        notificationDetails,
+        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+        androidAllowWhileIdle: true,
+      );
+    } on ArgumentError {
+      print('Se ha programado una notificación para un momento pasado');
+    }
+  }
+
+  Future<List<PendingNotificationRequest>> pendingNotifications() {
+    return notificationsPlugin.pendingNotificationRequests();
+  }
+
+  void cancelNotifications() {
+    notificationsPlugin.cancelAll();
   }
 }

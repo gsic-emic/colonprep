@@ -96,7 +96,7 @@ class _WeightScreenState extends State<WeightScreen> {
           children: [
 
             LinearPercentIndicator(
-              percent: 0.1,
+              percent: 0.2,
               lineHeight: 10.0,
               barRadius: const Radius.circular(10),
               progressColor: Colors.white,

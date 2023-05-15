@@ -11,4 +11,14 @@ class ConCitaListoPrepState implements State {
   void scheduleNotifications() {
     // TODO: implement scheduleNotifications
   }
+  
+  @override
+  void checkPreparation() {
+    // TODO: implement checkPreparation
+  }
+  
+  @override
+  void loadCards() {
+    // TODO: implement loadCards
+  }
 }

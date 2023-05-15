@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital/services/local_shared_preferences.dart';
+import 'package:hospital/models/colonprep_info.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class PainScreen extends StatefulWidget {
@@ -12,14 +12,12 @@ class PainScreen extends StatefulWidget {
 
 class _PainScreenState extends State<PainScreen> {
 
-  late bool medicine;
-  bool _fentanilo = false;
-  bool _tramadol = false;
-
-  @override
-  void initState() {
-    super.initState();
-    medicine = ((LocalSharedPreferences.prefs.containsKey('medicine')) ? LocalSharedPreferences.prefs.getBool('medicine') : false)!;
+  void botonPulsado(ColonprepInfo cpi, String medicamento) {
+    if(cpi.patientQuestionnaire!.medicines!.contains(medicamento)) {
+      cpi.patientQuestionnaire!.medicines!.remove(medicamento);
+    } else {
+      cpi.patientQuestionnaire!.medicines!.add(medicamento);
+    }
   }
 
   @override
@@ -27,6 +25,8 @@ class _PainScreenState extends State<PainScreen> {
 
     final ancho = MediaQuery.of(context).size.width;
     final alto = MediaQuery.of(context).size.height;
+
+    ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
 
     return Scaffold(
       body: Container(
@@ -68,8 +68,8 @@ class _PainScreenState extends State<PainScreen> {
                 style: ButtonStyle(
                   shadowColor: MaterialStateProperty.all(Colors.white),
                   minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                  backgroundColor: (_fentanilo) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                  foregroundColor: (_fentanilo) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                  backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Fentanilo')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                  foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Fentanilo')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0),
                       side: const BorderSide(color: Colors.white, width: 2)
@@ -77,7 +77,7 @@ class _PainScreenState extends State<PainScreen> {
                   )
                 ),
                 onPressed: () {
-                  _fentanilo = !_fentanilo;
+                  botonPulsado(cpi, 'Fentanilo');
                   setState(() {});
                 },
                 child: const Text("Fentanilo (Actiq, Durogesic, Fendivia)", textAlign: TextAlign.center),
@@ -85,9 +85,9 @@ class _PainScreenState extends State<PainScreen> {
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.white,
               checkColor: Colors.lightBlue.shade400,
-              value: _fentanilo,
+              value: cpi.patientQuestionnaire!.medicines!.contains('Fentanilo'),
               onChanged: (value) {
-                _fentanilo=value!;
+                botonPulsado(cpi, 'Fentanilo');
                 setState(() {});
               },
             ),
@@ -97,8 +97,8 @@ class _PainScreenState extends State<PainScreen> {
                 style: ButtonStyle(
                   shadowColor: MaterialStateProperty.all(Colors.white),
                   minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                  backgroundColor: (_tramadol) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                  foregroundColor: (_tramadol) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                  backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Tramadol')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                  foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Tramadol')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0),
                       side: const BorderSide(color: Colors.white, width: 2)
@@ -106,7 +106,7 @@ class _PainScreenState extends State<PainScreen> {
                   )
                 ),
                 onPressed: () {
-                  _tramadol = !_tramadol;
+                  botonPulsado(cpi, 'Tramadol');
                   setState(() {});
                 },
                 child: const Text("Tramadol (Adolonta, Zaldiar)", textAlign: TextAlign.center),
@@ -114,9 +114,9 @@ class _PainScreenState extends State<PainScreen> {
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.white,
               checkColor: Colors.lightBlue.shade400,
-              value: _tramadol,
+              value: cpi.patientQuestionnaire!.medicines!.contains('Tramadol'),
               onChanged: (value) {
-                _tramadol=value!;
+                botonPulsado(cpi, 'Tramadol');
                 setState(() {});
               },
             ),
@@ -135,7 +135,7 @@ class _PainScreenState extends State<PainScreen> {
             SizedBox(height: alto * 0.02),
 
             LinearPercentIndicator(
-              percent: 0.9,
+              percent: 0.8,
               lineHeight: 10.0,
               barRadius: const Radius.circular(10),
               progressColor: Colors.white,
@@ -170,7 +170,7 @@ class _PainScreenState extends State<PainScreen> {
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'bloodpressurescreen');
+                      Navigator.pushNamed(context, 'bloodpressurescreen', arguments: cpi);
                     },
                     color: Colors.green,
                     padding:
