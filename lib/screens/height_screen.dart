@@ -73,7 +73,7 @@ class _HeightScreenState extends State<HeightScreen> {
                 children: [
                   CupertinoTextField.borderless(
                     controller: textEditingControllerHeight,
-                    keyboardType: TextInputType.number,
+                    // keyboardType: TextInputType.number,
                     cursorColor: Colors.black,
                     padding: const EdgeInsets.only(left: 65, top: 10, right: 6, bottom: 10),
                     prefix: const Text("Altura", style: TextStyle(fontWeight: FontWeight.bold)),

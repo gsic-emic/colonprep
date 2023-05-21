@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/models/colonprep_info.dart';
+import 'package:hospital/state/con_cita_listo_prep_state.dart';
+import 'package:hospital/state/state_context.dart';
 import 'package:hospital/tools/tools.dart';
 
 class SummaryScreen extends StatefulWidget {
@@ -49,7 +51,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                 children: [
 
                   const Text(
-                    "Compruebe que todos los datos introducidos son correctos",
+                    "Compruebe que todos los datos introducidos son correctos:",
                     textAlign: TextAlign.justify,
                     style: TextStyle(color: Colors.white),
                     textScaleFactor: 1.1
@@ -162,8 +164,8 @@ class _SummaryScreenState extends State<SummaryScreen> {
                   ),
                   Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
-                  const Text('¿Ha recogido ya su preparado?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textScaleFactor: textScaleFactor),
-                  Text(cpi.preparation?.product ?? 'Todavía no lo he recogido', style: const TextStyle(color: Colors.white), textScaleFactor: textScaleFactor),
+                  const Text('Seleccione su preparado', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textScaleFactor: textScaleFactor),
+                  Text(cpi.preparation?.product ?? '', style: const TextStyle(color: Colors.white), textScaleFactor: textScaleFactor),
                   
                   Padding(padding: EdgeInsets.only(top: alto * 0.01)),
                   Container(
@@ -216,7 +218,8 @@ class _SummaryScreenState extends State<SummaryScreen> {
                   child: CupertinoButton(
                     onPressed: () {
                       cpi.saveColonprepInfo();
-                      Navigator.pushNamed(context, 'mainscreen', arguments: cpi);
+                      StateContext().setState(ConCitaListoPrepState());
+                      Navigator.pushNamedAndRemoveUntil(context, 'mainscreen', (route) => false);
                     },
                     color: Colors.green,
                     padding:

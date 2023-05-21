@@ -57,7 +57,7 @@ class _OtherMedicinesScreenState extends State<OtherMedicinesScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             const Text(
-              "¿Toma alguno de los siguientes fármacos? Marque todos los que tome",
+              "¿Toma alguno de los siguientes fármacos? Marque todos los que tome:",
               textAlign: TextAlign.justify,
               style: TextStyle(color: Colors.white),
             ),

@@ -24,10 +24,14 @@ class Cards {
     };
 
     static Future<Cards> loadCards() async {
-      File file = await LocalFile.getFile(LocalFile.cards);
-      String leido = file.readAsStringSync();
-      Cards cpi = Cards.fromJson(leido);
-      return cpi;
+      try {
+        File file = await LocalFile.getFile(LocalFile.cards);
+        String leido = file.readAsStringSync();
+        Cards cpi = Cards.fromJson(leido);
+        return cpi;
+      } on PathNotFoundException {
+        return Cards();
+      }
     }
 
     void saveCards() async {

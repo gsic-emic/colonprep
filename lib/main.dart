@@ -4,6 +4,7 @@ import 'package:hospital/screens/screens.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hospital/services/local_notification.dart';
 import 'package:hospital/services/local_shared_preferences.dart';
+import 'package:hospital/state/sin_cita_state.dart';
 import 'package:hospital/state/state_context.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -14,7 +15,7 @@ void main() async {
   await LocalSharedPreferences.configPrefs();
   LocalNotification().initNotification();
   tz.initializeTimeZones();
-  StateContext().checkState();
+  await StateContext().checkState();
   runApp(const MyApp());
 }
 
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
 
       debugShowCheckedModeBanner: false,
 
-      initialRoute: 'initialscreen',
+      initialRoute: (StateContext.currentState is SinCitaState) ? 'initialscreen' : 'mainscreen',
       routes: {
         //Pantalla de inicio de la aplicación
         'initialscreen'             : (context) => const InitialScreen(),

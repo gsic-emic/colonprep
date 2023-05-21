@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hospital/models/colonprep_info.dart';
 import 'package:hospital/services/local_shared_preferences.dart';
+import 'package:hospital/state/con_cita_pte_datos_state.dart';
+import 'package:hospital/state/state_context.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({super.key});
@@ -74,6 +76,7 @@ class _InitialScreenState extends State<InitialScreen> {
               ),
               onPressed: () {
                 cpi.patientQuestionnaire?.started = DateTime.now();
+                StateContext().setState(ConCitaPteDatosState());
                 Navigator.pushNamed(context, 'datescreen', arguments: cpi);
               },
               child: Text('Empezar preparación'.toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold)),
@@ -82,9 +85,7 @@ class _InitialScreenState extends State<InitialScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             TextButton(
-              onPressed: (){
-                ColonprepInfo.removeColonprepInfo();
-              },
+              onPressed: (){},
               child: const Text(
                 'Información general',
                 style: TextStyle(color: Colors.white)

@@ -48,10 +48,14 @@ class ColonprepInfo {
     };
 
     static Future<ColonprepInfo> loadColonprepInfo() async {
-      File file = await LocalFile.getFile(LocalFile.colonprepinfo);
-      String leido = file.readAsStringSync();
-      ColonprepInfo cpi = ColonprepInfo.fromJson(leido);
-      return cpi;
+      try {
+        File file = await LocalFile.getFile(LocalFile.colonprepinfo);
+        String leido = file.readAsStringSync();
+        ColonprepInfo cpi = ColonprepInfo.fromJson(leido);
+        return cpi;
+      } on PathNotFoundException {
+        rethrow;
+      }
     }
 
     void saveColonprepInfo() async {

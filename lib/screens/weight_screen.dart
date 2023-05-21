@@ -73,7 +73,7 @@ class _WeightScreenState extends State<WeightScreen> {
                 children: [
                   CupertinoTextField.borderless(
                     controller: textEditingControllerWeight,
-                    keyboardType: TextInputType.number,
+                    // keyboardType: TextInputType.number,
                     cursorColor: Colors.black,
                     padding: const EdgeInsets.only(left: 65, top: 10, right: 6, bottom: 10),
                     prefix: const Text("Peso", style: TextStyle(fontWeight: FontWeight.bold)),

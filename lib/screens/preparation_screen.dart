@@ -27,7 +27,8 @@ class _PreparationScreenState extends State<PreparationScreen> {
     final alto = MediaQuery.of(context).size.height;
 
     ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
-    cpi.preparation?.product ??= 'none';
+    cpi.preparation?.product ??= 'Bohn o Casenglicol';
+    cpi.preparationCollected = true;
 
     return Scaffold(
       body: Container(
@@ -57,7 +58,7 @@ class _PreparationScreenState extends State<PreparationScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             const Text(
-              "¿Ha recogido ya su preparado?",
+              "Seleccione su preparado:",
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white),
             ),
@@ -146,27 +147,27 @@ class _PreparationScreenState extends State<PreparationScreen> {
               child: const Text('Moviprep'),
             ),
 
-            Padding(padding: EdgeInsets.only(top: alto * 0.02)),
+            // Padding(padding: EdgeInsets.only(top: alto * 0.02)),
 
-            ElevatedButton(
-              style: ButtonStyle(
-                shadowColor: MaterialStateProperty.all(Colors.white),
-                minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (cpi.preparation?.product == 'Todavía no lo he recogido') ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (cpi.preparation?.product == 'Todavía no lo he recogido') ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                    side: const BorderSide(color: Colors.white, width: 2)
-                  )
-                )
-              ),
-              onPressed: () {
-                cpi.preparation?.product = 'Todavía no lo he recogido';
-                cpi.preparationCollected = false;
-                setState(() {});
-              },
-              child: const Text('Todavía no lo he recogido'),
-            ),
+            // ElevatedButton(
+            //   style: ButtonStyle(
+            //     shadowColor: MaterialStateProperty.all(Colors.white),
+            //     minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
+            //     backgroundColor: (cpi.preparation?.product == 'Todavía no lo he recogido') ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+            //     foregroundColor: (cpi.preparation?.product == 'Todavía no lo he recogido') ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+            //     shape: MaterialStateProperty.all(RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(18.0),
+            //         side: const BorderSide(color: Colors.white, width: 2)
+            //       )
+            //     )
+            //   ),
+            //   onPressed: () {
+            //     cpi.preparation?.product = 'Todavía no lo he recogido';
+            //     cpi.preparationCollected = false;
+            //     setState(() {});
+            //   },
+            //   child: const Text('Todavía no lo he recogido'),
+            // ),
 
           ],
         ),

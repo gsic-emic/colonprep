@@ -10,6 +10,8 @@ class LocalNotification {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   Future<void> initNotification() async {
+    const AndroidInitializationSettings initializationAndroid = AndroidInitializationSettings('ic_launcher');
+
     DarwinInitializationSettings initializationIOS = DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
@@ -17,6 +19,7 @@ class LocalNotification {
       onDidReceiveLocalNotification: (id, title, body, payload) {},
     );
     InitializationSettings initializationSettings = InitializationSettings(
+      android: initializationAndroid,
       iOS: initializationIOS
     );
     await notificationsPlugin.initialize(
