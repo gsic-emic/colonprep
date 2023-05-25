@@ -15,7 +15,7 @@ class DateScreen extends StatefulWidget {
 
 class _DateScreenState extends State<DateScreen> {
 
-  final int minimimDays = 7;
+  final int minimimDays = 3;
 
 
   @override

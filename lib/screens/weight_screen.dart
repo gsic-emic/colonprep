@@ -12,13 +12,11 @@ class WeightScreen extends StatefulWidget {
 
 class _WeightScreenState extends State<WeightScreen> {
 
-  late TextEditingController textEditingControllerWeight;
+  late FixedExtentScrollController _scrollController;
+  final int minWeight = 30;
+  final int maxWeight = 150;
+  
 
-  @override
-  void dispose() {
-    textEditingControllerWeight.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +24,17 @@ class _WeightScreenState extends State<WeightScreen> {
     final ancho = MediaQuery.of(context).size.width;
     final alto = MediaQuery.of(context).size.height;
 
+    List<Widget> pickerItems = [
+      const Text('-', style: TextStyle(color: Colors.white), textScaleFactor: 1.2),
+      ...List.generate(maxWeight - minWeight + 1, (index) {
+        int weight = index + minWeight;
+        return Text(weight.toString(), style: const TextStyle(color: Colors.white), textScaleFactor: 1.2);
+      }),
+    ];
+
     ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
-    textEditingControllerWeight = TextEditingController(text: (cpi.patientQuestionnaire?.weightKg != null) ? cpi.patientQuestionnaire?.weightKg.toString() : null);
+    cpi.patientQuestionnaire?.weightKg = (cpi.patientQuestionnaire?.weightKg == null) ? null : cpi.patientQuestionnaire?.weightKg;
+    _scrollController = FixedExtentScrollController(initialItem: (cpi.patientQuestionnaire?.weightKg == null) ? 0 : (cpi.patientQuestionnaire!.weightKg! - minWeight + 1));
 
     return Scaffold(
       body: Container(
@@ -66,24 +73,32 @@ class _WeightScreenState extends State<WeightScreen> {
 
             Container(
               decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CupertinoTextField.borderless(
-                    controller: textEditingControllerWeight,
-                    // keyboardType: TextInputType.number,
-                    cursorColor: Colors.black,
-                    padding: const EdgeInsets.only(left: 65, top: 10, right: 6, bottom: 10),
-                    prefix: const Text("Peso", style: TextStyle(fontWeight: FontWeight.bold)),
-                    placeholder: "60",
-                    suffix: const Text("kg", style: TextStyle(fontWeight: FontWeight.bold)),
+                border: Border.all(
+                  color: Colors.black,
+                  style: BorderStyle.solid,
+                  width: 2),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: SizedBox(
+                height: alto * 0.3,
+                child: CupertinoTheme(
+                  data: const CupertinoThemeData(
+                    textTheme: CupertinoTextThemeData(
+                      dateTimePickerTextStyle: TextStyle(color: Colors.white),
+                    )
                   ),
-                ],
+                  child: CupertinoPicker(
+                    scrollController: _scrollController,
+                    itemExtent: 32,
+                    onSelectedItemChanged: (index) {
+                      cpi.patientQuestionnaire?.weightKg = (index == 0) ? null : (index + minWeight - 1);
+                      setState(() {});
+                    },
+                    children: pickerItems,
+                  ),
+                ),
               ),
             ),
-
           ],
         ),
       ),
@@ -110,7 +125,6 @@ class _WeightScreenState extends State<WeightScreen> {
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      cpi.patientQuestionnaire?.weightKg = (textEditingControllerWeight.text.isNotEmpty) ? int.parse(textEditingControllerWeight.text) : null;
                       Navigator.pop(context);
                     },
                     color: Colors.red,
@@ -127,12 +141,11 @@ class _WeightScreenState extends State<WeightScreen> {
                   ),
                 ),
 
-                Padding(padding: EdgeInsets.only(left: ancho * 0.05)),
+                (cpi.patientQuestionnaire?.weightKg != null) ? Padding(padding: EdgeInsets.only(left: ancho * 0.05)) : Container(),
 
-                Expanded(
+                (cpi.patientQuestionnaire?.weightKg != null) ? Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      cpi.patientQuestionnaire?.weightKg = (textEditingControllerWeight.text.isNotEmpty) ? int.parse(textEditingControllerWeight.text) : null;
                       Navigator.pushNamed(context, 'heightscreen', arguments: cpi);
                     },
                     color: Colors.green,
@@ -147,7 +160,7 @@ class _WeightScreenState extends State<WeightScreen> {
                       ],
                     ),
                   ),
-                ),
+                ) : Container(),
 
               ],
             ),

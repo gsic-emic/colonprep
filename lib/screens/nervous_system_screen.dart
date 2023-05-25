@@ -56,12 +56,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             const Text(
-              "¿Toma alguno de los siguientes fármacos relacionados con el sistema nervioso (ansiedad, trastornos del estado de ánimo, para ayudarle a dormir...)?",
-              textAlign: TextAlign.justify,
-              style: TextStyle(color: Colors.white),
-            ),
-            const Text(
-              "Marque todos los que tome de forma habitual:",
+              "¿Toma alguno de los siguientes fármacos? Marque todos los que tome:",
               textAlign: TextAlign.justify,
               style: TextStyle(color: Colors.white),
             ),
@@ -97,7 +92,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                               botonPulsado(cpi, 'Amitriptilina');
                               setState(() {});
                             },
-                            child: const Text("Amitriptilina (Tryptizol)", textAlign: TextAlign.center),
+                            child: const Text("Amitriptilina (Tryptizol\u00AE)", textAlign: TextAlign.center),
                           ),
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
@@ -126,7 +121,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                               botonPulsado(cpi, 'Imipranina');
                               setState(() {});
                             },
-                            child: const Text("Imipranina (Tofranil)", textAlign: TextAlign.center),
+                            child: const Text("Imipranina (Tofranil\u00AE)", textAlign: TextAlign.center),
                           ),
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
@@ -155,7 +150,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                               botonPulsado(cpi, 'Clomipramina');
                               setState(() {});
                             },
-                            child: const Text("Clomipramina (Anafranil)", textAlign: TextAlign.center),
+                            child: const Text("Clomipramina (Anafranil\u00AE)", textAlign: TextAlign.center),
                           ),
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
@@ -242,7 +237,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                               botonPulsado(cpi, 'Risperidona');
                               setState(() {});
                             },
-                            child: const Text("Risperidona (Risperdal)", textAlign: TextAlign.center),
+                            child: const Text("Risperidona (Risperdal\u00AE)", textAlign: TextAlign.center),
                           ),
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
@@ -271,7 +266,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                               botonPulsado(cpi, 'Clozapina');
                               setState(() {});
                             },
-                            child: const Text("Clozapina (Leponex, Nemea)", textAlign: TextAlign.center),
+                            child: const Text("Clozapina (Leponex\u00AE, Nemea\u00AE)", textAlign: TextAlign.center),
                           ),
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
@@ -387,7 +382,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                               botonPulsado(cpi, 'Quetiapina');
                               setState(() {});
                             },
-                            child: const Text("Quetiapina (Seroquel)", textAlign: TextAlign.center),
+                            child: const Text("Quetiapina (Seroquel\u00AE)", textAlign: TextAlign.center),
                           ),
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
