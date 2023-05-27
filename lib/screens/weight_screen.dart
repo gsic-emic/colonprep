@@ -28,7 +28,7 @@ class _WeightScreenState extends State<WeightScreen> {
       const Text('-', style: TextStyle(color: Colors.white), textScaleFactor: 1.2),
       ...List.generate(maxWeight - minWeight + 1, (index) {
         int weight = index + minWeight;
-        return Text(weight.toString(), style: const TextStyle(color: Colors.white), textScaleFactor: 1.2);
+        return Text('$weight kg', style: const TextStyle(color: Colors.white), textScaleFactor: 1.2);
       }),
     ];
 
