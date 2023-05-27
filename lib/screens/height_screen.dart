@@ -12,13 +12,9 @@ class HeightScreen extends StatefulWidget {
 
 class _HeightScreenState extends State<HeightScreen> {
 
-  late TextEditingController textEditingControllerHeight;
-
-  @override
-  void dispose() {
-    textEditingControllerHeight.dispose();
-    super.dispose();
-  }
+  late FixedExtentScrollController _scrollController;
+  final int minHeight = 120;
+  final int maxHeight = 220;
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +22,17 @@ class _HeightScreenState extends State<HeightScreen> {
     final ancho = MediaQuery.of(context).size.width;
     final alto = MediaQuery.of(context).size.height;
 
+    List<Widget> pickerItems = [
+      const Text('-', style: TextStyle(color: Colors.white), textScaleFactor: 1.2),
+      ...List.generate(maxHeight - minHeight + 1, (index) {
+        int height = index + minHeight;
+        return Text('$height cm', style: const TextStyle(color: Colors.white), textScaleFactor: 1.2);
+      }),
+    ];
+
     ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
-    textEditingControllerHeight = TextEditingController(text: (cpi.patientQuestionnaire?.heightCm != null) ? cpi.patientQuestionnaire?.heightCm.toString() : null);
+    cpi.patientQuestionnaire?.heightCm = (cpi.patientQuestionnaire?.heightCm == null) ? null : cpi.patientQuestionnaire?.heightCm;
+    _scrollController = FixedExtentScrollController(initialItem: (cpi.patientQuestionnaire?.heightCm == null) ? 0 : (cpi.patientQuestionnaire!.heightCm! - minHeight + 1));
 
     return Scaffold(
       body: Container(
@@ -66,21 +71,30 @@ class _HeightScreenState extends State<HeightScreen> {
 
             Container(
               decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CupertinoTextField.borderless(
-                    controller: textEditingControllerHeight,
-                    // keyboardType: TextInputType.number,
-                    cursorColor: Colors.black,
-                    padding: const EdgeInsets.only(left: 65, top: 10, right: 6, bottom: 10),
-                    prefix: const Text("Altura", style: TextStyle(fontWeight: FontWeight.bold)),
-                    placeholder: "180",
-                    suffix: const Text("cm", style: TextStyle(fontWeight: FontWeight.bold)),
+                border: Border.all(
+                  color: Colors.black,
+                  style: BorderStyle.solid,
+                  width: 2),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: SizedBox(
+                height: alto * 0.3,
+                child: CupertinoTheme(
+                  data: const CupertinoThemeData(
+                    textTheme: CupertinoTextThemeData(
+                      dateTimePickerTextStyle: TextStyle(color: Colors.white),
+                    )
                   ),
-                ],
+                  child: CupertinoPicker(
+                    scrollController: _scrollController,
+                    itemExtent: 32,
+                    onSelectedItemChanged: (index) {
+                      cpi.patientQuestionnaire?.heightCm = (index == 0) ? null : (index + minHeight - 1);
+                      setState(() {});
+                    },
+                    children: pickerItems,
+                  ),
+                ),
               ),
             ),
 
@@ -110,7 +124,6 @@ class _HeightScreenState extends State<HeightScreen> {
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      cpi.patientQuestionnaire?.heightCm = (textEditingControllerHeight.text.isNotEmpty) ? int.parse(textEditingControllerHeight.text) : null;
                       Navigator.pop(context);
                     },
                     color: Colors.red,
@@ -127,12 +140,11 @@ class _HeightScreenState extends State<HeightScreen> {
                   ),
                 ),
 
-                Padding(padding: EdgeInsets.only(left: ancho * 0.05)),
+                (cpi.patientQuestionnaire?.heightCm != null) ? Padding(padding: EdgeInsets.only(left: ancho * 0.05)) : Container(),
 
-                Expanded(
+                (cpi.patientQuestionnaire?.heightCm != null) ? Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      cpi.patientQuestionnaire?.heightCm = (textEditingControllerHeight.text.isNotEmpty) ? int.parse(textEditingControllerHeight.text) : null;
                       Navigator.pushNamed(context, 'defecationscreen', arguments: cpi);
                     },
                     color: Colors.green,
@@ -147,7 +159,7 @@ class _HeightScreenState extends State<HeightScreen> {
                       ],
                     ),
                   ),
-                ),
+                ) : Container(),
 
               ],
             ),
