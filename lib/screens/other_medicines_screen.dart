@@ -65,24 +65,7 @@ class _OtherMedicinesScreenState extends State<OtherMedicinesScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             CheckboxListTile(
-              title: ElevatedButton(
-                style: ButtonStyle(
-                  shadowColor: MaterialStateProperty.all(Colors.white),
-                  minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                  backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Hierro')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                  foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Hierro')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: const BorderSide(color: Colors.white, width: 2)
-                    )
-                  )
-                ),
-                onPressed: () {
-                  botonPulsado(cpi, 'Hierro');
-                  setState(() {});
-                },
-                child: const Text("Hierro", textAlign: TextAlign.center),
-              ),
+              title: const Text("Hierro", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.white,
               checkColor: Colors.lightBlue.shade400,
@@ -94,24 +77,7 @@ class _OtherMedicinesScreenState extends State<OtherMedicinesScreen> {
             ),
 
             CheckboxListTile(
-              title: ElevatedButton(
-                style: ButtonStyle(
-                  shadowColor: MaterialStateProperty.all(Colors.white),
-                  minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                  backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Anticoagulantes orales')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                  foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Anticoagulantes orales')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: const BorderSide(color: Colors.white, width: 2)
-                    )
-                  )
-                ),
-                onPressed: () {
-                  botonPulsado(cpi, 'Anticoagulantes orales');
-                  setState(() {});
-                },
-                child: const Text("Anticoagulantes orales", textAlign: TextAlign.center),
-              ),
+              title: const Text("Anticoagulantes orales", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.white,
               checkColor: Colors.lightBlue.shade400,
@@ -123,24 +89,7 @@ class _OtherMedicinesScreenState extends State<OtherMedicinesScreen> {
             ),
 
             CheckboxListTile(
-              title: ElevatedButton(
-                style: ButtonStyle(
-                  shadowColor: MaterialStateProperty.all(Colors.white),
-                  minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                  backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Antiagregantes')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                  foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Antiagregantes')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: const BorderSide(color: Colors.white, width: 2)
-                    )
-                  )
-                ),
-                onPressed: () {
-                  botonPulsado(cpi, 'Antiagregantes');
-                  setState(() {});
-                },
-                child: const Text("Antiagregantes", textAlign: TextAlign.center),
-              ),
+              title: const Text("Antiagregantes", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.white,
               checkColor: Colors.lightBlue.shade400,

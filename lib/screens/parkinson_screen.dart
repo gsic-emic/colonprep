@@ -19,7 +19,6 @@ class _ParkinsonScreenState extends State<ParkinsonScreen> {
     final alto = MediaQuery.of(context).size.height;
 
     ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
-    cpi.patientQuestionnaire?.hasParkinson ??= false;
 
     return Scaffold(
       body: Container(
@@ -60,8 +59,8 @@ class _ParkinsonScreenState extends State<ParkinsonScreen> {
               style: ButtonStyle(
                 shadowColor: MaterialStateProperty.all(Colors.white),
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (cpi.patientQuestionnaire?.hasParkinson as bool) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (cpi.patientQuestionnaire?.hasParkinson as bool) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (cpi.patientQuestionnaire?.hasParkinson == true) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (cpi.patientQuestionnaire?.hasParkinson == true) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -80,8 +79,8 @@ class _ParkinsonScreenState extends State<ParkinsonScreen> {
             ElevatedButton(
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (!(cpi.patientQuestionnaire?.hasParkinson as bool)) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (!(cpi.patientQuestionnaire?.hasParkinson as bool)) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (cpi.patientQuestionnaire?.hasParkinson == false) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (cpi.patientQuestionnaire?.hasParkinson == false) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -137,9 +136,9 @@ class _ParkinsonScreenState extends State<ParkinsonScreen> {
                   ),
                 ),
 
-                Padding(padding: EdgeInsets.only(left: ancho * 0.05)),
+                (cpi.patientQuestionnaire?.hasParkinson != null) ? Padding(padding: EdgeInsets.only(left: ancho * 0.05)) : Container(),
 
-                Expanded(
+               (cpi.patientQuestionnaire?.hasParkinson != null) ? Expanded(
                   child: CupertinoButton(
                     onPressed: () {
                       Navigator.pushNamed(context, 'bariatricsurgeryscreen', arguments: cpi);
@@ -156,7 +155,7 @@ class _ParkinsonScreenState extends State<ParkinsonScreen> {
                       ],
                     ),
                   ),
-                ),
+                ) : Container(),
 
               ],
             ),

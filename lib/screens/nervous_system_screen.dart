@@ -76,24 +76,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                       children: [
                             
                         CheckboxListTile(
-                          title: ElevatedButton(
-                            style: ButtonStyle(
-                              shadowColor: MaterialStateProperty.all(Colors.white),
-                              minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Amitriptilina')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Amitriptilina')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: const BorderSide(color: Colors.white, width: 2)
-                                )
-                              )
-                            ),
-                            onPressed: () {
-                              botonPulsado(cpi, 'Amitriptilina');
-                              setState(() {});
-                            },
-                            child: const Text("Amitriptilina (Tryptizol\u00AE)", textAlign: TextAlign.center),
-                          ),
+                          title: const Text("Amitriptilina (Tryptizol\u00AE)", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
                           checkColor: Colors.lightBlue.shade400,
@@ -105,24 +88,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                         ),
                             
                         CheckboxListTile(
-                          title: ElevatedButton(
-                            style: ButtonStyle(
-                              shadowColor: MaterialStateProperty.all(Colors.white),
-                              minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Imipranina')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Imipranina')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: const BorderSide(color: Colors.white, width: 2)
-                                )
-                              )
-                            ),
-                            onPressed: () {
-                              botonPulsado(cpi, 'Imipranina');
-                              setState(() {});
-                            },
-                            child: const Text("Imipranina (Tofranil\u00AE)", textAlign: TextAlign.center),
-                          ),
+                          title: const Text("Imipranina (Tofranil\u00AE)", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
                           checkColor: Colors.lightBlue.shade400,
@@ -134,24 +100,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                         ),
                             
                         CheckboxListTile(
-                          title: ElevatedButton(
-                            style: ButtonStyle(
-                              shadowColor: MaterialStateProperty.all(Colors.white),
-                              minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Clomipramina')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Clomipramina')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: const BorderSide(color: Colors.white, width: 2)
-                                )
-                              )
-                            ),
-                            onPressed: () {
-                              botonPulsado(cpi, 'Clomipramina');
-                              setState(() {});
-                            },
-                            child: const Text("Clomipramina (Anafranil\u00AE)", textAlign: TextAlign.center),
-                          ),
+                          title: const Text("Clomipramina (Anafranil\u00AE)", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
                           checkColor: Colors.lightBlue.shade400,
@@ -163,24 +112,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                         ),
                             
                         CheckboxListTile(
-                          title: ElevatedButton(
-                            style: ButtonStyle(
-                              shadowColor: MaterialStateProperty.all(Colors.white),
-                              minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Paroxetina')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Paroxetina')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: const BorderSide(color: Colors.white, width: 2)
-                                )
-                              )
-                            ),
-                            onPressed: () {
-                              botonPulsado(cpi, 'Paroxetina');
-                              setState(() {});
-                            },
-                            child: const Text("Paroxetina", textAlign: TextAlign.center),
-                          ),
+                          title: const Text("Paroxetina", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
                           checkColor: Colors.lightBlue.shade400,
@@ -192,24 +124,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                         ),
                             
                         CheckboxListTile(
-                          title: ElevatedButton(
-                            style: ButtonStyle(
-                              shadowColor: MaterialStateProperty.all(Colors.white),
-                              minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Venlafaxina')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Venlafaxina')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: const BorderSide(color: Colors.white, width: 2)
-                                )
-                              )
-                            ),
-                            onPressed: () {
-                              botonPulsado(cpi, 'Venlafaxina');
-                              setState(() {});
-                            },
-                            child: const Text("Venlafaxina", textAlign: TextAlign.center),
-                          ),
+                          title: const Text("Venlafaxina", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
                           checkColor: Colors.lightBlue.shade400,
@@ -221,24 +136,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                         ),
                             
                         CheckboxListTile(
-                          title: ElevatedButton(
-                            style: ButtonStyle(
-                              shadowColor: MaterialStateProperty.all(Colors.white),
-                              minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Risperidona')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Risperidona')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: const BorderSide(color: Colors.white, width: 2)
-                                )
-                              )
-                            ),
-                            onPressed: () {
-                              botonPulsado(cpi, 'Risperidona');
-                              setState(() {});
-                            },
-                            child: const Text("Risperidona (Risperdal\u00AE)", textAlign: TextAlign.center),
-                          ),
+                          title: const Text("Risperidona (Risperdal\u00AE)", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
                           checkColor: Colors.lightBlue.shade400,
@@ -250,24 +148,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                         ),
               
                         CheckboxListTile(
-                          title: ElevatedButton(
-                            style: ButtonStyle(
-                              shadowColor: MaterialStateProperty.all(Colors.white),
-                              minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Clozapina')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Clozapina')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: const BorderSide(color: Colors.white, width: 2)
-                                )
-                              )
-                            ),
-                            onPressed: () {
-                              botonPulsado(cpi, 'Clozapina');
-                              setState(() {});
-                            },
-                            child: const Text("Clozapina (Leponex\u00AE, Nemea\u00AE)", textAlign: TextAlign.center),
-                          ),
+                          title: const Text("Clozapina (Leponex\u00AE, Nemea\u00AE)", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
                           checkColor: Colors.lightBlue.shade400,
@@ -279,24 +160,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                         ),
               
                         CheckboxListTile(
-                          title: ElevatedButton(
-                            style: ButtonStyle(
-                              shadowColor: MaterialStateProperty.all(Colors.white),
-                              minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Olanzapina')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Olanzapina')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: const BorderSide(color: Colors.white, width: 2)
-                                )
-                              )
-                            ),
-                            onPressed: () {
-                              botonPulsado(cpi, 'Olanzapina');
-                              setState(() {});
-                            },
-                            child: const Text("Olanzapina", textAlign: TextAlign.center),
-                          ),
+                          title: const Text("Olanzapina", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
                           checkColor: Colors.lightBlue.shade400,
@@ -308,24 +172,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                         ),
               
                         CheckboxListTile(
-                          title: ElevatedButton(
-                            style: ButtonStyle(
-                              shadowColor: MaterialStateProperty.all(Colors.white),
-                              minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Haloperidol')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Haloperidol')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: const BorderSide(color: Colors.white, width: 2)
-                                )
-                              )
-                            ),
-                            onPressed: () {
-                              botonPulsado(cpi, 'Haloperidol');
-                              setState(() {});
-                            },
-                            child: const Text("Haloperidol", textAlign: TextAlign.center),
-                          ),
+                          title: const Text("Haloperidol", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
                           checkColor: Colors.lightBlue.shade400,
@@ -337,24 +184,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                         ),
               
                         CheckboxListTile(
-                          title: ElevatedButton(
-                            style: ButtonStyle(
-                              shadowColor: MaterialStateProperty.all(Colors.white),
-                              minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Amisulpiride')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Amisulpiride')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: const BorderSide(color: Colors.white, width: 2)
-                                )
-                              )
-                            ),
-                            onPressed: () {
-                              botonPulsado(cpi, 'Amisulpiride');
-                              setState(() {});
-                            },
-                            child: const Text("Amisulpiride", textAlign: TextAlign.center),
-                          ),
+                          title: const Text("Amisulpiride", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
                           checkColor: Colors.lightBlue.shade400,
@@ -366,24 +196,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                         ),
               
                         CheckboxListTile(
-                          title: ElevatedButton(
-                            style: ButtonStyle(
-                              shadowColor: MaterialStateProperty.all(Colors.white),
-                              minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                              backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Quetiapina')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                              foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Quetiapina')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: const BorderSide(color: Colors.white, width: 2)
-                                )
-                              )
-                            ),
-                            onPressed: () {
-                              botonPulsado(cpi, 'Quetiapina');
-                              setState(() {});
-                            },
-                            child: const Text("Quetiapina (Seroquel\u00AE)", textAlign: TextAlign.center),
-                          ),
+                          title: const Text("Quetiapina (Seroquel\u00AE)", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
                           checkColor: Colors.lightBlue.shade400,

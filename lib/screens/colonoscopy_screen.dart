@@ -20,7 +20,6 @@ class _ColonoscopyScreenState extends State<ColonoscopyScreen> {
     final alto = MediaQuery.of(context).size.height;
 
     ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
-    cpi.patientQuestionnaire?.hasPreviousBadColonoscopy ??= false;
 
     return Scaffold(
       body: Container(
@@ -61,8 +60,8 @@ class _ColonoscopyScreenState extends State<ColonoscopyScreen> {
               style: ButtonStyle(
                 shadowColor: MaterialStateProperty.all(Colors.white),
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (cpi.patientQuestionnaire?.hasPreviousBadColonoscopy as bool) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (cpi.patientQuestionnaire?.hasPreviousBadColonoscopy as bool) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (cpi.patientQuestionnaire?.hasPreviousBadColonoscopy == true) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (cpi.patientQuestionnaire?.hasPreviousBadColonoscopy == true) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -81,8 +80,8 @@ class _ColonoscopyScreenState extends State<ColonoscopyScreen> {
             ElevatedButton(
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                backgroundColor: (!(cpi.patientQuestionnaire?.hasPreviousBadColonoscopy as bool)) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                foregroundColor: (!(cpi.patientQuestionnaire?.hasPreviousBadColonoscopy as bool)) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
+                backgroundColor: (cpi.patientQuestionnaire?.hasPreviousBadColonoscopy == false) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
+                foregroundColor: (cpi.patientQuestionnaire?.hasPreviousBadColonoscopy == false) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.white, width: 2)
@@ -138,9 +137,9 @@ class _ColonoscopyScreenState extends State<ColonoscopyScreen> {
                   ),
                 ),
 
-                Padding(padding: EdgeInsets.only(left: ancho * 0.05)),
+                (cpi.patientQuestionnaire?.hasPreviousBadColonoscopy != null) ? Padding(padding: EdgeInsets.only(left: ancho * 0.05)) : Container(),
 
-                Expanded(
+                (cpi.patientQuestionnaire?.hasPreviousBadColonoscopy != null) ? Expanded(
                   child: CupertinoButton(
                     onPressed: () {
                       Navigator.pushNamed(context, 'preparationscreen', arguments: cpi);
@@ -157,7 +156,7 @@ class _ColonoscopyScreenState extends State<ColonoscopyScreen> {
                       ],
                     ),
                   ),
-                ),
+                ) : Container(),
 
               ],
             ),

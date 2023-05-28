@@ -56,7 +56,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             const Text(
-              "¿Toma alguno de los siguientes fármacos para el control de la tensión arterial? Marque todos los que tome:",
+              "¿Toma alguno de los siguientes fármacos? Marque todos los que tome:",
               textAlign: TextAlign.justify,
               style: TextStyle(color: Colors.white),
             ),
@@ -64,24 +64,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             CheckboxListTile(
-              title: ElevatedButton(
-                style: ButtonStyle(
-                  shadowColor: MaterialStateProperty.all(Colors.white),
-                  minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                  backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Amlodipino')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                  foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Amlodipino')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: const BorderSide(color: Colors.white, width: 2)
-                    )
-                  )
-                ),
-                onPressed: () {
-                  botonPulsado(cpi, 'Amlodipino');
-                  setState(() {});
-                },
-                child: const Text("Amlodipino", textAlign: TextAlign.center),
-              ),
+              title: const Text("Amlodipino", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.white,
               checkColor: Colors.lightBlue.shade400,
@@ -93,24 +76,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
             ),
 
             CheckboxListTile(
-              title: ElevatedButton(
-                style: ButtonStyle(
-                  shadowColor: MaterialStateProperty.all(Colors.white),
-                  minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                  backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Diltiazem')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                  foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Diltiazem')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: const BorderSide(color: Colors.white, width: 2)
-                    )
-                  )
-                ),
-                onPressed: () {
-                  botonPulsado(cpi, 'Diltiazem');
-                  setState(() {});
-                },
-                child: const Text("Diltiazem", textAlign: TextAlign.center),
-              ),
+              title: const Text("Diltiazem", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.white,
               checkColor: Colors.lightBlue.shade400,
@@ -122,24 +88,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
             ),
 
             CheckboxListTile(
-              title: ElevatedButton(
-                style: ButtonStyle(
-                  shadowColor: MaterialStateProperty.all(Colors.white),
-                  minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                  backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Nicardipino')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                  foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Nicardipino')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: const BorderSide(color: Colors.white, width: 2)
-                    )
-                  )
-                ),
-                onPressed: () {
-                  botonPulsado(cpi, 'Nicardipino');
-                  setState(() {});
-                },
-                child: const Text("Nicardipino", textAlign: TextAlign.center),
-              ),
+              title: const Text("Nicardipino", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.white,
               checkColor: Colors.lightBlue.shade400,

@@ -56,7 +56,7 @@ class _PainScreenState extends State<PainScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             const Text(
-              "¿Toma alguno de los siguientes fármacos para el control del dolor? Marque todos los que tome:",
+              "¿Toma alguno de los siguientes fármacos? Marque todos los que tome:",
               textAlign: TextAlign.justify,
               style: TextStyle(color: Colors.white),
             ),
@@ -64,24 +64,7 @@ class _PainScreenState extends State<PainScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             CheckboxListTile(
-              title: ElevatedButton(
-                style: ButtonStyle(
-                  shadowColor: MaterialStateProperty.all(Colors.white),
-                  minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                  backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Fentanilo')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                  foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Fentanilo')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: const BorderSide(color: Colors.white, width: 2)
-                    )
-                  )
-                ),
-                onPressed: () {
-                  botonPulsado(cpi, 'Fentanilo');
-                  setState(() {});
-                },
-                child: const Text("Fentanilo (Actiq, Durogesic, Fendivia)", textAlign: TextAlign.center),
-              ),
+              title: const Text("Fentanilo (Actiq\u00AE, Durogesic\u00AE, Fendivia\u00AE)", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.white,
               checkColor: Colors.lightBlue.shade400,
@@ -93,24 +76,7 @@ class _PainScreenState extends State<PainScreen> {
             ),
 
             CheckboxListTile(
-              title: ElevatedButton(
-                style: ButtonStyle(
-                  shadowColor: MaterialStateProperty.all(Colors.white),
-                  minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                  backgroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Tramadol')) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-                  foregroundColor: (cpi.patientQuestionnaire!.medicines!.contains('Tramadol')) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: const BorderSide(color: Colors.white, width: 2)
-                    )
-                  )
-                ),
-                onPressed: () {
-                  botonPulsado(cpi, 'Tramadol');
-                  setState(() {});
-                },
-                child: const Text("Tramadol (Adolonta, Zaldiar)", textAlign: TextAlign.center),
-              ),
+              title: const Text("Tramadol (Adolonta\u00AE, Zaldiar\u00AE)", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.white,
               checkColor: Colors.lightBlue.shade400,

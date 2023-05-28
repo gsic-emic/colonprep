@@ -27,7 +27,6 @@ class _PreparationScreenState extends State<PreparationScreen> {
     final alto = MediaQuery.of(context).size.height;
 
     ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
-    cpi.preparation?.product ??= 'Bohn o Casenglicol';
     cpi.preparationCollected = true;
 
     return Scaffold(
@@ -213,9 +212,9 @@ class _PreparationScreenState extends State<PreparationScreen> {
                   ),
                 ),
 
-                Padding(padding: EdgeInsets.only(left: ancho * 0.05)),
+                (cpi.preparation?.product != null) ? Padding(padding: EdgeInsets.only(left: ancho * 0.05)) : Container(),
 
-                Expanded(
+                (cpi.preparation?.product != null) ? Expanded(
                   child: CupertinoButton(
                     onPressed: () {
                       Navigator.pushNamed(context, 'summaryscreen', arguments: cpi);
@@ -232,7 +231,7 @@ class _PreparationScreenState extends State<PreparationScreen> {
                       ],
                     ),
                   ),
-                ),
+                ) : Container(),
 
               ],
             ),
