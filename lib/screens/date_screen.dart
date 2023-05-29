@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/models/colonprep_info.dart';
 import 'package:hospital/tools/tools.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DateScreen extends StatefulWidget {
@@ -33,7 +32,15 @@ class _DateScreenState extends State<DateScreen> {
         child: Column(
           children: [
 
-            Padding(padding: EdgeInsets.only(top: alto * 0.1)),
+            Padding(padding: EdgeInsets.only(top: alto * 0.07)),
+
+            const Text(
+              "- Pregunta 1 de 15 -",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+            ),
+
+            Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             Text(
               AppLocalizations.of(context)!.colonoscopyDate,
@@ -49,7 +56,7 @@ class _DateScreenState extends State<DateScreen> {
             Image.asset(
               "assets/images/calendar.png",
               width: double.infinity,
-              height: ancho * 0.3,
+              height: ancho * 0.2,
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
@@ -118,14 +125,14 @@ class _DateScreenState extends State<DateScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
 
-            LinearPercentIndicator(
-              percent: 0.06,
-              lineHeight: 10.0,
-              barRadius: const Radius.circular(10),
-              progressColor: Colors.white,
-            ),
+            // LinearPercentIndicator(
+            //   percent: 0.06,
+            //   lineHeight: 10.0,
+            //   barRadius: const Radius.circular(10),
+            //   progressColor: Colors.white,
+            // ),
 
-            Padding(padding: EdgeInsets.only(top: alto * 0.02)),
+            // Padding(padding: EdgeInsets.only(top: alto * 0.02)),
 
             Row(
               children: [

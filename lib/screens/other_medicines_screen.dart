@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/models/colonprep_info.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class OtherMedicinesScreen extends StatefulWidget {
   const OtherMedicinesScreen({super.key});
@@ -17,6 +16,28 @@ class _OtherMedicinesScreenState extends State<OtherMedicinesScreen> {
       cpi.patientQuestionnaire!.medicines!.remove(medicamento);
     } else {
       cpi.patientQuestionnaire!.medicines!.add(medicamento);
+    }
+
+    cpi.patientQuestionnaire!.medicines!.remove('No otros');
+  }
+
+  void borrarMedicinas(ColonprepInfo cpi) {
+    cpi.patientQuestionnaire!.medicines!.remove('Hierro');
+    cpi.patientQuestionnaire!.medicines!.remove('Anticoagulantes orales');
+    cpi.patientQuestionnaire!.medicines!.remove('Antiagregantes');
+    if(cpi.patientQuestionnaire!.medicines!.contains('No otros') == false) {
+      cpi.patientQuestionnaire!.medicines!.add('No otros');
+    }
+  }
+
+  bool algoSeleccionado(ColonprepInfo cpi) {
+    if(cpi.patientQuestionnaire!.medicines!.contains('Hierro') ||
+    cpi.patientQuestionnaire!.medicines!.contains('Anticoagulantes orales') ||
+    cpi.patientQuestionnaire!.medicines!.contains('Antiagregantes') ||
+    cpi.patientQuestionnaire!.medicines!.contains('No otros')) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -35,7 +56,15 @@ class _OtherMedicinesScreenState extends State<OtherMedicinesScreen> {
         child: Column(
           children: [
 
-            Padding(padding: EdgeInsets.only(top: alto * 0.1)),
+            Padding(padding: EdgeInsets.only(top: alto * 0.07)),
+
+            const Text(
+              "- Pregunta 10 de 15 -",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+            ),
+
+            Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             const Text(
               "MEDICACIÓN",
@@ -51,7 +80,7 @@ class _OtherMedicinesScreenState extends State<OtherMedicinesScreen> {
             Image.asset(
               "assets/images/medicine.png",
               width: double.infinity,
-              height: ancho * 0.3,
+              height: ancho * 0.2,
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
@@ -100,6 +129,18 @@ class _OtherMedicinesScreenState extends State<OtherMedicinesScreen> {
               },
             ),
 
+            CheckboxListTile(
+              title: const Text("Ninguna de ellas", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
+              controlAffinity: ListTileControlAffinity.leading,
+              activeColor: Colors.white,
+              checkColor: Colors.lightBlue.shade400,
+              value: cpi.patientQuestionnaire!.medicines!.contains('No otros'),
+              onChanged: (value) {
+                borrarMedicinas(cpi);
+                setState(() {});
+              },
+            ),
+
           ],
         ),
       ),
@@ -112,15 +153,6 @@ class _OtherMedicinesScreenState extends State<OtherMedicinesScreen> {
           children: [
 
             SizedBox(height: alto * 0.02),
-
-            LinearPercentIndicator(
-              percent: 0.66,
-              lineHeight: 10.0,
-              barRadius: const Radius.circular(10),
-              progressColor: Colors.white,
-            ),
-
-            Padding(padding: EdgeInsets.only(top: alto * 0.02)),
 
             Row(
               children: [
@@ -144,9 +176,9 @@ class _OtherMedicinesScreenState extends State<OtherMedicinesScreen> {
                   ),
                 ),
 
-                Padding(padding: EdgeInsets.only(left: ancho * 0.05)),
+                (algoSeleccionado(cpi)) ? Padding(padding: EdgeInsets.only(left: ancho * 0.05)) : Container(),
 
-                Expanded(
+                (algoSeleccionado(cpi)) ? Expanded(
                   child: CupertinoButton(
                     onPressed: () {
                       Navigator.pushNamed(context, 'nervoussystemscreen', arguments: cpi);
@@ -163,7 +195,7 @@ class _OtherMedicinesScreenState extends State<OtherMedicinesScreen> {
                       ],
                     ),
                   ),
-                ),
+                ) : Container(),
 
               ],
             ),

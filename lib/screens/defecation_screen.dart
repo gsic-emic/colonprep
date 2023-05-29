@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/models/colonprep_info.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 
 class DefecationScreen extends StatefulWidget {
@@ -27,7 +26,15 @@ class _DefecationScreenState extends State<DefecationScreen> {
         child: Column(
           children: [
 
-            Padding(padding: EdgeInsets.only(top: alto * 0.1)),
+            Padding(padding: EdgeInsets.only(top: alto * 0.07)),
+
+            const Text(
+              "- Pregunta 5 de 15 -",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+            ),
+
+            Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             const Text(
               "DEPOSICIONES",
@@ -43,7 +50,7 @@ class _DefecationScreenState extends State<DefecationScreen> {
             Image.asset(
               "assets/images/defecation.png",
               width: double.infinity,
-              height: ancho * 0.3,
+              height: ancho * 0.2,
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
@@ -105,15 +112,6 @@ class _DefecationScreenState extends State<DefecationScreen> {
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
-
-            LinearPercentIndicator(
-              percent: 0.33,
-              lineHeight: 10.0,
-              barRadius: const Radius.circular(10),
-              progressColor: Colors.white,
-            ),
-
-            Padding(padding: EdgeInsets.only(top: alto * 0.02)),
 
             Row(
               children: [

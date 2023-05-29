@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/models/colonprep_info.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class GlucoseScreen extends StatefulWidget {
   const GlucoseScreen({super.key});
@@ -26,7 +25,15 @@ class _GlucoseScreenState extends State<GlucoseScreen> {
         child: Column(
           children: [
 
-            Padding(padding: EdgeInsets.only(top: alto * 0.1)),
+            Padding(padding: EdgeInsets.only(top: alto * 0.07)),
+
+            const Text(
+              "- Pregunta 6 de 15 -",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+            ),
+
+            Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             const Text(
               "GLUCOSA",
@@ -42,7 +49,7 @@ class _GlucoseScreenState extends State<GlucoseScreen> {
             Image.asset(
               "assets/images/diabetic.png",
               width: double.infinity,
-              height: ancho * 0.3,
+              height: ancho * 0.2,
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
@@ -104,15 +111,6 @@ class _GlucoseScreenState extends State<GlucoseScreen> {
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
-
-            LinearPercentIndicator(
-              percent: 0.4,
-              lineHeight: 10.0,
-              barRadius: const Radius.circular(10),
-              progressColor: Colors.white,
-            ),
-
-            Padding(padding: EdgeInsets.only(top: alto * 0.02)),
 
             Row(
               children: [

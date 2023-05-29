@@ -90,7 +90,7 @@ class MyApp extends StatelessWidget {
 
         checkboxTheme: Theme.of(context).checkboxTheme.copyWith(
           fillColor: MaterialStateProperty.resolveWith((states) => Colors.white)
-        )
+        ),
       ),
 
       localizationsDelegates: const [

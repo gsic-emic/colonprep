@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/models/colonprep_info.dart';
-import 'package:hospital/services/local_notification.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class ColonoscopyScreen extends StatefulWidget {
   const ColonoscopyScreen({super.key});
@@ -27,7 +25,15 @@ class _ColonoscopyScreenState extends State<ColonoscopyScreen> {
         child: Column(
           children: [
 
-            Padding(padding: EdgeInsets.only(top: alto * 0.1)),
+            Padding(padding: EdgeInsets.only(top: alto * 0.07)),
+
+            const Text(
+              "- Pregunta 14 de 15 -",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+            ),
+
+            Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             const Text(
               "COLONOSCOPIA ANTERIOR",
@@ -43,7 +49,7 @@ class _ColonoscopyScreenState extends State<ColonoscopyScreen> {
             Image.asset(
               "assets/images/colonoscopy.png",
               width: double.infinity,
-              height: ancho * 0.3,
+              height: ancho * 0.2,
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
@@ -105,15 +111,6 @@ class _ColonoscopyScreenState extends State<ColonoscopyScreen> {
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
-
-            LinearPercentIndicator(
-              percent: 1.0,
-              lineHeight: 10.0,
-              barRadius: const Radius.circular(10),
-              progressColor: Colors.white,
-            ),
-
-            Padding(padding: EdgeInsets.only(top: alto * 0.02)),
 
             Row(
               children: [

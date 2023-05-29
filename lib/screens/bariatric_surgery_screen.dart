@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/models/colonprep_info.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class BariatricSurgeryScreen extends StatefulWidget {
   const BariatricSurgeryScreen({super.key});
@@ -26,7 +25,15 @@ class _BariatricSurgeryScreenState extends State<BariatricSurgeryScreen> {
         child: Column(
           children: [
 
-            Padding(padding: EdgeInsets.only(top: alto * 0.1)),
+            Padding(padding: EdgeInsets.only(top: alto * 0.07)),
+
+            const Text(
+              "- Pregunta 8 de 15 -",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+            ),
+
+            Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             const Text(
               "OPERACIÓN",
@@ -42,7 +49,7 @@ class _BariatricSurgeryScreenState extends State<BariatricSurgeryScreen> {
             Image.asset(
               "assets/images/surgery.png",
               width: double.infinity,
-              height: ancho * 0.3,
+              height: ancho * 0.2,
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
@@ -104,15 +111,6 @@ class _BariatricSurgeryScreenState extends State<BariatricSurgeryScreen> {
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
-
-            LinearPercentIndicator(
-              percent: 0.53,
-              lineHeight: 10.0,
-              barRadius: const Radius.circular(10),
-              progressColor: Colors.white,
-            ),
-
-            Padding(padding: EdgeInsets.only(top: alto * 0.02)),
 
             Row(
               children: [

@@ -41,15 +41,15 @@ class CardsManager {
   }
 
   static void createCardsDay0(ColonprepInfo cpi, Cards cards, DateTime datetime) async {
-    if(previousPreparation(cpi)) {
+    if(isIntensivePreparation(cpi)) {
       cards.cards!.add(Card(timestamp: datetime.subtract(const Duration(hours: 24)), text: 'Recuerda tomar únicamente líquidos claros y bebidas isotónicas (no carbonatadas ni con azúcares) hasta 2-3 horas antes de la prueba', type: 'Info'));
     }
   }
 
   static void createCardsDay1(ColonprepInfo cpi, Cards cards, DateTime datetime) async {
-    if(previousPreparation(cpi) && cpi.appointment?.appointmentShift == 'morning') {
+    if(isIntensivePreparation(cpi) && cpi.appointment?.appointmentShift == 'morning') {
       cards.cards!.add(Card(timestamp: DateTime(datetime.year, datetime.month, datetime.day - 1, 0, 0, 0), text: 'Recuerda tomar al menos 2 litros de agua al día', type: 'Info'));
-    } else if(previousPreparation(cpi) && cpi.appointment?.appointmentShift == 'afternoon') {
+    } else if(isIntensivePreparation(cpi) && cpi.appointment?.appointmentShift == 'afternoon') {
       cards.cards!.add(Card(timestamp: DateTime(datetime.year, datetime.month, datetime.day - 1, 0, 0, 0), text: 'Recuerda tomar al menos 2 litros de agua al día', type: 'Info'));
       cards.cards!.add(Card(timestamp: DateTime(datetime.year, datetime.month, datetime.day - 1, 21, 0, 0), text: 'Recuerda tomar entre 6-8 gotas de Picosulfato de Sodio (Evacuol) por la noche', type: 'Action', state: 'Pending', description: 'Toma Evacuol día 2'));
     } else {
@@ -59,7 +59,7 @@ class CardsManager {
   }
 
   static void createCardsDay2(ColonprepInfo cpi, Cards cards, DateTime datetime) async {
-    if(previousPreparation(cpi)) {
+    if(isIntensivePreparation(cpi)) {
       cards.cards!.add(Card(timestamp: DateTime(datetime.year, datetime.month, datetime.day - 2, 0, 0, 0), text: 'Recuerda tomar al menos 2 litros de agua al día', type: 'Info'));
       cards.cards!.add(Card(timestamp: DateTime(datetime.year, datetime.month, datetime.day - 2, 21, 0, 0), text: 'Recuerda tomar entre 6-8 gotas de Picosulfato de Sodio (Evacuol) por la noche', type: 'Action', state: 'Pending', description: 'Toma Evacuol día 2'));
     } else {
@@ -69,7 +69,7 @@ class CardsManager {
   }
 
   static void createCardsDay3(ColonprepInfo cpi, Cards cards, DateTime datetime) async {
-    if(previousPreparation(cpi)) {
+    if(isIntensivePreparation(cpi)) {
       cards.cards!.add(Card(timestamp: DateTime(datetime.year, datetime.month, datetime.day - 3, 0, 0, 0), text: 'Recuerda tomar al menos 2 litros de agua al día', type: 'Info'));
       cards.cards!.add(Card(timestamp: DateTime(datetime.year, datetime.month, datetime.day - 3, 21, 0, 0), text: 'Recuerda tomar entre 6-8 gotas de Picosulfato de Sodio (Evacuol) por la noche', type: 'Action', state: 'Pending', description: 'Toma Evacuol día 3'));
     } else {
@@ -79,22 +79,21 @@ class CardsManager {
   }
 
   static void createCardsDay4(ColonprepInfo cpi, Cards cards, DateTime datetime) async {
-    if(previousPreparation(cpi)) {
+    if(isIntensivePreparation(cpi)) {
       cards.cards!.add(Card(timestamp: DateTime(datetime.year, datetime.month, datetime.day - 4, 0, 0, 0), text: 'Recuerda tomar al menos 2 litros de agua al día', type: 'Info'));
       cards.cards!.add(Card(timestamp: DateTime(datetime.year, datetime.month, datetime.day - 4, 21, 0, 0), text: 'Recuerda tomar entre 6-8 gotas de Picosulfato de Sodio (Evacuol) por la noche', type: 'Action', state: 'Pending', description: 'Toma Evacuol día 4'));
     }
   }
   
   static void createCardsDay5(ColonprepInfo cpi, Cards cards, DateTime datetime) async {
-    if(previousPreparation(cpi) && cpi.appointment?.appointmentShift == 'morning') {
+    if(isIntensivePreparation(cpi) && cpi.appointment?.appointmentShift == 'morning') {
       cards.cards!.add(Card(timestamp: DateTime(datetime.year, datetime.month, datetime.day - 5, 0, 0, 0), text: 'Recuerda tomar al menos 2 litros de agua al día', type: 'Info'));
       cards.cards!.add(Card(timestamp: DateTime(datetime.year, datetime.month, datetime.day - 5, 21, 0, 0), text: 'Recuerda tomar entre 6-8 gotas de Picosulfato de Sodio (Evacuol) por la noche', type: 'Action', state: 'Pending', description: 'Toma Evacuol día 5'));
     }
   }
 
   //PREPARACIÓN 5 DÍAS ANTES CON 2 LITROS DE AGUA, 24 HORAS ANTES SOLO LÍQUIDOS Y 3 VASOS DE LÍQUIDOS ADEMÁS DEL PREPARADO Y AÑADIR EVACUOL
-  //preparación intesiva
-  static bool previousPreparation(ColonprepInfo cpi) {
+  static bool isIntensivePreparation(ColonprepInfo cpi) {
     if (cpi.patientQuestionnaire?.constipation == true ||
         cpi.patientQuestionnaire?.isDiabetic == true ||
         cpi.patientQuestionnaire?.hasParkinson == true ||

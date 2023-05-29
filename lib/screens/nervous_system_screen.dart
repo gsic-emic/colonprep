@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/models/colonprep_info.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class NervousSystemScreen extends StatefulWidget {
   const NervousSystemScreen({super.key});
@@ -17,6 +16,44 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
       cpi.patientQuestionnaire!.medicines!.remove(medicamento);
     } else {
       cpi.patientQuestionnaire!.medicines!.add(medicamento);
+    }
+  
+    cpi.patientQuestionnaire!.medicines!.remove('No nervioso');
+  }
+
+  void borrarMedicinas(ColonprepInfo cpi) {
+    cpi.patientQuestionnaire!.medicines!.remove('Amitriptilina');
+    cpi.patientQuestionnaire!.medicines!.remove('Imipranina');
+    cpi.patientQuestionnaire!.medicines!.remove('Clomipramina');
+    cpi.patientQuestionnaire!.medicines!.remove('Paroxetina');
+    cpi.patientQuestionnaire!.medicines!.remove('Venlafaxina');
+    cpi.patientQuestionnaire!.medicines!.remove('Risperidona');
+    cpi.patientQuestionnaire!.medicines!.remove('Clozapina');
+    cpi.patientQuestionnaire!.medicines!.remove('Olanzapina');
+    cpi.patientQuestionnaire!.medicines!.remove('Haloperidol');
+    cpi.patientQuestionnaire!.medicines!.remove('Amisulpiride');
+    cpi.patientQuestionnaire!.medicines!.remove('Quetiapina');
+    if(cpi.patientQuestionnaire!.medicines!.contains('No nervioso') == false) {
+      cpi.patientQuestionnaire!.medicines!.add('No nervioso');
+    }
+  }
+
+  bool algoSeleccionado(ColonprepInfo cpi) {
+    if(cpi.patientQuestionnaire!.medicines!.contains('Amitriptilina') ||
+    cpi.patientQuestionnaire!.medicines!.contains('Imipranina') ||
+    cpi.patientQuestionnaire!.medicines!.contains('Clomipramina') ||
+    cpi.patientQuestionnaire!.medicines!.contains('Paroxetina') ||
+    cpi.patientQuestionnaire!.medicines!.contains('Venlafaxina') ||
+    cpi.patientQuestionnaire!.medicines!.contains('Risperidona') ||
+    cpi.patientQuestionnaire!.medicines!.contains('Clozapina') ||
+    cpi.patientQuestionnaire!.medicines!.contains('Olanzapina') ||
+    cpi.patientQuestionnaire!.medicines!.contains('Haloperidol') ||
+    cpi.patientQuestionnaire!.medicines!.contains('Amisulpiride') ||
+    cpi.patientQuestionnaire!.medicines!.contains('Quetiapina') ||
+    cpi.patientQuestionnaire!.medicines!.contains('No nervioso')) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -34,7 +71,15 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
         child: Column(
           children: [
 
-            Padding(padding: EdgeInsets.only(top: alto * 0.1)),
+            Padding(padding: EdgeInsets.only(top: alto * 0.07)),
+
+            const Text(
+              "- Pregunta 11 de 15 -",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+            ),
+
+            Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             const Text(
               "MEDICACIÓN",
@@ -50,7 +95,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
             Image.asset(
               "assets/images/medicine.png",
               width: double.infinity,
-              height: ancho * 0.3,
+              height: ancho * 0.2,
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
@@ -206,6 +251,18 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                             setState(() {});
                           },
                         ),
+
+                        CheckboxListTile(
+                          title: const Text("Ninguna de ellas", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
+                          controlAffinity: ListTileControlAffinity.leading,
+                          activeColor: Colors.white,
+                          checkColor: Colors.lightBlue.shade400,
+                          value: cpi.patientQuestionnaire!.medicines!.contains('No nervioso'),
+                          onChanged: (value) {
+                            borrarMedicinas(cpi);
+                            setState(() {});
+                          },
+                        ),
                             
                       ],
                     ),
@@ -226,15 +283,6 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
           children: [
 
             SizedBox(height: alto * 0.02),
-
-            LinearPercentIndicator(
-              percent: 0.73,
-              lineHeight: 10.0,
-              barRadius: const Radius.circular(10),
-              progressColor: Colors.white,
-            ),
-
-            Padding(padding: EdgeInsets.only(top: alto * 0.02)),
 
             Row(
               children: [
@@ -258,9 +306,9 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                   ),
                 ),
 
-                Padding(padding: EdgeInsets.only(left: ancho * 0.05)),
+                (algoSeleccionado(cpi)) ? Padding(padding: EdgeInsets.only(left: ancho * 0.05)) : Container(),
 
-                Expanded(
+                (algoSeleccionado(cpi)) ? Expanded(
                   child: CupertinoButton(
                     onPressed: () {
                       Navigator.pushNamed(context, 'painscreen', arguments: cpi);
@@ -277,7 +325,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                       ],
                     ),
                   ),
-                ),
+                ) : Container(),
 
               ],
             ),

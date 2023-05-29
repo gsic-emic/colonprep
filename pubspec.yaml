@@ -44,7 +44,6 @@ dependencies:
   shared_preferences: ^2.0.17             #Preferencias locales
   calendar_date_picker2: ^0.3.6           #Calendario para seleccionar fecha
   path_provider: ^2.0.12                  #Obtener directorio ficheros
-  percent_indicator: ^4.2.2               #Línea de progreso
   
   flutter_localizations:
     sdk: flutter

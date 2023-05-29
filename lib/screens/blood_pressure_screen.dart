@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/models/colonprep_info.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class BloodPressureScreen extends StatefulWidget {
   const BloodPressureScreen({super.key});
@@ -17,6 +16,28 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
       cpi.patientQuestionnaire!.medicines!.remove(medicamento);
     } else {
       cpi.patientQuestionnaire!.medicines!.add(medicamento);
+    }
+  
+    cpi.patientQuestionnaire!.medicines!.remove('No tension');
+  }
+
+  void borrarMedicinas(ColonprepInfo cpi) {
+    cpi.patientQuestionnaire!.medicines!.remove('Amlodipino');
+    cpi.patientQuestionnaire!.medicines!.remove('Diltiazem');
+    cpi.patientQuestionnaire!.medicines!.remove('Nicardipino');
+    if(cpi.patientQuestionnaire!.medicines!.contains('No tension') == false) {
+      cpi.patientQuestionnaire!.medicines!.add('No tension');
+    }
+  }
+
+  bool algoSeleccionado(ColonprepInfo cpi) {
+    if(cpi.patientQuestionnaire!.medicines!.contains('Amlodipino') ||
+    cpi.patientQuestionnaire!.medicines!.contains('Diltiazem') ||
+    cpi.patientQuestionnaire!.medicines!.contains('Nicardipino') ||
+    cpi.patientQuestionnaire!.medicines!.contains('No tension')) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -34,7 +55,15 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
         child: Column(
           children: [
 
-            Padding(padding: EdgeInsets.only(top: alto * 0.1)),
+            Padding(padding: EdgeInsets.only(top: alto * 0.07)),
+
+            const Text(
+              "- Pregunta 13 de 15 -",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+            ),
+
+            Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             const Text(
               "MEDICACIÓN",
@@ -50,7 +79,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
             Image.asset(
               "assets/images/medicine.png",
               width: double.infinity,
-              height: ancho * 0.3,
+              height: ancho * 0.2,
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
@@ -99,6 +128,18 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
               },
             ),
 
+            CheckboxListTile(
+              title: const Text("Ninguna de ellas", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
+              controlAffinity: ListTileControlAffinity.leading,
+              activeColor: Colors.white,
+              checkColor: Colors.lightBlue.shade400,
+              value: cpi.patientQuestionnaire!.medicines!.contains('No tension'),
+              onChanged: (value) {
+                borrarMedicinas(cpi);
+                setState(() {});
+              },
+            ),
+
           ],
         ),
       ),
@@ -111,15 +152,6 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
           children: [
 
             SizedBox(height: alto * 0.02),
-
-            LinearPercentIndicator(
-              percent: 0.86,
-              lineHeight: 10.0,
-              barRadius: const Radius.circular(10),
-              progressColor: Colors.white,
-            ),
-
-            Padding(padding: EdgeInsets.only(top: alto * 0.02)),
 
             Row(
               children: [
@@ -143,9 +175,9 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                   ),
                 ),
 
-                Padding(padding: EdgeInsets.only(left: ancho * 0.05)),
+                (algoSeleccionado(cpi)) ? Padding(padding: EdgeInsets.only(left: ancho * 0.05)) : Container(),
 
-                Expanded(
+                (algoSeleccionado(cpi)) ? Expanded(
                   child: CupertinoButton(
                     onPressed: () {
                       Navigator.pushNamed(context, 'colonoscopyscreen', arguments: cpi);
@@ -162,7 +194,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
                       ],
                     ),
                   ),
-                ),
+                ) : Container(),
 
               ],
             ),

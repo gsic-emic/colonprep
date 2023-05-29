@@ -1,9 +1,7 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/models/colonprep_info.dart';
 import 'package:hospital/tools/tools.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class TimeScreen extends StatefulWidget {
   const TimeScreen({super.key});
@@ -28,7 +26,15 @@ class _TimeScreenState extends State<TimeScreen> {
         child: Column(
           children: [
 
-            Padding(padding: EdgeInsets.only(top: alto * 0.1)),
+            Padding(padding: EdgeInsets.only(top: alto * 0.07)),
+
+            const Text(
+              "- Pregunta 2 de 15 -",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+            ),
+
+            Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             const Text(
               'HORA COLONOSCOPIA',
@@ -44,7 +50,7 @@ class _TimeScreenState extends State<TimeScreen> {
             Image.asset(
               "assets/images/calendar.png",
               width: double.infinity,
-              height: ancho * 0.3,
+              height: ancho * 0.2,
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
@@ -110,15 +116,6 @@ class _TimeScreenState extends State<TimeScreen> {
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
-
-            LinearPercentIndicator(
-              percent: 0.13,
-              lineHeight: 10.0,
-              barRadius: const Radius.circular(10),
-              progressColor: Colors.white,
-            ),
-
-            Padding(padding: EdgeInsets.only(top: alto * 0.02)),
 
             Row(
               children: [

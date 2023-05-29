@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/models/colonprep_info.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class PainScreen extends StatefulWidget {
   const PainScreen({super.key});
@@ -17,6 +16,26 @@ class _PainScreenState extends State<PainScreen> {
       cpi.patientQuestionnaire!.medicines!.remove(medicamento);
     } else {
       cpi.patientQuestionnaire!.medicines!.add(medicamento);
+    }
+
+    cpi.patientQuestionnaire!.medicines!.remove('No dolor');
+  }
+
+  void borrarMedicinas(ColonprepInfo cpi) {
+    cpi.patientQuestionnaire!.medicines!.remove('Fentanilo');
+    cpi.patientQuestionnaire!.medicines!.remove('Tramadol');
+    if(cpi.patientQuestionnaire!.medicines!.contains('No dolor') == false) {
+      cpi.patientQuestionnaire!.medicines!.add('No dolor');
+    }
+  }
+
+  bool algoSeleccionado(ColonprepInfo cpi) {
+    if(cpi.patientQuestionnaire!.medicines!.contains('Fentanilo') ||
+    cpi.patientQuestionnaire!.medicines!.contains('Tramadol') ||
+    cpi.patientQuestionnaire!.medicines!.contains('No dolor')) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -34,7 +53,15 @@ class _PainScreenState extends State<PainScreen> {
         child: Column(
           children: [
 
-            Padding(padding: EdgeInsets.only(top: alto * 0.1)),
+            Padding(padding: EdgeInsets.only(top: alto * 0.07)),
+
+            const Text(
+              "- Pregunta 12 de 15 -",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+            ),
+
+            Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             const Text(
               "MEDICACIÓN",
@@ -50,7 +77,7 @@ class _PainScreenState extends State<PainScreen> {
             Image.asset(
               "assets/images/medicine.png",
               width: double.infinity,
-              height: ancho * 0.3,
+              height: ancho * 0.2,
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
@@ -87,6 +114,18 @@ class _PainScreenState extends State<PainScreen> {
               },
             ),
 
+            CheckboxListTile(
+              title: const Text("Ninguna de ellas", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
+              controlAffinity: ListTileControlAffinity.leading,
+              activeColor: Colors.white,
+              checkColor: Colors.lightBlue.shade400,
+              value: cpi.patientQuestionnaire!.medicines!.contains('No dolor'),
+              onChanged: (value) {
+                borrarMedicinas(cpi);
+                setState(() {});
+              },
+            ),
+
           ],
         ),
       ),
@@ -99,15 +138,6 @@ class _PainScreenState extends State<PainScreen> {
           children: [
 
             SizedBox(height: alto * 0.02),
-
-            LinearPercentIndicator(
-              percent: 0.8,
-              lineHeight: 10.0,
-              barRadius: const Radius.circular(10),
-              progressColor: Colors.white,
-            ),
-
-            Padding(padding: EdgeInsets.only(top: alto * 0.02)),
 
             Row(
               children: [
@@ -131,9 +161,9 @@ class _PainScreenState extends State<PainScreen> {
                   ),
                 ),
 
-                Padding(padding: EdgeInsets.only(left: ancho * 0.05)),
+                (algoSeleccionado(cpi)) ? Padding(padding: EdgeInsets.only(left: ancho * 0.05)) : Container(),
 
-                Expanded(
+                (algoSeleccionado(cpi)) ? Expanded(
                   child: CupertinoButton(
                     onPressed: () {
                       Navigator.pushNamed(context, 'bloodpressurescreen', arguments: cpi);
@@ -150,7 +180,7 @@ class _PainScreenState extends State<PainScreen> {
                       ],
                     ),
                   ),
-                ),
+                ) : Container(),
 
               ],
             ),

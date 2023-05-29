@@ -84,13 +84,13 @@ class _InitialScreenState extends State<InitialScreen> {
 
             Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
-            TextButton(
-              onPressed: (){},
-              child: const Text(
-                'Información general',
-                style: TextStyle(color: Colors.white)
-              )
-            ),
+            // TextButton(
+            //   onPressed: (){},
+            //   child: const Text(
+            //     'Información general',
+            //     style: TextStyle(color: Colors.white)
+            //   )
+            // ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.1)),
 

@@ -3,7 +3,7 @@ import 'package:hospital/models/cards.dart';
 import 'package:hospital/models/colonprep_info.dart';
 import 'package:hospital/services/cards_manager.dart';
 import 'package:hospital/services/local_notification.dart';
-import 'package:hospital/tools/tools.dart';
+import 'package:hospital/widgets/show_card.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -43,7 +43,6 @@ class _MainScreenState extends State<MainScreen> {
                 LocalNotification().cancelNotifications();
                 ColonprepInfo.removeColonprepInfo();
                 Navigator.pushNamedAndRemoveUntil(context, 'initialscreen', (route) => false);
-                print('hola');
               },
             ),
           ),
@@ -85,8 +84,8 @@ class _MainScreenState extends State<MainScreen> {
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
-                            Tarjeta(
-                              cards.cards![index].timestamp!,
+                            ShowCard(
+                              cards.cards?[index].timestamp,
                               cards.cards![index].text!,
                               cards.cards![index].type!,
                               cards.cards![index].description,
@@ -105,189 +104,6 @@ class _MainScreenState extends State<MainScreen> {
             );
           }
         },
-      ),
-    );
-  }
-}
-
-
-class Tarjeta extends StatelessWidget {
-  const Tarjeta(this.datetime, this.text, this.type, this.description,  {
-    super.key,
-    required this.ancho,
-    required this.alto,
-  });
-
-  final DateTime datetime;
-  final String text;
-  final String type;
-  final String? description;
-  final double ancho;
-  final double alto;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: ancho * 0.95,
-      padding: EdgeInsets.only(top: alto * 0.01, bottom: alto * 0.01, left: ancho * 0.04, right: ancho * 0.04),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: (type == 'Info') ? Colors.blueGrey : Colors.greenAccent,
-          style: BorderStyle.solid,
-          width: 2),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        children: [
-          Text(
-            Tools.formatDateWithoutTime(datetime),
-            textAlign: TextAlign.justify,
-            style: const TextStyle(
-                color: Colors.white),
-          ),
-          Padding(padding: EdgeInsets.only(top: alto * 0.01)),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                Tools.formatTimeWithoutDate(datetime),
-                textAlign: TextAlign.justify,
-                style: const TextStyle(
-                    color: Colors.white),
-              ),
-              Padding(padding: EdgeInsets.symmetric(horizontal: ancho * 0.01)),
-              Expanded(
-                child: Text(
-                  text,
-                  textAlign: TextAlign.justify,
-                  style: const TextStyle(
-                      color: Colors.white),
-                ),
-              ),
-              Padding(padding: EdgeInsets.symmetric(horizontal: ancho * 0.01)),
-              (type == 'Info') ? const Icon(Icons.info_outline_rounded) : const Icon(Icons.check_rounded),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class TarjetaVerde extends StatelessWidget {
-  const TarjetaVerde(this.text,
-    this.hour, {
-    super.key,
-    required this.ancho,
-    required this.alto,
-  });
-
-  final String text;
-  final String hour;
-  final double ancho;
-  final double alto;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: ancho * 0.95,
-      padding: EdgeInsets.only(top: alto * 0.01, bottom: alto * 0.01, left: ancho * 0.04, right: ancho * 0.04),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.greenAccent,
-          style: BorderStyle.solid,
-          width: 2),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            hour,
-            textAlign: TextAlign.justify,
-            style: const TextStyle(
-                color: Colors.white),
-          ),
-          Padding(padding: EdgeInsets.symmetric(horizontal: ancho * 0.01)),
-          Expanded(
-            child: Text(
-              text,
-              textAlign: TextAlign.justify,
-              style: const TextStyle(
-                  color: Colors.white),
-            ),
-          ),
-          Padding(padding: EdgeInsets.symmetric(horizontal: ancho * 0.01)),
-          const Icon(Icons.check_rounded),
-        ],
-      ),
-    );
-  }
-}
-
-class TarjetaRoja extends StatelessWidget {
-  const TarjetaRoja(this.text, 
-    this.hour, {
-    super.key,
-    required this.ancho,
-    required this.alto,
-  });
-
-  final String text;
-  final String hour;
-  final double ancho;
-  final double alto;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: ancho * 0.95,
-      padding: EdgeInsets.only(top: alto * 0.01, bottom: alto * 0.01, left: ancho * 0.04, right: ancho * 0.04),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.redAccent,
-          style: BorderStyle.solid,
-          width: 2),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                hour,
-                textAlign: TextAlign.justify,
-                style: const TextStyle(
-                    color: Colors.white),
-              ),
-              Padding(padding: EdgeInsets.symmetric(horizontal: ancho * 0.01)),
-              Expanded(
-                child: Text(
-                  text,
-                  textAlign: TextAlign.justify,
-                  style: const TextStyle(
-                      color: Colors.white),
-                ),
-              ),
-              Padding(padding: EdgeInsets.symmetric(horizontal: ancho * 0.01)),
-              const Icon(Icons.dangerous_rounded),
-            ],
-          ),
-          TextButton(
-            onPressed: (){},
-            child: const Text(
-              'Confirmar toma',
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold
-              ),
-            )
-          ),
-        ],
       ),
     );
   }

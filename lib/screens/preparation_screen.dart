@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/models/colonprep_info.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class PreparationScreen extends StatefulWidget {
   const PreparationScreen({super.key});
@@ -35,7 +34,15 @@ class _PreparationScreenState extends State<PreparationScreen> {
         child: Column(
           children: [
 
-            Padding(padding: EdgeInsets.only(top: alto * 0.1)),
+            Padding(padding: EdgeInsets.only(top: alto * 0.07)),
+
+            const Text(
+              "- Pregunta 15 de 15 -",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+            ),
+
+            Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             const Text(
               "PREPARACIÓN",
@@ -51,7 +58,7 @@ class _PreparationScreenState extends State<PreparationScreen> {
             Image.asset(
               "assets/images/medicine.png",
               width: double.infinity,
-              height: ancho * 0.3,
+              height: ancho * 0.2,
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
@@ -66,6 +73,8 @@ class _PreparationScreenState extends State<PreparationScreen> {
 
             ElevatedButton(
               style: ButtonStyle(
+                padding: MaterialStateProperty.all(const EdgeInsets.all(8)),
+                maximumSize: MaterialStateProperty.all(Size(ancho * 0.8, double.infinity)),
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
                 backgroundColor: (cpi.preparation?.product == 'Bohn o Casenglicol') ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
                 foregroundColor: (cpi.preparation?.product == 'Bohn o Casenglicol') ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
@@ -80,7 +89,7 @@ class _PreparationScreenState extends State<PreparationScreen> {
                 cpi.preparationCollected = true;
                 setState(() {});
               },
-              child: const Text('Solución de Bohn o Casenglicol'),
+              child: const Text('Solución de Bohn o Casenglicol', textAlign: TextAlign.center,),
             ),
             
             Padding(padding: EdgeInsets.only(top: alto * 0.02)),
@@ -146,28 +155,6 @@ class _PreparationScreenState extends State<PreparationScreen> {
               child: const Text('Moviprep'),
             ),
 
-            // Padding(padding: EdgeInsets.only(top: alto * 0.02)),
-
-            // ElevatedButton(
-            //   style: ButtonStyle(
-            //     shadowColor: MaterialStateProperty.all(Colors.white),
-            //     minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-            //     backgroundColor: (cpi.preparation?.product == 'Todavía no lo he recogido') ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
-            //     foregroundColor: (cpi.preparation?.product == 'Todavía no lo he recogido') ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
-            //     shape: MaterialStateProperty.all(RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(18.0),
-            //         side: const BorderSide(color: Colors.white, width: 2)
-            //       )
-            //     )
-            //   ),
-            //   onPressed: () {
-            //     cpi.preparation?.product = 'Todavía no lo he recogido';
-            //     cpi.preparationCollected = false;
-            //     setState(() {});
-            //   },
-            //   child: const Text('Todavía no lo he recogido'),
-            // ),
-
           ],
         ),
       ),
@@ -178,17 +165,6 @@ class _PreparationScreenState extends State<PreparationScreen> {
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
-
-            SizedBox(height: alto * 0.02),
-
-            LinearPercentIndicator(
-              percent: 0.93,
-              lineHeight: 10.0,
-              barRadius: const Radius.circular(10),
-              progressColor: Colors.white,
-            ),
-
-            Padding(padding: EdgeInsets.only(top: alto * 0.02)),
 
             Row(
               children: [
