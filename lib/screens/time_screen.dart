@@ -12,6 +12,9 @@ class TimeScreen extends StatefulWidget {
 
 class _TimeScreenState extends State<TimeScreen> {
 
+  //Hora a la que se realiza el corte entre turno de mañana y de tarde
+  final int shiftHandover = 15;
+
   @override
   Widget build(BuildContext context) {
 
@@ -19,6 +22,12 @@ class _TimeScreenState extends State<TimeScreen> {
     final alto = MediaQuery.of(context).size.height;
 
     ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
+
+    DateTime initialDateTime = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 6, 0);
+
+    if (cpi.appointment?.dateTimeAppointment != null && cpi.appointment!.dateTimeAppointment!.isAfter(initialDateTime)) {
+      initialDateTime = cpi.appointment!.dateTimeAppointment!;
+    }
 
     return Scaffold(
       body: Container(
@@ -82,13 +91,14 @@ class _TimeScreenState extends State<TimeScreen> {
                   child: CupertinoDatePicker(
                     mode: CupertinoDatePickerMode.time,
                     use24hFormat: true,
-                    initialDateTime: cpi.appointment?.dateTimeAppointment,
+                    // initialDateTime: cpi.appointment?.dateTimeAppointment,
+                    initialDateTime: initialDateTime,
                     onDateTimeChanged: (value) {
                       cpi.appointment?.dateTimeAppointment = value;
-                      if((cpi.appointment?.dateTimeAppointment?.hour ?? 0) < 14) {
-                        cpi.appointment?.appointmentShift = 'morning';
+                      if((cpi.appointment?.dateTimeAppointment?.hour ?? 0) < shiftHandover) {
+                        cpi.appointment?.appointmentShift = 'Morning';
                       } else {
-                        cpi.appointment?.appointmentShift = 'afternoon';
+                        cpi.appointment?.appointmentShift = 'Afternoon';
                       }
                       setState(() {});
                     },
