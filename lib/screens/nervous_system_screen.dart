@@ -100,14 +100,6 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
-            const Text(
-              "¿Toma alguno de los siguientes fármacos? Marque todos los que tome:",
-              textAlign: TextAlign.justify,
-              style: TextStyle(color: Colors.white),
-            ),
-
-            Padding(padding: EdgeInsets.only(top: alto * 0.03)),
-
             Expanded(
               child: MediaQuery.removePadding(
                 context: context,
@@ -253,7 +245,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                         ),
 
                         CheckboxListTile(
-                          title: const Text("Ninguna de ellas", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
+                          title: const Text("Ninguno de ellos", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
                           checkColor: Colors.lightBlue.shade400,

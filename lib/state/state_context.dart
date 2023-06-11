@@ -16,12 +16,10 @@ class StateContext {
   Future<void> checkState() async {
     ColonprepInfo cpi;
 
-    //NO EXISTE FICHERO, POR LO TANTO NO HAY CITA
-    try {
-      cpi = await ColonprepInfo.loadColonprepInfo();
-    } catch (e) {
+    //NO SE HA GUARDADO FECHA, POR LO TANTO NO HAY CITA
+    cpi = await ColonprepInfo.loadColonprepInfo();
+    if(cpi.appointment?.dateTimeAppointment == null) {
       setState(SinCitaState());
-      return;
     }
 
     //DURANTE LA PREPARACIÓN
@@ -36,7 +34,7 @@ class StateContext {
       return;
     }
     
-    if (cpi.appointment!.dateTimeAppointment!.isBefore(DateTime.now())) {
+    if (cpi.appointment?.dateTimeAppointment != null && cpi.appointment!.dateTimeAppointment!.isBefore(DateTime.now())) {
       //LA PREPARACIÓN SE HA COMPLETADO CORRECTAMENTE
       setState(PreparacionCorrectaState());
     } else if (false) {

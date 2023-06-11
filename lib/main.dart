@@ -56,6 +56,8 @@ class MyApp extends StatelessWidget {
         'bariatricsurgeryscreen'    : (context) => const BariatricSurgeryScreen(),
         //Pantalla para la introducción de operaciones del abdomen
         'abdominalsurgeryscreen'    : (context) => const AbdominalSurgeryScreen(),
+        //Pantalla para el texto de los medicamentos
+        'medicinesadvisoryscreen'   : (context) => const MedicinesAdvisoryScreen(),
         //Pantalla para la introducción de otros medicamentos
         'othermedicinesscreen'      : (context) => const OtherMedicinesScreen(),
         //Pantalla para la introducción de medicamentos relacionados con el sistema nervioso
@@ -72,6 +74,8 @@ class MyApp extends StatelessWidget {
         'summaryscreen'             : (context) => const SummaryScreen(),
         //Pantalla principal durante la preparación
         'mainscreen'                : (context) => const MainScreen(),
+        //Pantalla principal para añadir la última deposición
+        'adddefecationscreen'       : (context) => const AddDefecationScreen(),
         //Pantalla después de hacer click en una notificación
         'notificationscreen'        : (context) => const NotificationScreen(),
       },

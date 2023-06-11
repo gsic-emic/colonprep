@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hospital/models/colonprep_info.dart';
-import 'package:hospital/services/local_shared_preferences.dart';
 import 'package:hospital/state/con_cita_pte_datos_state.dart';
 import 'package:hospital/state/state_context.dart';
 
@@ -18,12 +17,7 @@ class _InitialScreenState extends State<InitialScreen> {
   @override
   void initState() {
     super.initState();
-    bool createdColonprepInfo = LocalSharedPreferences.prefs.getBool('createdColonprepInfo') ?? false;
-    if(createdColonprepInfo) {
-      loadColonprepInfo();
-    } else {
-      cpi = ColonprepInfo();
-    }
+    loadColonprepInfo();
   }
 
   loadColonprepInfo() async {

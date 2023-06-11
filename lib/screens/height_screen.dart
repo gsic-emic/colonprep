@@ -12,8 +12,8 @@ class HeightScreen extends StatefulWidget {
 class _HeightScreenState extends State<HeightScreen> {
 
   late FixedExtentScrollController _scrollController;
-  final int minHeight = 120;
-  final int maxHeight = 220;
+  final int minHeight = 150;
+  final int maxHeight = 210;
 
   @override
   Widget build(BuildContext context) {

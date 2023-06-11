@@ -42,7 +42,8 @@ class Cards {
 
     static Future<void> removeCards() async {
       File file = await LocalFile.getFile(LocalFile.cards);
-      file.openWrite(mode: FileMode.write);
-      file.writeAsStringSync('');
+      if(await file.exists()) {
+        await file.delete();
+      }
     }
 }

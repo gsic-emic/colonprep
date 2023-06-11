@@ -85,14 +85,6 @@ class _OtherMedicinesScreenState extends State<OtherMedicinesScreen> {
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
-            const Text(
-              "¿Toma alguno de los siguientes fármacos? Marque todos los que tome:",
-              textAlign: TextAlign.justify,
-              style: TextStyle(color: Colors.white),
-            ),
-
-            Padding(padding: EdgeInsets.only(top: alto * 0.03)),
-
             CheckboxListTile(
               title: const Text("Hierro", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
               controlAffinity: ListTileControlAffinity.leading,
@@ -102,6 +94,23 @@ class _OtherMedicinesScreenState extends State<OtherMedicinesScreen> {
               onChanged: (value) {
                 botonPulsado(cpi, 'Hierro');
                 setState(() {});
+                if(cpi.patientQuestionnaire!.medicines!.contains('Hierro') == true) {
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (context) {
+                      return CupertinoAlertDialog(
+                        title: const Text('Información'),
+                        content: const Text('Para una mejor preparación, deberá suspender la toma de hierro 5 días antes de la prueba'),
+                        actions: [
+                          CupertinoDialogAction(
+                            child: const Text('Entendido'),
+                            onPressed: () => Navigator.pop(context)
+                          ),
+                        ],
+                      );
+                    }
+                  );
+                }
               },
             ),
 
@@ -114,6 +123,23 @@ class _OtherMedicinesScreenState extends State<OtherMedicinesScreen> {
               onChanged: (value) {
                 botonPulsado(cpi, 'Anticoagulantes orales');
                 setState(() {});
+                if(cpi.patientQuestionnaire!.medicines!.contains('Anticoagulantes orales') == true) {
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (context) {
+                      return CupertinoAlertDialog(
+                        title: const Text('Información'),
+                        content: const Text('Deberá contactar con su Médico de Atención Primaria para revisar su medicación'),
+                        actions: [
+                          CupertinoDialogAction(
+                            child: const Text('Entendido'),
+                            onPressed: () => Navigator.pop(context)
+                          ),
+                        ],
+                      );
+                    }
+                  );
+                }
               },
             ),
 
@@ -126,11 +152,28 @@ class _OtherMedicinesScreenState extends State<OtherMedicinesScreen> {
               onChanged: (value) {
                 botonPulsado(cpi, 'Antiagregantes');
                 setState(() {});
+                if(cpi.patientQuestionnaire!.medicines!.contains('Antiagregantes') == true) {
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (context) {
+                      return CupertinoAlertDialog(
+                        title: const Text('Información'),
+                        content: const Text('Deberá contactar con su Médico de Atención Primaria para revisar su medicación'),
+                        actions: [
+                          CupertinoDialogAction(
+                            child: const Text('Entendido'),
+                            onPressed: () => Navigator.pop(context)
+                          ),
+                        ],
+                      );
+                    }
+                  );
+                }
               },
             ),
 
             CheckboxListTile(
-              title: const Text("Ninguna de ellas", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
+              title: const Text("Ninguno de ellos", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.white,
               checkColor: Colors.lightBlue.shade400,

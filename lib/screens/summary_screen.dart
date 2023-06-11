@@ -103,7 +103,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                           ),
                           Padding(padding: EdgeInsets.only(top: alto * 0.01)),
                     
-                          const Text('¿Tiene menos de 3 deposiciones a la semana?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textScaleFactor: textScaleFactor),
+                          const Text('¿Tiene menos de 3 deposiciones a la semana?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textScaleFactor: textScaleFactor, textAlign: TextAlign.center),
                           Text((cpi.patientQuestionnaire?.constipation == true) ? 'Sí': 'No', style: const TextStyle(color: Colors.white), textScaleFactor: textScaleFactor),
                     
                           Padding(padding: EdgeInsets.only(top: alto * 0.01)),
@@ -113,7 +113,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                           ),
                           Padding(padding: EdgeInsets.only(top: alto * 0.01)),
                     
-                          const Text('¿Toma medicinas para controlar la glucosa, es diabético?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textScaleFactor: textScaleFactor),
+                          const Text('¿Toma medicinas para controlar la glucosa, es diabético?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textScaleFactor: textScaleFactor, textAlign: TextAlign.center),
                           Text((cpi.patientQuestionnaire?.isDiabetic == true) ? 'Sí': 'No', style: const TextStyle(color: Colors.white), textScaleFactor: textScaleFactor),
                     
                           Padding(padding: EdgeInsets.only(top: alto * 0.01)),
@@ -123,7 +123,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                           ),
                           Padding(padding: EdgeInsets.only(top: alto * 0.01)),
                     
-                          const Text('¿Está diagnosticado de enfermedad de Parkinson?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textScaleFactor: textScaleFactor),
+                          const Text('¿Está diagnosticado de enfermedad de Parkinson?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textScaleFactor: textScaleFactor, textAlign: TextAlign.center),
                           Text((cpi.patientQuestionnaire?.hasParkinson == true) ? 'Sí': 'No', style: const TextStyle(color: Colors.white), textScaleFactor: textScaleFactor),
                     
                           Padding(padding: EdgeInsets.only(top: alto * 0.01)),
@@ -133,7 +133,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                           ),
                           Padding(padding: EdgeInsets.only(top: alto * 0.01)),
                     
-                          const Text('¿Le han operado de cirugía bariátrica?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textScaleFactor: textScaleFactor),
+                          const Text('¿Le han operado de cirugía bariátrica?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textScaleFactor: textScaleFactor, textAlign: TextAlign.center),
                           Text((cpi.patientQuestionnaire?.hasBariatricSurgery == true) ? 'Sí': 'No', style: const TextStyle(color: Colors.white), textScaleFactor: textScaleFactor),
                     
                           Padding(padding: EdgeInsets.only(top: alto * 0.01)),
@@ -143,7 +143,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                           ),
                           Padding(padding: EdgeInsets.only(top: alto * 0.01)),
                     
-                          const Text('¿Le han operado del abdomen o de la pelvis?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textScaleFactor: textScaleFactor),
+                          const Text('¿Le han operado del abdomen o de la pelvis?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textScaleFactor: textScaleFactor, textAlign: TextAlign.center),
                           Text((cpi.patientQuestionnaire?.hasAbdomenOrPelvisSurgery == true) ? 'Sí': 'No', style: const TextStyle(color: Colors.white), textScaleFactor: textScaleFactor),
                     
                           Padding(padding: EdgeInsets.only(top: alto * 0.01)),
@@ -163,7 +163,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                           ),
                           Padding(padding: EdgeInsets.only(top: alto * 0.01)),
                     
-                          const Text('¿Se ha realizado una colonoscopia previamente y no consiguió una adecuada limpieza del colon?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textScaleFactor: textScaleFactor),
+                          const Text('¿Se ha realizado una colonoscopia previamente y no consiguió una adecuada limpieza del colon?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textScaleFactor: textScaleFactor, textAlign: TextAlign.center),
                           Text((cpi.patientQuestionnaire?.hasPreviousBadColonoscopy == true) ? 'Sí': 'No', style: const TextStyle(color: Colors.white), textScaleFactor: textScaleFactor),
                     
                           Padding(padding: EdgeInsets.only(top: alto * 0.01)),
@@ -231,7 +231,6 @@ class _SummaryScreenState extends State<SummaryScreen> {
                     onPressed: () {
                       cpi.saveColonprepInfo();
                       StateContext().setState(ConCitaListoPrepState());
-                      // Navigator.pushNamedAndRemoveUntil(context, 'mainscreen', (route) => false);
                       showCupertinoDialog(
                         context: context,
                         builder: (context) {

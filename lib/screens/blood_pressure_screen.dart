@@ -84,14 +84,6 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
-            const Text(
-              "¿Toma alguno de los siguientes fármacos? Marque todos los que tome:",
-              textAlign: TextAlign.justify,
-              style: TextStyle(color: Colors.white),
-            ),
-
-            Padding(padding: EdgeInsets.only(top: alto * 0.03)),
-
             CheckboxListTile(
               title: const Text("Amlodipino", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
               controlAffinity: ListTileControlAffinity.leading,

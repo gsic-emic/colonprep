@@ -53,9 +53,9 @@ class NotificationScreen extends StatelessWidget {
                     color: Colors.green,
                     padding:
                         EdgeInsets.only(top: alto * 0.015, bottom: alto * 0.015),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Text("Ir a la página inicial", textScaleFactor: 1.2),
                       ],
                     ),

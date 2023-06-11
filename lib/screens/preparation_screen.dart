@@ -131,7 +131,7 @@ class _PreparationScreenState extends State<PreparationScreen> {
                 cpi.preparationCollected = true;
                 setState(() {});
               },
-              child: const Text('CitraFleet'),
+              child: const Text('CitraFleet\u00AE'),
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.02)),

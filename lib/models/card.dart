@@ -4,14 +4,14 @@ class Card {
     DateTime? timestamp;
     String? text;
     String? type;
-    String? description;
+    String? payload;
     String? state;
 
     Card({
         this.timestamp,
         this.text,
         this.type,
-        this.description,
+        this.payload,
         this.state,
     });
 
@@ -23,7 +23,7 @@ class Card {
         timestamp: json["timestamp"] == null ? null : DateTime.parse(json["timestamp"]),
         text: json["text"],
         type: json["type"],
-        description: json["description"],
+        payload: json["payload"],
         state: json["state"],
     );
 
@@ -31,7 +31,7 @@ class Card {
         "timestamp": timestamp?.toIso8601String(),
         "text": text,
         "type": type,
-        "description": description,
+        "payload": payload,
         "state": state,
     };
 }

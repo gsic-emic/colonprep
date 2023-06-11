@@ -13,7 +13,7 @@ class _WeightScreenState extends State<WeightScreen> {
 
   late FixedExtentScrollController _scrollController;
   final int minWeight = 30;
-  final int maxWeight = 150;
+  final int maxWeight = 180;
 
   @override
   Widget build(BuildContext context) {

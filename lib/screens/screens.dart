@@ -1,3 +1,4 @@
+export 'package:hospital/screens/add_defecation_screen.dart';
 export 'package:hospital/screens/notification_screen.dart';
 export 'package:hospital/screens/initial_screen.dart';
 export 'package:hospital/screens/colonoscopy_screen.dart';
@@ -17,3 +18,4 @@ export 'package:hospital/screens/glucose_screen.dart';
 export 'package:hospital/screens/summary_screen.dart';
 export 'package:hospital/screens/height_screen.dart';
 export 'package:hospital/screens/weight_screen.dart';
+export 'package:hospital/screens/medicines_advisory_screen.dart';

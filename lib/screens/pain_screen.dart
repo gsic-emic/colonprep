@@ -82,14 +82,6 @@ class _PainScreenState extends State<PainScreen> {
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
-            const Text(
-              "¿Toma alguno de los siguientes fármacos? Marque todos los que tome:",
-              textAlign: TextAlign.justify,
-              style: TextStyle(color: Colors.white),
-            ),
-
-            Padding(padding: EdgeInsets.only(top: alto * 0.03)),
-
             CheckboxListTile(
               title: const Text("Fentanilo (Actiq\u00AE, Durogesic\u00AE, Fendivia\u00AE)", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
               controlAffinity: ListTileControlAffinity.leading,
