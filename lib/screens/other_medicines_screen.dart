@@ -67,7 +67,7 @@ class _OtherMedicinesScreenState extends State<OtherMedicinesScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             const Text(
-              "MEDICACIÓN",
+              "MEDICINAS",
               textAlign: TextAlign.center,
               textScaleFactor: 1.3,
               style: TextStyle(
@@ -173,7 +173,7 @@ class _OtherMedicinesScreenState extends State<OtherMedicinesScreen> {
             ),
 
             CheckboxListTile(
-              title: const Text("Ninguno de ellos", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
+              title: const Text("NINGUNO DE ELLOS", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.white,
               checkColor: Colors.lightBlue.shade400,

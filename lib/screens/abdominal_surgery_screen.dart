@@ -55,7 +55,7 @@ class _AbdominalSurgeryScreenState extends State<AbdominalSurgeryScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             const Text(
-              "¿Le han operado del abdomen o de la pelvis?",
+              "¿Le han operado del abdomen?",
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white),
             ),

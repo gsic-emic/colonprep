@@ -27,11 +27,16 @@ class Cards {
       try {
         File file = await LocalFile.getFile(LocalFile.cards);
         String leido = file.readAsStringSync();
-        Cards cpi = Cards.fromJson(leido);
-        return cpi;
+        Cards cardsObj = Cards.fromJson(leido);
+        cardsObj.sortCardsByTimestamp();
+        return cardsObj;
       } on PathNotFoundException {
         return Cards();
       }
+    }
+
+    void sortCardsByTimestamp() {
+      cards?.sort((a, b) => b.timestamp!.compareTo(a.timestamp!));
     }
 
     void saveCards() async {

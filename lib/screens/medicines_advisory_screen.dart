@@ -36,7 +36,7 @@ class _MedicinesAdvisoryScreenState extends State<MedicinesAdvisoryScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             const Text(
-              "MEDICACIÓN",
+              "MEDICINAS",
               textAlign: TextAlign.center,
               textScaleFactor: 1.3,
               style: TextStyle(

@@ -140,9 +140,9 @@ class _ShowCardState extends State<ShowCard> {
                   ),
                 ),
                 
-                Padding(padding: EdgeInsets.symmetric(horizontal: widget.ancho * 0.01)),
+                // Padding(padding: EdgeInsets.symmetric(horizontal: widget.ancho * 0.01)),
                 
-                const Icon(Icons.info_outline_rounded),
+                // const Icon(Icons.info_outline_rounded),
 
               ],
             ),

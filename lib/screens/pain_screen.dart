@@ -64,7 +64,7 @@ class _PainScreenState extends State<PainScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             const Text(
-              "MEDICACIÓN",
+              "MEDICINAS PARA CALMAR EL DOLOR",
               textAlign: TextAlign.center,
               textScaleFactor: 1.3,
               style: TextStyle(
@@ -107,7 +107,7 @@ class _PainScreenState extends State<PainScreen> {
             ),
 
             CheckboxListTile(
-              title: const Text("Ninguna de ellas", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
+              title: const Text("NINGUNO DE ELLOS", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
               controlAffinity: ListTileControlAffinity.leading,
               activeColor: Colors.white,
               checkColor: Colors.lightBlue.shade400,

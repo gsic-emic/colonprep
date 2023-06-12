@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/models/cards.dart';
 import 'package:hospital/models/colonprep_info.dart';
-import 'package:hospital/services/cards_manager.dart';
 import 'package:hospital/services/local_notification.dart';
-import 'package:hospital/services/local_shared_preferences.dart';
 import 'package:hospital/widgets/show_card.dart';
 
 class MainScreen extends StatefulWidget {
@@ -15,15 +13,12 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  late Future<ColonprepInfo> cpiFuture;
   late Future<Cards> cardsFuture;
   late ColonprepInfo cpi;
 
   @override
   void initState() {
     super.initState();
-    cpiFuture = ColonprepInfo.loadColonprepInfo();
-    cardsFuture = cpiFuture.then((cpi) => CardsManager.createCards(cpi)).then((_) => Cards.loadCards());
     loadColonprepInfo();
   }
 
@@ -33,8 +28,11 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     final ancho = MediaQuery.of(context).size.width;
     final alto = MediaQuery.of(context).size.height;
+
+    cardsFuture = Cards.loadCards();
 
     return Scaffold(
       appBar: AppBar(
@@ -75,8 +73,6 @@ class _MainScreenState extends State<MainScreen> {
                               CupertinoDialogAction(
                                 child: const Text('Cancelar'),
                                 onPressed: () {
-                                  //Se pone una 
-                                  // LocalSharedPreferences.prefs.setBool('createdColonprepInfo', false);
                                   LocalNotification().cancelNotifications();
                                   ColonprepInfo.removeColonprepInfo();
                                   Cards.removeCards();
@@ -111,56 +107,52 @@ class _MainScreenState extends State<MainScreen> {
           } else {
             final cards = snapshot.data!;
             return Container(
-              margin: EdgeInsets.symmetric(horizontal: ancho * 0.05),
+              margin: EdgeInsets.only(left: ancho * 0.03, right: ancho * 0.005),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-
-                  Padding(padding: EdgeInsets.only(top: alto * 0.03)),
-                  
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      padding: MaterialStateProperty.all(const EdgeInsets.all(8)),
-                      maximumSize: MaterialStateProperty.all(Size(ancho * 0.8, double.infinity)),
-                      minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
-                      backgroundColor: MaterialStateProperty.all(Colors.lightBlue.shade400),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          side: const BorderSide(color: Colors.white, width: 2)
-                        )
-                      )
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'adddefecationscreen', arguments: cpi);
-                      setState(() {});
-                    },
-                    child: const Text("Añadir deposición", textScaleFactor: 1.2),
-                  ),
                   
                   Padding(padding: EdgeInsets.only(top: alto * 0.03)),
                   
                   Expanded(
-                    child: ListView.builder(
-                      itemBuilder: (context, index) {
 
-                        //Solo muestra las tarjetas que no están ocultas o de tipo WARNING
-                        if(cards.cards![index].state == 'Hidden' || cards.cards![index].type != 'Warning') {
-                          return Container();
-                        } else {
-                          return Column(
-                            children: [
-                              ShowCard(
-                                cards.cards![index],
-                                ancho: ancho,
-                                alto: alto,
-                              ),
-                              Padding(padding: EdgeInsets.only(top: alto * 0.01)),
-                            ],
-                          );
-                        }
-
-                      },
-                      itemCount: cards.cards?.length,
+                    child: MediaQuery.removePadding(
+                      context: context,
+                      removeTop: true,
+                      removeBottom: true,
+                      child: Scrollbar(
+                        thumbVisibility: true,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Padding(
+                            padding: EdgeInsets.only(right: ancho * 0.025),
+                            child: ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                                  
+                                //Muestra las tarjetas con estado Pending y cuyo instante de tiempo es anterior al presente
+                                if(cards.cards![index].state == 'Pending' && cards.cards![index].timestamp?.isBefore(DateTime.now()) == true) {
+                                  return Column(
+                                    children: [
+                                      ShowCard(
+                                        cards.cards![index],
+                                        ancho: ancho,
+                                        alto: alto,
+                                      ),
+                                      (index == cards.cards!.length - 1) ? Padding(padding: EdgeInsets.only(top: alto * 0.05)) : Padding(padding: EdgeInsets.only(top: alto * 0.01)),
+                                    ],
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                                                  
+                              },
+                              itemCount: cards.cards?.length,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],

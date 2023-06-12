@@ -35,16 +35,16 @@ class _GlucoseScreenState extends State<GlucoseScreen> {
 
             Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
-            const Text(
-              "GLUCOSA",
-              textAlign: TextAlign.center,
-              textScaleFactor: 1.3,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
-            ),
+            // const Text(
+            //   "GLUCOSA",
+            //   textAlign: TextAlign.center,
+            //   textScaleFactor: 1.3,
+            //   style: TextStyle(
+            //       color: Colors.white,
+            //       fontWeight: FontWeight.bold),
+            // ),
 
-            Padding(padding: EdgeInsets.only(top: alto * 0.03)),
+            // Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             Image.asset(
               "assets/images/diabetic.png",

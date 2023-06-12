@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/models/colonprep_info.dart';
+import 'package:hospital/services/cards_manager.dart';
 import 'package:hospital/state/con_cita_listo_prep_state.dart';
 import 'package:hospital/state/state_context.dart';
 import 'package:hospital/tools/tools.dart';
@@ -244,7 +245,10 @@ class _SummaryScreenState extends State<SummaryScreen> {
                               ),
                               CupertinoDialogAction(
                                 child: const Text('Terminar'),
-                                onPressed: () => Navigator.pushNamedAndRemoveUntil(context, 'mainscreen', (route) => false)
+                                onPressed: () async {
+                                  CardsManager.createCards(cpi);
+                                  Navigator.pushNamedAndRemoveUntil(context, 'mainscreen', (route) => false);
+                                },
                               ),
                             ],
                           );

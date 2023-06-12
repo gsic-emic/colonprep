@@ -55,7 +55,7 @@ class _BariatricSurgeryScreenState extends State<BariatricSurgeryScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             const Text(
-              "¿Le han operado de cirugía bariátrica?",
+              "¿Le han operado de una reducción de estómago o cirugía de la obesidad (bariátrica)?",
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white),
             ),

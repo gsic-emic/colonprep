@@ -82,7 +82,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             const Text(
-              "MEDICACIÓN",
+              "MEDICINAS PARA LOS NERVIOS O ANSIEDAD",
               textAlign: TextAlign.center,
               textScaleFactor: 1.3,
               style: TextStyle(
@@ -90,13 +90,13 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                   fontWeight: FontWeight.bold),
             ),
 
-            Padding(padding: EdgeInsets.only(top: alto * 0.03)),
+            // Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
-            Image.asset(
-              "assets/images/medicine.png",
-              width: double.infinity,
-              height: ancho * 0.2,
-            ),
+            // Image.asset(
+            //   "assets/images/medicine.png",
+            //   width: double.infinity,
+            //   height: ancho * 0.2,
+            // ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
@@ -245,7 +245,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                         ),
 
                         CheckboxListTile(
-                          title: const Text("Ninguno de ellos", style: TextStyle(color: Colors.white), textAlign: TextAlign.center),
+                          title: const Text("NINGUNO DE ELLOS", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
                           controlAffinity: ListTileControlAffinity.leading,
                           activeColor: Colors.white,
                           checkColor: Colors.lightBlue.shade400,

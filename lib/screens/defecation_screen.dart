@@ -56,7 +56,7 @@ class _DefecationScreenState extends State<DefecationScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             const Text(
-              "¿Tiene menos de 3 deposiciones cada semana?",
+              "¿Cuántas deposiciones tiene a la semana?",
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white),
             ),
@@ -79,7 +79,7 @@ class _DefecationScreenState extends State<DefecationScreen> {
                 cpi.patientQuestionnaire?.constipation = true;
                 setState(() {});
               },
-              child: const Text('Sí'),
+              child: const Text('<1 o 2  deposiciones por semana'),
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.02)),
@@ -99,7 +99,7 @@ class _DefecationScreenState extends State<DefecationScreen> {
                 cpi.patientQuestionnaire?.constipation = false;
                 setState(() {});
               },
-              child: const Text('No'),
+              child: const Text('3 o más deposiciones por semana'),
             ),
 
           ],
