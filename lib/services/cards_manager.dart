@@ -4,12 +4,12 @@ import 'package:hospital/models/colonprep_info.dart';
 
 class CardsManager {
 
-  //El usuario no tiene que interactuar con la tarjeta
+  //El usuario no ha interactuado
   static const String noAction = 'NoAction';
-  //El usuario todavía no ha interactuado con la tarjeta
-  static const String pending = 'Pending';
-  //Se ha interactuado con la tarjeta
-  static const String interacted = 'Interacted';
+  //Respuesta esperada
+  static const String correct = 'Correct';
+  //Respuesta no esperada
+  static const String incorrect = 'Incorrect';
 
   //Personaliza los colores de la tarjeta para tareas con importancia alta
   static const String toDo = 'ToDo';
@@ -53,7 +53,7 @@ class CardsManager {
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 1, 9, 0, 0),
         text: 'Recuerde que hoy a las 19 horas comienza la toma de la preparación Solución de Bohn o Casenglicol\nMañana deberá continuar a las ${datetime.hour-5} horas',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado el recordatorio del comienzo de la toma de Solución de Bohn o Casenglicol')
       );
       for (int i = 0; i <= 60; i += 15) {
@@ -61,7 +61,7 @@ class CardsManager {
           timestamp: DateTime(datetime.year, datetime.month, datetime.day - 1, 19, 0, 0),
           text: 'Realice la toma de la preparación Solución de Bohn o Casenglicol de las 19:$i horas',
           type: toDo,
-          state: pending,
+          state: noAction,
           payload: 'El paciente ha confirmado la toma de Solución de Bohn o Casenglicol programada a las 19:$i')
         );
       }
@@ -70,7 +70,7 @@ class CardsManager {
           timestamp: DateTime(datetime.year, datetime.month, datetime.day - 1, 20, 0, 0),
           text: 'Realice la toma de la preparación Solución de Bohn o Casenglicol de las 20:$i horas',
           type: toDo,
-          state: pending,
+          state: noAction,
           payload: 'El paciente ha confirmado la toma de Solución de Bohn o Casenglicol programada a las 20:$i')
         );
       }
@@ -79,7 +79,7 @@ class CardsManager {
           timestamp: DateTime(datetime.year, datetime.month, datetime.day, datetime.hour - 5, 0, 0),
           text: 'Realice la toma de la preparación Solución de Bohn o Casenglicol de las ${datetime.hour-5}:$i horas',
           type: toDo,
-          state: pending,
+          state: noAction,
           payload: 'El paciente ha confirmado la toma de Solución de Bohn o Casenglicol programada a las ${datetime.hour-5}:$i')
         );
       }
@@ -88,7 +88,7 @@ class CardsManager {
           timestamp: DateTime(datetime.year, datetime.month, datetime.day, datetime.hour - 4, 0, 0),
           text: 'Realice la toma de la preparación Solución de Bohn o Casenglicol de las ${datetime.hour-4}:$i horas',
           type: toDo,
-          state: pending,
+          state: noAction,
           payload: 'El paciente ha confirmado la toma de Solución de Bohn o Casenglicol programada a las ${datetime.hour-4}:$i')
         );
       }
@@ -97,7 +97,7 @@ class CardsManager {
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 1, 21, 0, 0),
         text: 'Recuerde que mañana a las 7 horas comienza la toma de la preparación Solución de Bohn o Casenglicol',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado el recordatorio del comienzo de la toma de Solución de Bohn o Casenglicol')
       );
       for (int i = 0; i <= 60; i += 15) {
@@ -105,7 +105,7 @@ class CardsManager {
           timestamp: DateTime(datetime.year, datetime.month, datetime.day, 7, 0, 0),
           text: 'Realice la toma de la preparación Solución de Bohn o Casenglicol de las 7:$i horas',
           type: toDo,
-          state: pending,
+          state: noAction,
           payload: 'El paciente ha confirmado la toma de Solución de Bohn o Casenglicol programada a las 7:$i')
         );
       }
@@ -114,7 +114,7 @@ class CardsManager {
           timestamp: DateTime(datetime.year, datetime.month, datetime.day, 8, 0, 0),
           text: 'Realice la toma de la preparación Solución de Bohn o Casenglicol de las 8:$i horas',
           type: toDo,
-          state: pending,
+          state: noAction,
           payload: 'El paciente ha confirmado la toma de Solución de Bohn o Casenglicol programada a las 8:$i')
         );
       }
@@ -123,7 +123,7 @@ class CardsManager {
           timestamp: DateTime(datetime.year, datetime.month, datetime.day, datetime.hour - 5, 0, 0),
           text: 'Realice la toma de la preparación Solución de Bohn o Casenglicol de las ${datetime.hour-5}:$i horas',
           type: toDo,
-          state: pending,
+          state: noAction,
           payload: 'El paciente ha confirmado la toma de Solución de Bohn o Casenglicol programada a las ${datetime.hour-5}:$i')
         );
       }
@@ -132,7 +132,7 @@ class CardsManager {
           timestamp: DateTime(datetime.year, datetime.month, datetime.day, datetime.hour - 4, 0, 0),
           text: 'Realice la toma de la preparación Solución de Bohn o Casenglicol de las ${datetime.hour-4}:$i horas',
           type: toDo,
-          state: pending,
+          state: noAction,
           payload: 'El paciente ha confirmado la toma de Solución de Bohn o Casenglicol programada a las ${datetime.hour-4}:$i')
         );
       }
@@ -146,21 +146,21 @@ class CardsManager {
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 1, 9, 0, 0),
         text: 'Recuerde que hoy a las 21 horas comienza la toma de la preparación Pleinvue\nMañana deberá continuar a las ${datetime.hour-5} horas',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado el recordatorio del comienzo de la toma de Pleinvue')
       );
       cards.cards!.add(Card(
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 1, 21, 0, 0),
         text: 'Realice la toma de Pleinvue de las 21 horas a lo largo de 1 hora junto a medio litro de otros líquidos',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado la toma de Pleinvue programada a las 21')
       );
       cards.cards!.add(Card(
         timestamp: DateTime(datetime.year, datetime.month, datetime.day, datetime.hour - 5, 0, 0),
         text: 'Realice la toma de Pleinvue de las ${datetime.hour-5} horas a lo largo de 1 hora junto a medio litro de otros líquidos',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado la toma de Pleinvue programada a las ${datetime.hour-5}')
       );
     } else if(cpi.appointment?.appointmentShift == 'Afternoon') {
@@ -168,21 +168,21 @@ class CardsManager {
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 1, 21, 0, 0),
         text: 'Recuerde que mañana a las 9 horas comienza la toma de la preparación Pleinvue',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado el recordatorio del comienzo de la toma de Pleinvue')
       );
       cards.cards!.add(Card(
         timestamp: DateTime(datetime.year, datetime.month, datetime.day, 9, 0, 0),
         text: 'Realice la toma de Pleinvue de las 9 horas a lo largo de 1 hora junto a medio litro de otros líquidos',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado la toma de Pleinvue programada a las 21')
       );
       cards.cards!.add(Card(
         timestamp: DateTime(datetime.year, datetime.month, datetime.day, datetime.hour - 5, 0, 0),
         text: 'Realice la toma de Pleinvue de las ${datetime.hour-5} horas a lo largo de 1 hora junto a medio litro de otros líquidos',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado la toma de Pleinvue programada a las ${datetime.hour-5}')
       );
     }
@@ -195,35 +195,35 @@ class CardsManager {
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 1, 9, 0, 0),
         text: 'Recuerde que hoy a las 19 horas comienza la toma de la preparación Citrafleet\nMañana deberá continuar a las ${datetime.hour-5} horas',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado el recordatorio del comienzo de la toma de Citrafleet')
       );
       cards.cards!.add(Card(
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 1, 19, 0, 0),
         text: 'Realice la toma de Citrafleet de las 19 horas durante 10-15 minutos',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado la toma de Citrafleet programada a las 19')
       );
       cards.cards!.add(Card(
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 1, 19, 10, 0),
         text: '10 minutos después de la toma de Citrafleet debe tomar 1,5 litros de agua o bebida isotónica',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado la toma de 1,5 litros de agua o bebida isotónica programada a las 19:10')
       );
       cards.cards!.add(Card(
         timestamp: DateTime(datetime.year, datetime.month, datetime.day, datetime.hour - 5, 0, 0),
         text: 'Realice la toma de Citrafleet de las ${datetime.hour-5} horas durante 10-15 minutos',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado la toma de Citrafleet programada a las ${datetime.hour-5}')
       );
       cards.cards!.add(Card(
         timestamp: DateTime(datetime.year, datetime.month, datetime.day, datetime.hour - 5, 10, 0),
         text: '10 minutos después de la toma de Citrafleet debe tomar 1,5 litros de agua o bebida isotónica',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado la toma de 1,5 litros de agua o bebida isotónica programada a las ${datetime.hour-5}:10')
       );
     } else if(cpi.appointment?.appointmentShift == 'Afternoon') {
@@ -238,21 +238,21 @@ class CardsManager {
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 1, 9, 0, 0),
         text: 'Recuerde que hoy a las 20 horas comienza la toma de la preparación Moviprep\nMañana deberá continuar a las ${datetime.hour-5} horas',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado el recordatorio del comienzo de la toma de Moviprep')
       );
       cards.cards!.add(Card(
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 1, 20, 0, 0),
         text: 'Realice la toma de Moviprep de las 20 horas y beba medio litro de líquidos',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado la toma de Moviprep programada a las 20')
       );
       cards.cards!.add(Card(
         timestamp: DateTime(datetime.year, datetime.month, datetime.day, datetime.hour - 5, 0, 0),
         text: 'Realice la toma de Moviprep de las ${datetime.hour-5} y beba medio litro de líquidos',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado la toma de Moviprep programada a las ${datetime.hour-5}')
       );
     } else if(cpi.appointment?.appointmentShift == 'Afternoon') {
@@ -260,21 +260,21 @@ class CardsManager {
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 1, 21, 0, 0),
         text: 'Recuerde que mañana a las 8 horas comienza la toma de la preparación Moviprep',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado el recordatorio del comienzo de la toma de Moviprep')
       );
       cards.cards!.add(Card(
         timestamp: DateTime(datetime.year, datetime.month, datetime.day, 8, 0, 0),
         text: 'Realice la toma de Moviprep de las 8 horas y beba medio litro de líquidos',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado la toma de Moviprep programada a las 8')
       );
       cards.cards!.add(Card(
         timestamp: DateTime(datetime.year, datetime.month, datetime.day, datetime.hour - 5, 0, 0),
         text: 'Realice la toma de Moviprep de las ${datetime.hour-5} y beba medio litro de líquidos',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado la toma de Moviprep programada a las ${datetime.hour-5}')
       );
     }
@@ -292,7 +292,7 @@ class CardsManager {
           timestamp: DateTime(datetime.year, datetime.month, datetime.day - i, 15, 0, 0),
           text: 'Recuerde tomar al menos 2 litros de agua al día',
           type: toDo,
-          state: pending,
+          state: noAction,
           payload: 'El paciente ha confirmado la recomendación de tomar 2 litros de agua $i días antes de la cita')
         );
       }
@@ -301,7 +301,7 @@ class CardsManager {
           timestamp: DateTime(datetime.year, datetime.month, datetime.day - i, 21, 0, 0),
           text: '¿Ha tomado al menos 2 litros de agua durante el día de hoy?',
           type: toDo,
-          state: pending,
+          state: noAction,
           payload: 'El paciente ha confirmado tomar 2 litros de agua $i días antes de la cita')
         );
       }
@@ -310,7 +310,7 @@ class CardsManager {
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 1, datetime.hour, 0, 0),
         text: 'Durante las próximas 24 horas, recuerde tomar solamente líquidos\nAdemás, tome 3 vasos de líquidos, sin burbujas ni azúcares, a mayores del preparado',
         type: toDo,
-        state: pending,
+        state: noAction,
         payload: 'El paciente ha confirmado tomar solo líquidos las últimas 24 horas antes de la cita')
       );
       //Tomar Evacuol dependiendo del turno de la cita
@@ -321,7 +321,7 @@ class CardsManager {
           timestamp: DateTime(datetime.year, datetime.month, datetime.day - i, 9, 0, 0),
           text: 'Recuerde comprar Evacuol\u00AE en su farmacia\nDebe comprarlo sin receta',
           type: toDo,
-          state: pending,
+          state: noAction,
           payload: 'El paciente ha confirmado comprar Evacuol $i días antes de la cita')
         );
       }
@@ -333,7 +333,7 @@ class CardsManager {
             timestamp: DateTime(datetime.year, datetime.month, datetime.day - i, 21, 0, 0),
             text: 'Recuerde tomar 6-8 gotas de Evacuol\u00AE',
             type: toDo,
-            state: pending,
+            state: noAction,
             payload: 'El paciente ha confirmado tomar 6-8 gotas de Evacuol $i días antes de la cita')
           );
         }
@@ -345,7 +345,7 @@ class CardsManager {
             timestamp: DateTime(datetime.year, datetime.month, datetime.day - i, 21, 0, 0),
             text: 'Recuerde tomar 6-8 gotas de Evacuol\u00AE',
             type: toDo,
-            state: pending,
+            state: noAction,
             payload: 'El paciente ha confirmado tomar 6-8 gotas de Evacuol $i días antes de la cita')
           );
         }
@@ -361,15 +361,15 @@ class CardsManager {
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 5, 9, 0, 0),
         text: 'Recuerde suspender el tratamiento de hierro',
         type: toDo,
-        state: pending,
-        payload: 'El paciente ha confirmado suspender el hierro 5 días antes de la cita')
+        state: noAction,
+        payload: 'El paciente ha confirmado suspender el hierro 5 días antes de la cita|Confirmar|')
       );
       cards.cards!.add(Card(
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 3, 9, 0, 0),
         text: '¿Ha recordado suspender el tratamiento de hierro?',
         type: toDo,
-        state: pending,
-        payload: 'El paciente ha confirmado suspender el hierro 3 días antes de la cita')
+        state: noAction,
+        payload: 'El paciente asegura suspender el hierro 3 días antes de la cita|SiNo|')
       );
     }
   }
@@ -382,15 +382,15 @@ class CardsManager {
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 5, 9, 0, 0),
         text: 'Contacte con su Médico de Atención Primaria y pregunte qué debe hacer siendo diabético',
         type: toDo,
-        state: pending,
-        payload: 'El paciente ha confirmado contacto con Médico de Atención Primaria por diabetes 5 días antes de la cita')
+        state: noAction,
+        payload: 'El paciente ha confirmado contacto con Médico de Atención Primaria por diabetes 5 días antes de la cita|Confirmar|')
       );
       cards.cards!.add(Card(
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 4, 9, 0, 0),
         text: '¿Ha contactado con su Médico de Atención Primaria para saber qué debe hacer siendo diabético?',
         type: toDo,
-        state: pending,
-        payload: 'El paciente ha confirmado contacto con Médico de Atención Primaria por diabetes 4 días antes de la cita')
+        state: noAction,
+        payload: 'El paciente asegura contacto con Médico de Atención Primaria por diabetes 4 días antes de la cita|SiNo|')
       );
     }
   }
@@ -403,15 +403,15 @@ class CardsManager {
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 5, 9, 0, 0),
         text: 'Contacte con su Médico de Atención Primaria para valorar la suspensión o sustición de Anticoagulantes Orales',
         type: toDo,
-        state: pending,
-        payload: 'El paciente ha confirmado el contacto con el Médico de Atención Primaria para suspender los anticoagulantes horales 5 días antes de la cita')
+        state: noAction,
+        payload: 'El paciente ha confirmado el contacto con el Médico de Atención Primaria para suspender los anticoagulantes horales 5 días antes de la cita|Confirmar|')
       );
       cards.cards!.add(Card(
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 4, 9, 0, 0),
         text: '¿Ha contactado con su Médico de Atención Primaria para valorar la suspensión o sustición de Anticoagulantes Orales?',
         type: toDo,
-        state: pending,
-        payload: 'El paciente ha confirmado el contacto con el Médico de Atención Primaria para suspender los anticoagulantes horales 4 días antes de la cita')
+        state: noAction,
+        payload: 'El paciente asegura el contacto con el Médico de Atención Primaria para suspender los anticoagulantes horales 4 días antes de la cita|SiNo|')
       );
     }
   }
@@ -424,15 +424,15 @@ class CardsManager {
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 7, 9, 0, 0),
         text: 'Contacte con su Médico de Atención Primaria para valorar la suspensión o sustición de Antiagregantes',
         type: toDo,
-        state: pending,
-        payload: 'El paciente ha confirmado el contacto con el Médico de Atención Primaria para suspender los antiagregantes horales 7 días antes de la cita')
+        state: noAction,
+        payload: 'El paciente ha confirmado el contacto con el Médico de Atención Primaria para suspender los antiagregantes horales 7 días antes de la cita|Confirmar|')
       );
       cards.cards!.add(Card(
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 5, 9, 0, 0),
         text: '¿Ha contactado con su Médico de Atención Primaria para valorar la suspensión o sustición de Antiagregantes?',
         type: toDo,
-        state: pending,
-        payload: 'El paciente ha confirmado el contacto con el Médico de Atención Primaria para suspender los antiagregantes horales 5 días antes de la cita')
+        state: noAction,
+        payload: 'El paciente asegura el contacto con el Médico de Atención Primaria para suspender los antiagregantes horales 5 días antes de la cita|SiNo|')
       );
     }
   }

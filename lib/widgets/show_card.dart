@@ -1,17 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital/models/card.dart' as own;
+import 'package:hospital/models/cards.dart';
+import 'package:hospital/models/colonprep_info.dart';
+import 'package:hospital/models/log.dart';
+import 'package:hospital/services/cards_manager.dart';
 import 'package:hospital/tools/tools.dart';
 
 class ShowCard extends StatefulWidget {
   const ShowCard(
     this.card, {
     super.key,
+    required this.cards,
+    required this.cpi,
     required this.ancho,
     required this.alto,
   });
 
   final own.Card card;
+  final Cards cards;
+  final ColonprepInfo cpi;
   final double ancho;
   final double alto;
 
@@ -20,72 +28,33 @@ class ShowCard extends StatefulWidget {
 }
 
 class _ShowCardState extends State<ShowCard> {
+
+  String getCardDescription(String? payload) {
+    if (payload != null) {
+      List<String> payloadParts = payload.split('|');
+      return payloadParts[0];
+    }
+    return 'No Description';
+  }
+
+  bool isSiNoInteraction(String? payload) {
+    if (payload != null) {
+      List<String> payloadParts = payload.split('|');
+      return payloadParts.length > 1 && payloadParts[1] == 'SiNo';
+    }
+    return false;
+  }
+
+  bool isConfirmarInteraction(String? payload) {
+    if (payload != null) {
+      List<String> payloadParts = payload.split('|');
+      return payloadParts.length > 1 && payloadParts[1] == 'Confirmar';
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    //Estilo de tarjeta cuando el tipo es Info. Generalmente se usa para avisos de información general.
-    if(widget.card.type == 'Info') {
-      return Container(
-        width: widget.ancho * 0.95,
-        padding: EdgeInsets.only(top: widget.alto * 0.01, bottom: widget.alto * 0.01, left: widget.ancho * 0.04, right: widget.ancho * 0.04),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.blueGrey,
-            style: BorderStyle.solid,
-            width: 2
-          ),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Column(
-          children: [
-
-            (widget.card.timestamp == null)
-              ? Container()
-              : Text(
-                  Tools.formatDateWithoutTime(widget.card.timestamp as DateTime),
-                  textAlign: TextAlign.justify,
-                  style: const TextStyle(color: Colors.white),
-                ),
-            
-            (widget.card.timestamp == null)
-              ? Container()
-              : Padding(padding: EdgeInsets.only(top: widget.alto * 0.01)),
-            
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-
-                (widget.card.timestamp == null || widget.card.timestamp?.hour == 0)
-                  ? Container()
-                  : Text(
-                      Tools.formatTimeWithoutDate(widget.card.timestamp as DateTime),
-                      textAlign: TextAlign.justify,
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                
-                (widget.card.timestamp == null || widget.card.timestamp?.hour == 0)
-                  ? Container()
-                  : Padding(
-                      padding: EdgeInsets.symmetric(horizontal: widget.ancho * 0.01)),
-                
-                Expanded(
-                  child: Text(
-                    widget.card.text!,
-                    textAlign: TextAlign.justify,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ),
-                
-                Padding(padding: EdgeInsets.symmetric(horizontal: widget.ancho * 0.01)),
-                
-                const Icon(Icons.info_outline_rounded),
-
-              ],
-            ),
-          ],
-        ),
-      );
-    }
 
     //Estilo de tarjeta cuando el tipo es ToDo. Se usa para avisos con los que el usuario debe interactuar.
     if(widget.card.type == 'ToDo') {
@@ -94,7 +63,7 @@ class _ShowCardState extends State<ShowCard> {
         padding: EdgeInsets.only(top: widget.alto * 0.01, bottom: widget.alto * 0.01, left: widget.ancho * 0.04, right: widget.ancho * 0.04),
         decoration: BoxDecoration(
           border: Border.all(
-            color: Colors.orange,
+            color: Colors.redAccent,
             style: BorderStyle.solid,
             width: 2
           ),
@@ -139,13 +108,95 @@ class _ShowCardState extends State<ShowCard> {
                     style: const TextStyle(color: Colors.white),
                   ),
                 ),
-                
-                // Padding(padding: EdgeInsets.symmetric(horizontal: widget.ancho * 0.01)),
-                
-                // const Icon(Icons.info_outline_rounded),
 
               ],
             ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+                //Botón que se dibuja para confirmar una acción de Sí o No
+                (isSiNoInteraction(widget.card.payload))
+                  ? TextButton(
+                      onPressed: () {
+                        showCupertinoDialog(
+                          context: context,
+                          builder: (context) {
+                            return CupertinoAlertDialog(
+                              title: const Text('Confirmación'),
+                              content: Text(widget.card.text ?? ''),
+                              actions: [
+                                CupertinoDialogAction(
+                                  child: const Text('No'),
+                                  onPressed: () {
+                                    widget.cpi.log!.add(
+                                      Log(
+                                        timestamp: DateTime.now(),
+                                        messageType: 'Info',
+                                        description: '${getCardDescription(widget.card.payload)} > NO'
+                                      )
+                                    );
+                                    widget.card.type = CardsManager.completed;
+                                    widget.card.state = CardsManager.incorrect;
+                                    widget.cards.saveCards();
+                                    widget.cpi.saveColonprepInfo();
+                                    Navigator.pop(context);
+                                    setState(() {});
+                                  },
+                                ),
+                                CupertinoDialogAction(
+                                  child: const Text('Sí'),
+                                  onPressed: () {
+                                    widget.cpi.log!.add(
+                                      Log(
+                                        timestamp: DateTime.now(),
+                                        messageType: 'Info',
+                                        description: '${getCardDescription(widget.card.payload)} > SI'
+                                      )
+                                    );
+                                    widget.card.type = CardsManager.completed;
+                                    widget.card.state = CardsManager.correct;
+                                    widget.cards.saveCards();
+                                    widget.cpi.saveColonprepInfo();
+                                    Navigator.pop(context);
+                                    setState(() {});
+                                  },
+                                ),
+                              ],
+                            );
+                          }
+                        );
+                      },
+                      child: const Text('Responder', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),)
+                    )
+                  : Container(),
+
+                //Botón que se dibuja para confirmar una acción de Sí o No
+                (isConfirmarInteraction(widget.card.payload))
+                  ? TextButton(
+                      onPressed: () {
+                        widget.cpi.log!.add(
+                          Log(
+                            timestamp: DateTime.now(),
+                            messageType: 'Info',
+                            description: getCardDescription(widget.card.payload)
+                          )
+                        );
+                        widget.card.type = CardsManager.completed;
+                        widget.card.state = CardsManager.correct;
+                        widget.cards.saveCards();
+                        widget.cpi.saveColonprepInfo();
+                        setState(() {});
+                      },
+                      child: const Text('Confirmar', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),)
+                    )
+                  : Container()
+
+              ],
+            ),
+
           ],
         ),
       );
@@ -203,97 +254,9 @@ class _ShowCardState extends State<ShowCard> {
                     style: const TextStyle(color: Colors.white),
                   ),
                 ),
-                
-                Padding(padding: EdgeInsets.symmetric(horizontal: widget.ancho * 0.01)),
-                
-                const Icon(Icons.info_outline_rounded),
 
               ],
             ),
-          ],
-        ),
-      );
-    }
-
-    //Estilo de tarjeta cuando el tipo es Warning. Generalmente se usa para avisos que el usuario puede ocultar en cualquier momento.
-    if(widget.card.type == 'Warning') {
-      return Container(
-        width: widget.ancho * 0.95,
-        padding: EdgeInsets.only(top: widget.alto * 0.01, bottom: widget.alto * 0.01, left: widget.ancho * 0.04, right: widget.ancho * 0.04),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.orangeAccent,
-            style: BorderStyle.solid,
-            width: 2
-          ),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Column(
-          children: [
-
-            (widget.card.timestamp == null)
-              ? Container()
-              : Text(
-                  Tools.formatDateWithoutTime(widget.card.timestamp as DateTime),
-                  textAlign: TextAlign.justify,
-                  style: const TextStyle(color: Colors.white),
-                ),
-            
-            (widget.card.timestamp == null)
-              ? Container()
-              : Padding(padding: EdgeInsets.only(top: widget.alto * 0.01)),
-            
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-
-                (widget.card.timestamp == null || widget.card.timestamp?.hour == 0)
-                  ? Container()
-                  : Text(
-                      Tools.formatTimeWithoutDate(widget.card.timestamp as DateTime),
-                      textAlign: TextAlign.justify,
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                
-                (widget.card.timestamp == null || widget.card.timestamp?.hour == 0)
-                  ? Container()
-                  : Padding(
-                      padding: EdgeInsets.symmetric(horizontal: widget.ancho * 0.01)),
-                
-                Expanded(
-                  child: Text(
-                    widget.card.text!,
-                    textAlign: TextAlign.justify,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ),
-                
-                Padding(padding: EdgeInsets.symmetric(horizontal: widget.ancho * 0.01)),
-                
-                const Icon(Icons.info_outline_rounded),
-
-              ],
-            ),
-
-            (widget.card.state == 'Pending')
-              ? CupertinoButton(
-                  onPressed: () {
-                    widget.card.state = 'Hidden';
-                    widget.card.type = 'Completed';
-                    setState(() {
-                      
-                    });
-                  },
-                  child: const Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      'Ocultar',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )
-                )
-              : Container()
           ],
         ),
       );

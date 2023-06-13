@@ -1,26 +1,26 @@
 import 'package:hospital/models/colonprep_info.dart';
 import 'package:hospital/state/con_cita_listo_prep_state.dart';
-import 'package:hospital/state/en_preparacion.dart';
-import 'package:hospital/state/mala_preparacion.dart';
-import 'package:hospital/state/preparacion_correcta.dart';
+import 'package:hospital/state/en_preparacion_state.dart';
+import 'package:hospital/state/mala_preparacion_state.dart';
+import 'package:hospital/state/preparacion_correcta_state.dart';
 import 'package:hospital/state/state.dart';
 import 'package:hospital/state/sin_cita_state.dart';
 
 class StateContext {
-  static late State currentState;
+  //static late State currentState;
+  static State currentState = SinCitaState();
 
   void setState(State state) {
     currentState = state;
   }
 
   Future<void> checkState() async {
-    ColonprepInfo cpi;
+    ColonprepInfo cpi = await ColonprepInfo.loadColonprepInfo();
 
     //NO SE HA GUARDADO FECHA, POR LO TANTO NO HAY CITA
-    cpi = await ColonprepInfo.loadColonprepInfo();
-    if(cpi.appointment?.dateTimeAppointment == null) {
-      setState(SinCitaState());
-    }
+    // if(cpi.appointment?.dateTimeAppointment == null) {
+    //   setState(SinCitaState());
+    // }
 
     //DURANTE LA PREPARACIÓN
     if (cpi.preparation?.starting?.isBefore(DateTime.now()) == true) {
@@ -29,7 +29,7 @@ class StateContext {
     }
 
     //ESTÁ COMPLETO EL FORMULARIO Y LISTO PARA EMPEZAR PREPARACIÓN
-    if (cpi.preparationCollected == true && cpi.preparation?.product != null) {
+    if (cpi.patientQuestionnaire?.finished != null) {
       setState(ConCitaListoPrepState());
       return;
     }

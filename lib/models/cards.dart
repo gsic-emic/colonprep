@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:hospital/models/card.dart';
+import 'package:hospital/services/cards_manager.dart';
 import 'package:hospital/services/local_file.dart';
 
 class Cards {
@@ -37,6 +38,10 @@ class Cards {
 
     void sortCardsByTimestamp() {
       cards?.sort((a, b) => b.timestamp!.compareTo(a.timestamp!));
+    }
+
+    int getNumberOfToDoCards() {
+      return cards?.where((card) => card.type == CardsManager.toDo).length ?? 0;
     }
 
     void saveCards() async {

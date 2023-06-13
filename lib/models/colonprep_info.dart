@@ -6,7 +6,6 @@ import 'package:hospital/models/log.dart';
 import 'package:hospital/models/patient_questionnaire.dart';
 import 'package:hospital/models/preparation.dart';
 import 'package:hospital/services/local_file.dart';
-import 'package:hospital/services/local_shared_preferences.dart';
 
 class ColonprepInfo {
     ColonprepInfo({
@@ -19,6 +18,7 @@ class ColonprepInfo {
       appointment ??= Appointment();
       patientQuestionnaire ??= PatientQuestionnaire();
       preparation ??= Preparation();
+      log ?? List<Log>;
     }
 
     Appointment? appointment;

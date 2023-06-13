@@ -246,6 +246,8 @@ class _SummaryScreenState extends State<SummaryScreen> {
                               CupertinoDialogAction(
                                 child: const Text('Terminar'),
                                 onPressed: () async {
+                                  cpi.patientQuestionnaire?.finished = DateTime.now();
+                                  cpi.saveColonprepInfo();
                                   CardsManager.createCards(cpi);
                                   Navigator.pushNamedAndRemoveUntil(context, 'mainscreen', (route) => false);
                                 },

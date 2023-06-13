@@ -1,24 +1,13 @@
-import 'package:hospital/state/state.dart';
+import 'package:flutter/material.dart';
+import 'package:hospital/models/cards.dart';
+import 'package:hospital/models/colonprep_info.dart';
+import 'package:hospital/state/state.dart' as own;
 
-class ConCitaPteDatosState implements State {
+class ConCitaPteDatosState implements own.State {
   
   @override
-  void nextState() {
-    // TODO: implement nextState
+  Widget loadMainScreen(BuildContext context, ColonprepInfo cpi, Cards cardsFuture, double ancho, double alto) {
+    return Container();
   }
   
-  @override
-  void scheduleNotifications() {
-    // TODO: implement scheduleNotifications
-  }
-  
-  @override
-  void checkPreparation() {
-    // TODO: implement checkPreparation
-  }
-  
-  @override
-  void loadCards() {
-    // TODO: implement loadCards
-  }
 }

@@ -67,6 +67,7 @@ class _DefecationScreenState extends State<DefecationScreen> {
               style: ButtonStyle(
                 shadowColor: MaterialStateProperty.all(Colors.white),
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
+                maximumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
                 backgroundColor: (cpi.patientQuestionnaire?.constipation == true) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
                 foregroundColor: (cpi.patientQuestionnaire?.constipation == true) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
@@ -87,6 +88,7 @@ class _DefecationScreenState extends State<DefecationScreen> {
             ElevatedButton(
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
+                maximumSize: MaterialStateProperty.all(Size(ancho * 0.8, alto * 0.05)),
                 backgroundColor: (cpi.patientQuestionnaire?.constipation == false) ? MaterialStateProperty.all(Colors.white) : MaterialStateProperty.all(Colors.lightBlue.shade400),
                 foregroundColor: (cpi.patientQuestionnaire?.constipation == false) ? MaterialStateProperty.all(Colors.lightBlue.shade400) : null,
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
@@ -99,7 +101,7 @@ class _DefecationScreenState extends State<DefecationScreen> {
                 cpi.patientQuestionnaire?.constipation = false;
                 setState(() {});
               },
-              child: const Text('3 o más deposiciones por semana'),
+              child: const Text('3 o más deposiciones por semana', textAlign: TextAlign.center,),
             ),
 
           ],
