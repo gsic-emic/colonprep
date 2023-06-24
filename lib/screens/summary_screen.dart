@@ -155,7 +155,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                           Padding(padding: EdgeInsets.only(top: alto * 0.01)),
                     
                           const Text('Medicaciones', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), textScaleFactor: textScaleFactor),
-                          Text((cpi.patientQuestionnaire?.medicines?.isNotEmpty ?? false) ? (cpi.patientQuestionnaire?.medicines?.where((element) => !['No otros', 'No nervioso', 'No dolor', 'No tension'].contains(element)).join(', ') ?? '') : ('No'), style: const TextStyle(color: Colors.white), textScaleFactor: textScaleFactor),
+                          Text((cpi.patientQuestionnaire?.medicines?.isNotEmpty ?? false) ? (cpi.patientQuestionnaire?.medicines?.where((element) => !['No otros', 'No nervioso', 'No dolor', 'No tension'].contains(element)).join(', ') ?? '') : ('No'), style: const TextStyle(color: Colors.white), textScaleFactor: textScaleFactor, textAlign: TextAlign.center,),
                     
                           Padding(padding: EdgeInsets.only(top: alto * 0.01)),
                           Container(

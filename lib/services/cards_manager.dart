@@ -404,14 +404,14 @@ class CardsManager {
         text: 'Contacte con su Médico de Atención Primaria para valorar la suspensión o sustición de Anticoagulantes Orales',
         type: toDo,
         state: noAction,
-        payload: 'El paciente ha confirmado el contacto con el Médico de Atención Primaria para suspender los anticoagulantes horales 5 días antes de la cita|Confirmar|')
+        payload: 'El paciente ha confirmado el contacto con el Médico de Atención Primaria para suspender los anticoagulantes orales 5 días antes de la cita|Confirmar|')
       );
       cards.cards!.add(Card(
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 4, 9, 0, 0),
         text: '¿Ha contactado con su Médico de Atención Primaria para valorar la suspensión o sustición de Anticoagulantes Orales?',
         type: toDo,
         state: noAction,
-        payload: 'El paciente asegura el contacto con el Médico de Atención Primaria para suspender los anticoagulantes horales 4 días antes de la cita|SiNo|')
+        payload: 'El paciente asegura el contacto con el Médico de Atención Primaria para suspender los anticoagulantes orales 4 días antes de la cita|SiNo|')
       );
     }
   }
@@ -425,14 +425,14 @@ class CardsManager {
         text: 'Contacte con su Médico de Atención Primaria para valorar la suspensión o sustición de Antiagregantes',
         type: toDo,
         state: noAction,
-        payload: 'El paciente ha confirmado el contacto con el Médico de Atención Primaria para suspender los antiagregantes horales 7 días antes de la cita|Confirmar|')
+        payload: 'El paciente ha confirmado el contacto con el Médico de Atención Primaria para suspender los antiagregantes orales 7 días antes de la cita|Confirmar|')
       );
       cards.cards!.add(Card(
         timestamp: DateTime(datetime.year, datetime.month, datetime.day - 5, 9, 0, 0),
         text: '¿Ha contactado con su Médico de Atención Primaria para valorar la suspensión o sustición de Antiagregantes?',
         type: toDo,
         state: noAction,
-        payload: 'El paciente asegura el contacto con el Médico de Atención Primaria para suspender los antiagregantes horales 5 días antes de la cita|SiNo|')
+        payload: 'El paciente asegura el contacto con el Médico de Atención Primaria para suspender los antiagregantes orales 5 días antes de la cita|SiNo|')
       );
     }
   }
