@@ -136,7 +136,7 @@ class _DateScreenState extends State<DateScreen> {
 
             Row(
               children: [
-                Expanded(
+                (cpi.patientQuestionnaire?.finished != null) ? Expanded(
                   child: CupertinoButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -152,8 +152,8 @@ class _DateScreenState extends State<DateScreen> {
                       ],
                     ),
                   ),
-                ),
-                Padding(padding: EdgeInsets.only(left: ancho * 0.05)),
+                ) : Container(),
+                (cpi.patientQuestionnaire?.finished != null) ? Padding(padding: EdgeInsets.only(left: ancho * 0.05)) : Container(),
                 Expanded(
                   child: CupertinoButton(
                     onPressed: () {

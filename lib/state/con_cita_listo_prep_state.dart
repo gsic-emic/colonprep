@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:hospital/models/cards.dart';
 import 'package:hospital/models/colonprep_info.dart';
 import 'package:hospital/services/local_notification.dart';
+import 'package:hospital/state/con_cita_pte_datos_state.dart';
 import 'package:hospital/state/state.dart' as own;
+import 'package:hospital/state/state_context.dart';
+import 'package:hospital/tools/tools.dart';
 import 'package:hospital/widgets/show_card.dart';
 
 class ConCitaListoPrepState implements own.State {
@@ -22,9 +25,20 @@ class ConCitaListoPrepState implements own.State {
               padding: EdgeInsets.only(left: ancho * 0.04),
               child: Column(
                 children: [
-                  const ListTile(
-                    leading: Icon(Icons.format_align_justify_rounded, color: Colors.blue),
-                    title: Text('Modificar Formulario'),
+                  ListTile(
+                    leading: const Icon(Icons.remove_red_eye_outlined, color: Colors.blue),
+                    title: const Text('Revisar Formulario'),
+                    onTap: () => Navigator.pushNamed(context, 'summaryscreen', arguments: cpi),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.format_align_justify_rounded, color: Colors.blue),
+                    title: const Text('Modificar Formulario'),
+                    onTap: () {
+                      Cards.removeCards();
+                      StateContext().setState(ConCitaPteDatosState());
+                      Navigator.pushNamed(context, 'datescreen', arguments: cpi);
+
+                    },
                   ),
                   const ListTile(
                     leading: Icon(Icons.history_rounded, color: Colors.blue),
@@ -81,23 +95,42 @@ class ConCitaListoPrepState implements own.State {
             Padding(padding: EdgeInsets.only(top: alto * 0.02)),
 
             Text(
-              "Quedan ${(cpi.appointment?.dateTimeAppointment as DateTime).difference(DateTime.now()).inDays} días para la cita",
+              "Su cita: ${Tools.formatDate(cpi.appointment?.dateTimeAppointment as DateTime )}",
               textAlign: TextAlign.center,
-              textScaleFactor: 1.3,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
+              textScaleFactor: 1.2,
+              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
-            Text(
-              "Quedan ${cards.getNumberOfToDoCards()} acciones por completar",
-              textAlign: TextAlign.center,
-              textScaleFactor: 1.3,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
+            (cards.cards!.any((card) => card.type == 'ToDo' && card.timestamp?.isBefore(DateTime.now()) == true)) ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.warning_amber_rounded, color: Colors.yellowAccent, size: 35,),
+                Padding(padding: EdgeInsets.only(right: ancho * 0.01)),
+                const Text(
+                  "Acciones pendientes",
+                  textAlign: TextAlign.center,
+                  textScaleFactor: 1.2,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ) : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.check_rounded, color: Colors.greenAccent, size: 35,),
+                Padding(padding: EdgeInsets.only(right: ancho * 0.01)),
+                const Text(
+                  "Acciones completadas",
+                  textAlign: TextAlign.center,
+                  textScaleFactor: 1.2,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.02)),

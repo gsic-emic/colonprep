@@ -80,7 +80,7 @@ class _DefecationScreenState extends State<DefecationScreen> {
                 cpi.patientQuestionnaire?.constipation = true;
                 setState(() {});
               },
-              child: const Text('Dos o menos a la semana'),
+              child: const Text('Dos o menos deposiciones'),
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.02)),

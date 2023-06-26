@@ -28,6 +28,8 @@ class CardsManager {
     createDiabeticCards(cpi, cards, dateTimeAppointment);
     createOralAnticoagulantsCards(cpi, cards, dateTimeAppointment);
     createAntiplateletAgentsCards(cpi, cards, dateTimeAppointment);
+
+    filterCards(cards);
     
     cards.saveCards();
   }
@@ -449,5 +451,27 @@ class CardsManager {
     } else {
       return false;
     }
+  }
+
+  //Método que filtra las tarjetas si la preparación se realiza con poco tiempo. Filtra las repetidas hasta el momento actual y cambia la fecha de las tarjetas a la actual
+  static void filterCards(Cards cards) {
+    Set<String> texts = {};
+    DateTime currentDateTime = DateTime.now();
+
+    cards.cards!.sort((a, b) => a.timestamp!.compareTo(b.timestamp!));
+
+    List<Card> updatedCards = [];
+    for (Card card in cards.cards!.reversed) {
+      if (!texts.contains(card.text)) {
+        texts.add(card.text!);
+        if (card.timestamp!.isBefore(currentDateTime)) {
+          card.timestamp = currentDateTime;
+        }
+        updatedCards.add(card);
+      }
+    }
+
+    cards.cards!.clear();
+    cards.cards!.addAll(updatedCards);
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hospital/models/colonprep_info.dart';
 import 'package:hospital/services/cards_manager.dart';
 import 'package:hospital/state/con_cita_listo_prep_state.dart';
+import 'package:hospital/state/con_cita_pte_datos_state.dart';
 import 'package:hospital/state/state_context.dart';
 import 'package:hospital/tools/tools.dart';
 
@@ -67,7 +68,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                             textScaleFactor: 1.1
                           ),
                     
-                          Padding(padding: EdgeInsets.only(top: alto * 0.05)),
+                          Padding(padding: EdgeInsets.only(top: alto * 0.03)),
                           Container(
                             color: Colors.white,
                             height: 1,
@@ -219,19 +220,19 @@ class _SummaryScreenState extends State<SummaryScreen> {
                       children: [
                         const Icon(Icons.arrow_back),
                         Padding(padding: EdgeInsets.only(left: ancho * 0.02)),
-                        const Text("Modificar", textScaleFactor: 1.2),
+                        (StateContext.currentState is ConCitaPteDatosState) ? const Text("Modificar", textScaleFactor: 1.2) : const Text("Volver", textScaleFactor: 1.2),
                       ],
                     ),
                   ),
                 ),
 
-                Padding(padding: EdgeInsets.only(left: ancho * 0.05)),
+                (StateContext.currentState is ConCitaPteDatosState) ? Padding(padding: EdgeInsets.only(left: ancho * 0.05)) : Container(),
 
-                Expanded(
+                (StateContext.currentState is ConCitaPteDatosState) ? Expanded(
                   child: CupertinoButton(
                     onPressed: () {
-                      cpi.saveColonprepInfo();
-                      StateContext().setState(ConCitaListoPrepState());
+                      // cpi.saveColonprepInfo();
+                      // StateContext().setState(ConCitaListoPrepState());
                       showCupertinoDialog(
                         context: context,
                         builder: (context) {
@@ -246,7 +247,8 @@ class _SummaryScreenState extends State<SummaryScreen> {
                               CupertinoDialogAction(
                                 child: const Text('Terminar'),
                                 onPressed: () async {
-                                  cpi.patientQuestionnaire?.finished = DateTime.now();
+                                  (cpi.patientQuestionnaire?.finished == null) ? cpi.patientQuestionnaire?.finished = DateTime.now() : cpi.patientQuestionnaire?.updated = DateTime.now();
+                                  StateContext().setState(ConCitaListoPrepState());
                                   cpi.saveColonprepInfo();
                                   CardsManager.createCards(cpi);
                                   Navigator.pushNamedAndRemoveUntil(context, 'mainscreen', (route) => false);
@@ -269,7 +271,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                       ],
                     ),
                   ),
-                ),
+                ) : Container(),
 
               ],
             ),
