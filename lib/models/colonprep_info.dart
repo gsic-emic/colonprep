@@ -74,4 +74,10 @@ class ColonprepInfo {
         await file.delete();
       }
     }
+
+    void resetColonprepInfo() {
+      preparation?.starting = null;
+      patientQuestionnaire?.finished = null;
+      saveColonprepInfo();
+    }
 }

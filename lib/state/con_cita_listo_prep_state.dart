@@ -35,8 +35,9 @@ class ConCitaListoPrepState implements own.State {
                     title: const Text('Modificar Formulario'),
                     onTap: () {
                       Cards.removeCards();
+                      cpi.resetColonprepInfo();
                       StateContext().setState(ConCitaPteDatosState());
-                      Navigator.pushNamed(context, 'datescreen', arguments: cpi);
+                      Navigator.pushNamedAndRemoveUntil(context, 'datescreen', (route) => false, arguments: cpi);
 
                     },
                   ),

@@ -238,7 +238,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                         builder: (context) {
                           return CupertinoAlertDialog(
                             title: const Text('Confirmación'),
-                            content: const Text('Una vez completado el formulario, no podrás modificar los datos introducidos'),
+                            content: const Text('Una vez completado el formulario y empezada la preparación, no podrás modificar los datos introducidos'),
                             actions: [
                               CupertinoDialogAction(
                                 child: const Text('Retroceder'),
@@ -247,7 +247,9 @@ class _SummaryScreenState extends State<SummaryScreen> {
                               CupertinoDialogAction(
                                 child: const Text('Terminar'),
                                 onPressed: () async {
+                                  DateTime dt = cpi.appointment!.dateTimeAppointment!;
                                   (cpi.patientQuestionnaire?.finished == null) ? cpi.patientQuestionnaire?.finished = DateTime.now() : cpi.patientQuestionnaire?.updated = DateTime.now();
+                                  (cpi.appointment?.appointmentShift == 'Morning') ? cpi.preparation?.starting = DateTime(dt.year, dt.month, dt.day - 1, 0, 0, 0) : cpi.preparation?.starting = DateTime(dt.year, dt.month, dt.day, 0, 0, 0);
                                   StateContext().setState(ConCitaListoPrepState());
                                   cpi.saveColonprepInfo();
                                   CardsManager.createCards(cpi);
