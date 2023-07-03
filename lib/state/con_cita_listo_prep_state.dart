@@ -47,7 +47,7 @@ class ConCitaListoPrepState implements own.State {
                   ),
                   ListTile(
                     leading: const Icon(Icons.cancel_outlined, color: Colors.blue),
-                    title: const Text('Cancelar preparación'),
+                    title: const Text('Cancelar Preparación'),
                     onTap: () {
                       showCupertinoDialog(
                         context: context,
