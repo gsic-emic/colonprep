@@ -62,14 +62,10 @@ class ColonprepInfo {
       File file = await LocalFile.getFile(LocalFile.colonprepinfo);
       file.openWrite(mode: FileMode.write);
       file.writeAsStringSync(toJson());
-      // LocalSharedPreferences.prefs.setBool('createdColonprepInfo', true);
     }
 
     static Future<void> removeColonprepInfo() async {
       File file = await LocalFile.getFile(LocalFile.colonprepinfo);
-      // file.openWrite(mode: FileMode.write);
-      // file.writeAsStringSync('');
-      // LocalSharedPreferences.prefs.setBool('createdColonprepInfo', false);
       if(await file.exists()) {
         await file.delete();
       }
@@ -78,6 +74,7 @@ class ColonprepInfo {
     void resetColonprepInfo() {
       preparation?.starting = null;
       patientQuestionnaire?.finished = null;
+      appointment?.created = null;
       saveColonprepInfo();
     }
 }

@@ -26,6 +26,7 @@ class _PreparationScreenState extends State<PreparationScreen> {
     final alto = MediaQuery.of(context).size.height;
 
     ColonprepInfo cpi = ModalRoute.of(context)!.settings.arguments as ColonprepInfo;
+    //Se pone a true por defecto ya que en esta versión no se implementa iniciar un proceso sin tener la preparación
     cpi.preparationCollected = true;
 
     return Scaffold(
