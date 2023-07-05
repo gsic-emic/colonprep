@@ -33,17 +33,6 @@ class _AbdominalSurgeryScreenState extends State<AbdominalSurgeryScreen> {
               style: TextStyle(color: Colors.white),
             ),
 
-            Padding(padding: EdgeInsets.only(top: alto * 0.01)),
-
-            const Text(
-              "OPERACIÓN",
-              textAlign: TextAlign.center,
-              textScaleFactor: 1.3,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
-            ),
-
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             Image.asset(

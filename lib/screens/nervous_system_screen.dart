@@ -82,7 +82,7 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             const Text(
-              "MEDICINAS PARA LOS NERVIOS O ANSIEDAD",
+              "Medicinas para los nervios o la ansiedad",
               textAlign: TextAlign.center,
               textScaleFactor: 1.3,
               style: TextStyle(
@@ -90,13 +90,13 @@ class _NervousSystemScreenState extends State<NervousSystemScreen> {
                   fontWeight: FontWeight.bold),
             ),
 
-            // Padding(padding: EdgeInsets.only(top: alto * 0.03)),
+            Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
-            // Image.asset(
-            //   "assets/images/medicine.png",
-            //   width: double.infinity,
-            //   height: ancho * 0.2,
-            // ),
+            Image.asset(
+              "assets/images/medicine.png",
+              width: double.infinity,
+              height: ancho * 0.2,
+            ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 

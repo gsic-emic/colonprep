@@ -67,7 +67,7 @@ class _OtherMedicinesScreenState extends State<OtherMedicinesScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             const Text(
-              "MEDICINAS",
+              "Medicinas generales",
               textAlign: TextAlign.center,
               textScaleFactor: 1.3,
               style: TextStyle(

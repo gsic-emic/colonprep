@@ -66,7 +66,7 @@ class _BloodPressureScreenState extends State<BloodPressureScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             const Text(
-              "MEDICINAS PARA EL CORAZÓN O LA TENSIÓN ARTERIAL",
+              "Medicinas para el corazón o la tensión arterial",
               textAlign: TextAlign.center,
               textScaleFactor: 1.3,
               style: TextStyle(

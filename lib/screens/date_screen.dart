@@ -40,17 +40,6 @@ class _DateScreenState extends State<DateScreen> {
               style: TextStyle(color: Colors.white),
             ),
 
-            Padding(padding: EdgeInsets.only(top: alto * 0.01)),
-
-            Text(
-              AppLocalizations.of(context)!.colonoscopyDate,
-              textAlign: TextAlign.center,
-              textScaleFactor: 1.3,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
-            ),
-
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
             Image.asset(

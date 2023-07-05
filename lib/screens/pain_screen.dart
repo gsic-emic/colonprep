@@ -64,7 +64,7 @@ class _PainScreenState extends State<PainScreen> {
             Padding(padding: EdgeInsets.only(top: alto * 0.01)),
 
             const Text(
-              "MEDICINAS PARA CALMAR EL DOLOR",
+              "Medicinas para el dolor",
               textAlign: TextAlign.center,
               textScaleFactor: 1.3,
               style: TextStyle(
