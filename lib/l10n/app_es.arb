@@ -3,15 +3,9 @@
     "back": "Retroceder",
     "forward": "Continuar",
 
-    "preparation": "PREPARACIÓN",
-    "colonoscopyDate": "FECHA COLONOSCOPIA",
-    "weight": "PESO",
-    "height": "ALTURA",
-    "defectaions": "DEPOSICIONES",
-    "glucose": "GLUCOSA",
-    "parkinson": "PARKINSON",
-    "surgery": "OPERACIÓN",
-    "medicine": "MEDICACIÓN",
-    "previousColonoscopy": "COLONOSCOPIA ANTERIOR"
+    "startPreparation": "Empezar preparación",
+    "question": "Pregunta",
+    "ofText": "de",
+    "selectColonoscopyDate": "Selecciona la fecha de la colonoscopia"
 
 }

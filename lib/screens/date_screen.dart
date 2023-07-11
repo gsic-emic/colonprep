@@ -34,10 +34,10 @@ class _DateScreenState extends State<DateScreen> {
 
             Padding(padding: EdgeInsets.only(top: alto * 0.07)),
 
-            const Text(
-              "- Pregunta 1 de 15 -",
+            Text(
+              "- ${AppLocalizations.of(context)!.question} 1 ${AppLocalizations.of(context)!.ofText} 15 -",
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
@@ -50,10 +50,10 @@ class _DateScreenState extends State<DateScreen> {
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
 
-            const Text(
-              "Selecciona la fecha de la colonoscopia:",
+            Text(
+              "${AppLocalizations.of(context)!.selectColonoscopyDate}:",
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.03)),
@@ -114,15 +114,6 @@ class _DateScreenState extends State<DateScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
 
-            // LinearPercentIndicator(
-            //   percent: 0.06,
-            //   lineHeight: 10.0,
-            //   barRadius: const Radius.circular(10),
-            //   progressColor: Colors.white,
-            // ),
-
-            // Padding(padding: EdgeInsets.only(top: alto * 0.02)),
-
             Row(
               children: [
                 (cpi.patientQuestionnaire?.finished != null) ? Expanded(
@@ -137,7 +128,7 @@ class _DateScreenState extends State<DateScreen> {
                       children: [
                         const Icon(Icons.arrow_back),
                         Padding(padding: EdgeInsets.only(left: ancho * 0.02)),
-                        const Text("Retroceder", textScaleFactor: 1.2),
+                        Text(AppLocalizations.of(context)!.back, textScaleFactor: 1.2),
                       ],
                     ),
                   ),
@@ -153,7 +144,7 @@ class _DateScreenState extends State<DateScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("Continuar", textScaleFactor: 1.2),
+                        Text(AppLocalizations.of(context)!.forward, textScaleFactor: 1.2),
                         Padding(padding: EdgeInsets.only(left: ancho * 0.02)),
                         const Icon(Icons.arrow_forward),
                       ],

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hospital/models/colonprep_info.dart';
 import 'package:hospital/state/con_cita_pte_datos_state.dart';
 import 'package:hospital/state/state_context.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({super.key});
@@ -73,18 +75,10 @@ class _InitialScreenState extends State<InitialScreen> {
                 StateContext().setState(ConCitaPteDatosState());
                 Navigator.pushNamed(context, 'datescreen', arguments: cpi);
               },
-              child: Text('Empezar preparación'.toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold)),
+              child: Text(AppLocalizations.of(context)!.startPreparation.toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold)),
             ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.01)),
-
-            // TextButton(
-            //   onPressed: (){},
-            //   child: const Text(
-            //     'Información general',
-            //     style: TextStyle(color: Colors.white)
-            //   )
-            // ),
 
             Padding(padding: EdgeInsets.only(top: alto * 0.1)),
 
