@@ -11,10 +11,15 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 void main() async {
+  //Garantiza que se inicialicen las partes fundamentales de la aplicación
   WidgetsFlutterBinding.ensureInitialized();
+  //Singleton de las preferencias compartidas
   await LocalSharedPreferences.configPrefs();
+  //Se configuran las notificaciones y se piden permisos al ususario
   LocalNotification().initNotification();
+  //Configura la zona horaria
   tz.initializeTimeZones();
+  //Se revisa el estado en el que se encuentra la aplicación cada vez que se inicia
   await StateContext().checkState();
   runApp(const MyApp());
 }
@@ -24,17 +29,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    //Se bloquea la pantalla en formato vertical
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown
     ]);
 
     return MaterialApp(
-
+      //Se deshabilita el banner con el mensaje de debug
       debugShowCheckedModeBanner: false,
-
+      //Ruta a la que accede la aplicación cuando se inicia
+      //TODO: debe depender del estado
       initialRoute: (StateContext.currentState is SinCitaState) ? 'initialscreen' : 'mainscreen',
+      //Definición de todas las pantallas de la aplicación para poder generar las navegaciones de una forma más cómoda
       routes: {
         //Pantalla de inicio de la aplicación
         'initialscreen'             : (context) => const InitialScreen(),
@@ -79,7 +86,7 @@ class MyApp extends StatelessWidget {
         //Pantalla después de hacer click en una notificación
         'notificationscreen'        : (context) => const NotificationScreen(),
       },
-
+      //Estilo global de la aplicación
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.lightBlue.shade400,
         unselectedWidgetColor: Colors.black,
@@ -96,7 +103,7 @@ class MyApp extends StatelessWidget {
           fillColor: MaterialStateProperty.resolveWith((states) => Colors.white)
         ),
       ),
-
+      //Configuración necesaria por los plugins de internacionalización y que requieren configuración de idiomas
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

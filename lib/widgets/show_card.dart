@@ -28,7 +28,6 @@ class ShowCard extends StatefulWidget {
 }
 
 class _ShowCardState extends State<ShowCard> {
-
   String getCardDescription(String? payload) {
     if (payload != null) {
       List<String> payloadParts = payload.split('|');
@@ -53,10 +52,11 @@ class _ShowCardState extends State<ShowCard> {
     return false;
   }
 
+  //Se construyen diferentes tipos de tarjetas dependiendo de los campos completados en cada una de ellas
   @override
   Widget build(BuildContext context) {
 
-    //Estilo de tarjeta cuando el tipo es ToDo. Se usa para avisos con los que el usuario debe interactuar.
+    //Estilo de tarjeta cuando el tipo es ToDo. Se usa para avisos con los que el usuario debe interactuar
     if(widget.card.type == 'ToDo') {
       return Container(
         width: widget.ancho * 0.95,
@@ -202,7 +202,7 @@ class _ShowCardState extends State<ShowCard> {
       );
     }
 
-    //Estilo de tarjeta cuando el tipo es Completed. Se usa para avisos que ya han sido completados por parte del usuario.
+    //Estilo de tarjeta cuando el tipo es Completed. Se usa para avisos que ya han sido completados por parte del usuario
     if(widget.card.type == 'Completed') {
       return Container(
         width: widget.ancho * 0.95,

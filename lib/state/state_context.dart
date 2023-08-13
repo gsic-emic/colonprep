@@ -6,21 +6,19 @@ import 'package:hospital/state/preparacion_correcta_state.dart';
 import 'package:hospital/state/state.dart';
 import 'package:hospital/state/sin_cita_state.dart';
 
+//Clase que maneja los estados
 class StateContext {
-  //static late State currentState;
+  //Instancia del estado actual de la aplicación
   static State currentState = SinCitaState();
 
+  //Establece un nuevo estado
   void setState(State state) {
     currentState = state;
   }
 
+  //Establece la instancia con el estado actual de la aplicación
   Future<void> checkState() async {
     ColonprepInfo cpi = await ColonprepInfo.loadColonprepInfo();
-
-    //NO SE HA GUARDADO FECHA, POR LO TANTO NO HAY CITA
-    // if(cpi.appointment?.dateTimeAppointment == null) {
-    //   setState(SinCitaState());
-    // }
 
     //DURANTE LA PREPARACIÓN
     if (cpi.preparation?.starting?.isBefore(DateTime.now()) == true) {

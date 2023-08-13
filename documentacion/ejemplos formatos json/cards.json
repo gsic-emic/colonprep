@@ -1,0 +1,24 @@
+{
+    "cards": [
+        {
+            "timestamp": "2023-04-02T12:18:50.375Z",
+            "text": "Recuerda suspender la toma de hierro 5 días antes de la prueba",
+            "type": "Info",
+            "description": "segunda dosis pleinvue"
+        },
+        {
+            "timestamp": "2023-04-02T12:18:50.375Z",
+            "text": "Recuerda suspender la toma de hierro 5 días antes de la prueba",
+            "type": "Action",
+            "state": "Pending",
+            "description": "segunda dosis pleinvue"
+        },
+        {
+            "timestamp": "2023-04-02T12:18:50.375Z",
+            "text": "Recuerda suspender la toma de hierro 5 días antes de la prueba",
+            "type": "Action",
+            "state": "Ok",
+            "description": "segunda dosis pleinvue"
+        }
+    ]
+}

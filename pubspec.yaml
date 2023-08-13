@@ -38,7 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_local_notifications: ^13.0.0    #Notificaciones locales
   timezone: ^0.9.2                        #Hora de las notificaciones
-  intl: ^0.18.1                           #Internacionalización
+  intl: any                          #Internacionalización
   http: ^0.13.5                           #Peticiones http
   rxdart: ^0.27.7
   shared_preferences: ^2.0.17             #Preferencias locales

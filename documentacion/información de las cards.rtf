@@ -1,0 +1,25 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww20920\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 El payload de las tarjetas al generarlas se estructura de la siguiente manera:\
+texto que posteriormente se enviar\'e1 al log | tipo de acci\'f3n | (pantalla a la que env\'eda la acci\'f3n)\
+Por ejemplo:\
+El paciente ha confirmado contacto con M\'e9dico de Atenci\'f3n Primaria por diabetes 5 d\'edas antes de la cita|Confirmar| -> env\'eda el primer mensaje al log y Confirmar \'fanicamente hace que cuando se pulse ese bot\'f3n la acci\'f3n se completa y la env\'eda al log.\
+El paciente asegura contacto con M\'e9dico de Atenci\'f3n Primaria por diabetes 4 d\'edas antes de la cita|SiNo| -> env\'eda el primer mensaje al log y SiNo hace que cuando se pulse el bot\'f3n de la tarjeta aparezca una alerta en la que el paciente tiene que interactuar con botones de s\'ed o no.\
+\
+Informaci\'f3n sobre el estado de las tarjetas:\
+  //El usuario no ha interactuado\
+  static const String noAction = 'NoAction';\
+  //Respuesta esperada\
+  static const String correct = 'Correct';\
+  //Respuesta no esperada\
+  static const String incorrect = 'Incorrect';\
+\
+  //Personaliza los colores de la tarjeta para tareas con importancia alta\
+  static const String toDo = 'ToDo';\
+  //Personaliza los colores de la tarjeta para tareas completadas\
+  static const String completed = 'Completed';}

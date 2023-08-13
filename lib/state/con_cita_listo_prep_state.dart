@@ -79,6 +79,11 @@ class ConCitaListoPrepState implements own.State {
                       
                     },
                   ),
+                  ListTile(
+                    leading: const Icon(Icons.remove_red_eye_outlined, color: Colors.blue),
+                    title: const Text('Revisar Formulario'),
+                    onTap: () => Navigator.pushNamed(context, 'adddefecationscreen', arguments: cpi),
+                  ),
                   Padding(padding: EdgeInsets.only(top: alto * 0.03)),
                   const Text('- Versión 1.0.0 -'),
                 ],
